@@ -19,9 +19,12 @@ npm run typecheck                            # tsc --noEmit
 npm run still                                # out/stills/S01E01_f0000.png
 npm run still -- ModelSheetCast 3            # any composition, any frame
 npm run render:frames -- S01E01 --frames=0-479   # PNG master chunk (any order, re-runnable)
-npm run render:audio                         # out/S01E01/S01E01_mix.wav (48 kHz)
-npm run export                               # out/S01E01/S01E01_final.mp4 + S01E01_preview.mp4
+npm run render:audio                         # out/S01E01/S01E01_mix.wav (48 kHz, raw mix)
+npm run master:audio                         # out/S01E01/S01E01_master.wav (loop-safe −14 LUFS / ≤ −1.5 dBTP)
+npm run export                               # out/S01E01/S01E01_final.mp4 + S01E01_preview.mp4 (uses the master)
 npm run check                                # loop verification, PASS/FAIL summary
+npm run qa                                   # episodes/S01E01/qa/ep_fNNNN.png + contact_sheet.png from the frames
+npm run qa:stills -- S01E01 /tmp/qa 0 1748   # single frames without a full render (one bundle)
 npm run lint:dev                             # bible §9.5 lint, missing assets = warnings
 npm run lint                                 # same, missing assets = errors (use before the final render)
 ```
@@ -162,7 +165,13 @@ Add a key there in the same change that teaches the component to draw it.
   Additive, optional extensions to §9.2 (all optional, bible files stay valid):
   `DoctorPose.expression | lean | extras`, `ChesterPose.expression` (expanded from the §3 presets; explicit
   fields win), `DialogueEvent.gainDb`, `Bed.tickBed | musicGainDb | roomToneGainDb | tickGainDb`,
-  `PatientSpec.transformed` (E12).
+  `PatientSpec.transformed` (E12). Added by the final fixer (S01E01 review): `Bed.musicDucks` (dB ramps,
+  negative = duck, positive = swell, inside [6, N−75)), `State0.patient.eyes | brows` (S0 face; the pose before
+  HOLD must match), `PatientPose.panel` ("fence" | "base"), `PropEvent.flightFrames | ease`,
+  `ParticleEvent.dir | spread | speed | avoid`, `ShakeEvent.decor`; enum `DOCTOR_MOUTHS` += `hum`, `hum_up`;
+  props `spit_burst`, `cloth`, `lens_glint` (`RITUAL_PROP_KEYS` = cloth, lens_glint: GLASSES reset shot only).
+  Contract (`src/contract.ts`): `SetProps.patientNo | decorJolt`, `ChesterProps.springAt`,
+  `PatientProps.tearsT | panel`, `PropItemProps.heading`, `DoctorProps.wipeHand` — all optional.
 
 ---
 

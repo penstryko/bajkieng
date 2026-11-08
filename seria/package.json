@@ -9,8 +9,11 @@
     "still": "bash tools/still.sh",
     "render:frames": "bash tools/render_frames.sh",
     "render:audio": "bash tools/render_audio.sh",
+    "master:audio": "bash tools/master_audio.sh",
     "export": "bash tools/export.sh",
     "check": "bash tools/check_loop.sh",
+    "qa": "bash tools/contact_sheet.sh",
+    "qa:stills": "node tools/qa_stills.mjs",
     "lint": "tsc --noEmit -p . && tsx src/lint/run.ts",
     "lint:dev": "tsc --noEmit -p . && tsx src/lint/run.ts --dev",
     "typecheck": "tsc --noEmit -p ."

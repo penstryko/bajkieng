@@ -4,15 +4,19 @@
 #  1. PNG master: frame count == N and every frame_0000..frame_{N-1} present
 #  2. PNG master: frames 0–5 and N−15…N−1 have the SAME decoded-pixel md5 as frame 0 (21 frames)
 #  3. mix WAV (if rendered): exactly N×1600 samples at 48 kHz
+#  3b. master WAV (npm run master:audio): exactly N×1600 samples at 48 kHz, I = −14 ± 0.5 LUFS, true peak ≤ −1.5 dBTP
 #  4. final MP4: N video frames, r_frame_rate 30/1, 1080x1920
 #  5. final MP4: audio decodes to exactly N×1600 samples (AAC priming caveat reported if off by 1024/2048;
 #     with NO_EDITLIST=1 that offset is accepted as the report's "No Edit Lists" variant)
+#  5b. final MP4 seam: decoded frames N−15…N−10 bit-identical to decoded frames 0–5 (framemd5), so the encoded
+#      loop point cannot shimmer; INFO: how many of the 21 S0 frames decode identical to frame 0, worst PSNR
+#  5c. final MP4 audio loudness (INFO: I / true peak after AAC)
 #  6. seam spectrogram (report command 4) written to out/<EP>/qa/seam.png for a visual check (INFO)
 # Exit code 0 only if every check ran and passed.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 EP="${1:-S01E01}"
-D="out/$EP"; FR="$D/frames"; MIX="$D/${EP}_mix.wav"; MP4="$D/${EP}_final.mp4"
+D="out/$EP"; FR="$D/frames"; MIX="$D/${EP}_mix.wav"; MASTER="$D/${EP}_master.wav"; MP4="$D/${EP}_final.mp4"
 N=$(node -e "console.log(require('./episodes/$EP/episode.json').durationInFrames)" 2>/dev/null || echo 1920)
 SAMPLES=$((N * 1600))
 pass=0; fail=0; skip=0
@@ -61,6 +65,18 @@ else
   skp "mix WAV: $MIX not rendered (npm run render:audio)"
 fi
 
+# 3b. master WAV (loudness)
+loud() { ffmpeg -nostdin -nostats -hide_banner -i "$1" -af ebur128=peak=true -f null - 2>&1 | awk '/Summary:/{s=1} s && $1=="I:"{i=$2} s && $1=="Peak:"{p=$2} END{print i, p}'; }
+if [[ -f "$MASTER" ]]; then
+  read -r sr dts < <(ffprobe -v error -select_streams a:0 -show_entries stream=sample_rate,duration_ts -of default=nw=1:nk=1 "$MASTER" | paste -sd' ')
+  read -r li ltp < <(loud "$MASTER")
+  lok=$(awk -v i="$li" -v p="$ltp" 'BEGIN{d=i+14; if (d<0) d=-d; print (d <= 0.5 && p <= -1.5) ? 1 : 0}')
+  if [[ "$sr" == 48000 && "$dts" == "$SAMPLES" && "$lok" == 1 ]]; then ok "master WAV: $sr Hz, $dts samples, I $li LUFS, true peak $ltp dBTP"
+  else bad "master WAV: $sr Hz, $dts samples, I $li LUFS, TP $ltp dBTP (expected 48000 Hz, $SAMPLES, −14 ± 0.5 LUFS, ≤ −1.5 dBTP)"; fi
+else
+  skp "master WAV: $MASTER not rendered (npm run master:audio)"
+fi
+
 # 4–6. final MP4
 if [[ -f "$MP4" ]]; then
   vinfo=$(ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames,r_frame_rate,width,height -of default=nw=1 "$MP4")
@@ -79,6 +95,21 @@ if [[ -f "$MP4" ]]; then
       bad "MP4 audio: decodes to $dec samples (+$delta) — AAC priming not trimmed (no edit list). Report command 3: 1024 priming samples ≈ 21 ms; re-export without NO_EDITLIST, or run the check with NO_EDITLIST=1 if this variant is intended"
     else bad "MP4 audio: decodes to $dec samples (expected $SAMPLES, delta $delta)"; fi
   fi
+  # 5b. encoded seam: decoded S0 frames (framemd5 of the decoded YUV)
+  mapfile -t vmd5 < <(ffmpeg -v error -i "$MP4" -map 0:v:0 -vf "select='lte(n\,5)+gte(n\,$((N-15)))'" -fps_mode passthrough -f framemd5 - 2>/dev/null | grep -v '^#' | awk -F', *' '{print $NF}')
+  if [[ ${#vmd5[@]} -eq 21 ]]; then
+    same=0; for i in 0 1 2 3 4 5; do [[ "${vmd5[$i]}" == "${vmd5[$((6 + i))]}" ]] && same=$((same + 1)); done
+    eq0=0; for m in "${vmd5[@]}"; do [[ "$m" == "${vmd5[0]}" ]] && eq0=$((eq0 + 1)); done
+    if [[ $same -eq 6 ]]; then ok "MP4 seam: decoded frames $((N-15))–$((N-10)) bit-identical to decoded frames 0–5"
+    else bad "MP4 seam: only $same of 6 decoded frame pairs ($((N-15))+i vs i) identical"; fi
+    psnr=$(ffmpeg -v error -i "$MP4" -i "$MP4" -filter_complex "[0:v]select='gte(n\,$((N-15)))',setpts=N/TB[a];[1:v]select='eq(n\,0)',loop=loop=14:size=1:start=0,setpts=N/TB[b];[a][b]psnr=stats_file=-" -f null - 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i ~ /^psnr_avg:/){split($i,a,":"); v=a[2]; if(v=="inf") v=999; if(min==""||v+0<min) min=v+0}} END{print (min=="")?"n/a":min}')
+    info "MP4 seam: $eq0 of the 21 decoded S0 frames are identical to decoded frame 0; worst PSNR of frames $((N-15))–$((N-1)) vs frame 0: ${psnr} dB (999 = identical)"
+  else
+    bad "MP4 seam: could not decode the 21 S0 frames (got ${#vmd5[@]})"
+  fi
+  # 5c. loudness after AAC
+  read -r mi mtp < <(loud "$MP4")
+  info "MP4 audio loudness: I $mi LUFS, true peak $mtp dBTP (target ≈ −14 LUFS, ≤ −1.5 dBTP; bible §7.4)"
   mkdir -p "$D/qa"
   if ffmpeg -v error -y -i "$MP4" -map 0:a:0 -c:a pcm_s24le "$D/qa/dec.wav" &&
      ffmpeg -v error -y -i "$D/qa/dec.wav" -i "$D/qa/dec.wav" -filter_complex "[0:a][1:a]concat=n=2:v=0:a=1" "$D/qa/seam.wav" &&

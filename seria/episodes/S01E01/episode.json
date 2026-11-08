@@ -171,7 +171,7 @@
     { "at": 726, "clip": "assets/sfx/SFX12_scribble.wav", "gainDb": -3 },
     { "at": 846, "clip": "sfx/print_job_incoming.wav", "gainDb": -4 },
     { "at": 856, "clip": "sfx/window_office_chaos.wav", "gainDb": -9 },
-    { "at": 950, "clip": "assets/sfx/SFX15_knocks.wav", "gainDb": 3 },
+    { "at": 950, "clip": "assets/sfx/SFX15_knocks.wav", "gainDb": 4 },
     { "at": 954, "clip": "assets/sfx/SFX11_lens.wav", "gainDb": -9 },
     { "at": 1098, "clip": "assets/sfx/SFX04_click.wav" },
     { "at": 1186, "clip": "sfx/doctor_print_hiccup.wav" },
