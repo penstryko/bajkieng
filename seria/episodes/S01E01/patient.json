@@ -1,0 +1,26 @@
+{
+  "name": "Office Printer",
+  "captionName": "OFFICE PRINTER",
+  "category": "object",
+  "size": "L",
+  "shape": "rect_horizontal",
+  "palette": { "base": "#E9E4D8", "shade": "#BDB6A6", "accent": "#E4572E" },
+  "functionMarker": "paper_tray_tongue",
+  "eyes": "tired_bags",
+  "brows": "flat_heavy",
+  "mouth": { "type": "slot", "driver": "rms" },
+  "wear": ["coffee_stain", "tape_patch", "toner_smudge"],
+  "accessories": ["display:ERR 49"],
+  "idle": "vibrate",
+  "landing": "heavy",
+  "soundLanguage": {
+    "talk": "sfx/printer_talk.wav",
+    "rant": "sfx/printer_rant.wav",
+    "cry": "sfx/printer_cry.wav",
+    "curse": "sfx/printer_curse.wav",
+    "exit": "sfx/printer_exit.wav"
+  },
+  "voicePreset": "VP6",
+  "adultCoding": ["eye_bags", "toner_stubble"],
+  "seed": 1001
+}

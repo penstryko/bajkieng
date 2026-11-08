@@ -1,4 +1,4 @@
-# Dr. Mm-hm: biblia serialu (v1.0)
+# Dr. Beige: biblia serialu (v1.1)
 
 > **Tagline:** *Every thing has trauma.*
 > Pionowy (9:16) serial animowany dla dorosłych, odcinki 64 s (maks. 120 s), idealna pętla, produkcja code-first: Claude Code + Remotion + lalki SVG + ElevenLabs + Rhubarb.
@@ -27,11 +27,11 @@
 
 ## 1. Decyzja
 
-**Wybrany temat: „Dr. Mm-hm”.** Najtańsza terapeutka we wszechświecie przyjmuje pacjentów, których nikt nigdy nie wysłuchał: przedmioty, pojęcia, dni tygodnia i zjawiska. Z drugiego miejsca („Factory Reset”) przejmuję najlepsze elementy produkcyjne, bo oba koncepty mają ten sam silnik.
+**Wybrany temat: „Dr. Beige”** (w konkursie koncepcji jako „Dr. Mm-hm”; tytuł zmieniony 8.11.2026 z powodu rejestracji znaku „MMHMM”, sekcja 12.3). Najtańsza terapeutka we wszechświecie przyjmuje pacjentów, których nikt nigdy nie wysłuchał: przedmioty, pojęcia, dni tygodnia i zjawiska. Z drugiego miejsca („Factory Reset”) przejmuję najlepsze elementy produkcyjne, bo oba koncepty mają ten sam silnik.
 
 | Koncepcja | Wynik | Niewyczerpywalność | Łatwość rozwoju | Łatwość generowania | Globalność | Pętla | Niskie ryzyko |
 |---|---|---|---|---|---|---|---|
-| **Dr. Mm-hm** | **8.83** | 10 | 8.7 | 8.7 | 8.7 | 9.3 | 6.3 |
+| **Dr. Beige** (w konkursie: „Dr. Mm-hm”) | **8.83** | 10 | 8.7 | 8.7 | 8.7 | 9.3 | 6.3 |
 | Factory Reset (robocza nazwa; alternatywa: „Last Call for Things”) | 8.82 | 9 | 8.7 | 10 | 7 | 9 | 7.3 |
 | Double or Dead (robocza nazwa; catchphrase „Step into the light!”) | 8.08 | 9 | 9 | 7.3 | 8 | 8.7 | 5.3 |
 | Breaking Crumbs (robocza nazwa; podtytuł „the pigeon news”) | 8.08 | 9.7 | 9 | 8 | 5 | 7.7 | 6 |
@@ -50,7 +50,7 @@ Wagi: niewyczerpywalność 25%, łatwość rozwoju 20%, łatwość generowania 2
 1. **Niewyczerpywalny przez lata.** Silnik „każdy rzeczownik ma traumę” obejmuje przedmioty, technologie, kalendarz, pojęcia, instytucje i narzędzia zawodów. Każde święto, news i komentarz widza da się zamienić w pacjenta bez realnych nazwisk, a 30 rad i 17 typów wyjść mnoży się z każdym pacjentem.
 2. **Łatwy do rozwoju.** Terapia par, grupowa, nawroty pacjentów, turnieje i kompilacje używają tej samej scenografii i tych samych lalek. Ciągłość (usychająca roślina, dyplom, licznik pacjentów, bateria Chirpa) buduje „lore” bez kosztu.
 3. **Łatwy do wygenerowania przez Claude'a.** Jest jedno tło na zawsze, a cała obsada siedzi lub leży i jest schowana od pasa w dół, więc nikt nie chodzi. Doktor ma 15 intonacji „Mm-hm” nagranych raz, pacjenci mówią efektami SFX, a jedynym nowym assetem odcinka jest lalka pacjenta z generatora plus statyczna winieta w dymku.
-4. **Remis z „Factory Reset” (8.82) rozstrzyga szerszy zbiór pacjentów.** U Dr. Mm-hm pacjentem może być też pojęcie, dzień czy zjawisko, nie tylko przedmiot. Do tego łańcuch „rada → dosłowne zastosowanie → zwrot” sam generuje różne wyniki, co jest najlepszą obroną przed zarzutem „inauthentic content” [R-Regulaminy].
+4. **Remis z „Factory Reset” (8.82) rozstrzyga szerszy zbiór pacjentów.** U Dr. Beige pacjentem może być też pojęcie, dzień czy zjawisko, nie tylko przedmiot. Do tego łańcuch „rada → dosłowne zastosowanie → zwrot” sam generuje różne wyniki, co jest najlepszą obroną przed zarzutem „inauthentic content” [R-Regulaminy].
 
 ### Co poprawiłem względem zwycięskiej koncepcji
 
@@ -107,9 +107,11 @@ Wagi: niewyczerpywalność 25%, łatwość rozwoju 20%, łatwość generowania 2
 
 Trzy stałe postacie plus trzy stałe motywy spoza obsady. Każdą główną postać trzeba **najpierw narysować ręcznie i datować** (skan do `bible/sketches/`), a dopiero potem przenieść do SVG [R-Postać]. Każda ma 2–4 własne kolory, unikalny kształt, jeden rekwizyt i test sylwetki oraz ikony [R-Postać].
 
-### 3.1 Dr. Mm-hm (terapeutka)
+### 3.1 Dr. Beige (terapeutka)
 
 **Rola.** Deadpan, chciwa, zmęczona, nieprzejmująca się niczym. Licencja z niczego, za to czynsz z wszystkiego.
+
+**Nazwisko.** „Beige” (beżowy) to najnudniejszy kolor świata: kolor ścian taniego gabinetu, poczekalni i biurowych drukarek. Nazwisko streszcza jej płaskość i brak reakcji, a kontrast z histerią pacjentów jest żartem samym w sobie. Identyfikator na smyczy nadal pokazuje tylko „DR.”, a jej kwestią pozostaje „Mm-hm.”.
 
 **Sylwetka z prostych kształtów** (współrzędne w kadrze 1080×1920):
 - **Ciało i głowa to jeden wysoki, wąski prostokąt** („linijka”) o szerokości 180 px. Głowa jest tej samej szerokości co tułów. Twarz y 600–860, kardigan od y 860 w dół.
@@ -471,7 +473,7 @@ Schemat jest poglądowy. Wiążące są współrzędne w tabeli poniżej.
 | Okno z warstwą „na zewnątrz” i żaluzjami | x 390–690, y 360–640 | 1 |
 | Dyplom, roślina, Chirp | jak w tabeli powyżej | 2 |
 | Fotel doktor | x 610–920, y 820–1280 | 3 |
-| Dr. Mm-hm (tułów, głowa, trwała, okulary) | x 637–883, y 525–1210 | 4–5 |
+| Dr. Beige (tułów, głowa, trwała, okulary) | x 637–883, y 525–1210 | 4–5 |
 | Oparcie Chestera i jego twarz | x 40–620, y 840–1090 | 6 |
 | Cień pacjenta (S0 i spadanie) | elipsa na górnej płaszczyźnie siedziska: środek (410, 1078), rx 130, ry 18 (y 1060–1096, czyli nad krawędzią z warstwy 9), `#000` krycie 60% | 7 |
 | Pacjent (solo) | kotwica dół-środek (410, 1150); pudełko x 245–575, y 770–1150 | 8 |
@@ -528,7 +530,7 @@ Wszystkie ujęcia to skala i przesunięcie tego samego mastera SVG (wektor, wię
 
 Szablon Raportu ma 60 s i każe przy renderze rozciągnąć go do **64 s**, dodając 4 s w eskalacji (23–27 s). Daje to 1 920 klatek przy 30 fps, 3 072 000 próbek przy 48 kHz i równe 32 takty przy 120 BPM [R-Szablon], [R-Pętla]. Poniżej wszystkie bloki po 23 s są przesunięte o +4 s.
 
-| Sekundy (64 s) | Klatki | Beat Raportu | Co dzieje się w Dr. Mm-hm | Dźwięk | Reguła |
+| Sekundy (64 s) | Klatki | Beat Raportu | Co dzieje się w Dr. Beige | Dźwięk | Reguła |
 |---|---|---|---|---|---|
 | 0,0–0,5 | 0–14 | Klatka startowa = końcowa | **0–5:** stan S0 (6.2): pacjent zawieszony w locie nad kanapą. **6–14:** pacjent spada z pozycji S0 na siedzisko, cień rośnie | tło (tik 120 BPM, room tone, muzyka) trwa przez szew; gwizd spadania 0,2–0,5 s | zero SFX w klatkach 0–5 |
 | 0,5–2,0 | 15–59 | Hook | lądowanie ze squashem (0,7 → 1,15 → 1), Chester się ugina, pierwsza „wypowiedź” pacjenta w jego języku; ok. 1,0 s doktor: „Mm-hm.” (MM01) | SFX06 lądowanie, TALK pacjenta, MM01 | cel YouTube: viewed ≥70% [R-Strategia] |
@@ -732,7 +734,7 @@ Pula ran rośnie o 5–10 na sezon (źródła jak w 6.5).
 8. **Podgląd w Remotion Studio** i 3–6 iteracji poprawek [R-Pipeline].
 9. **Render mastera bezstratnego,** kontrola framemd5 wszystkich 21 klatek S0 i liczby klatek, eksport ffmpeg (polecenia 1–4 z Raportu) [R-Pętla]. Każdą długość (64–120 s) renderujemy i sprawdzamy osobno.
 10. **Brama jakości wzorem Larvy:** publikujemy tylko świadomie zaakceptowane odcinki, a przy odrzucaniu co trzeciego liczymy ok. 1,5× czasu i kredytów na opublikowany odcinek [R-30dni]. Ręczny **brand check** każdego kadru z rekwizytem z realnego świata (kubek, pole formularza, interfejs, logo-podobny kształt): bez cudzych logo, kolorystyki i trade dress, bo lint czyta tylko tekst, nie obraz. Przed publikacją czekamy na wynik kontroli praw autorskich w YouTube Studio (Checks).
-11. **Metadane:** tytuł EN do 60 znaków (zalecane 40–60) w formacie „Dr. Mm-hm #001: …”, 1–3 hashtagi (`#DrMmhm #adultanimation #animation`), opis „Adult animated satire. Not a real doctor. Not real advice.” [R-Strategia].
+11. **Metadane:** tytuł EN do 60 znaków (zalecane 40–60) w formacie „Dr. Beige #001: …”, 1–3 hashtagi (`#DrBeige #adultanimation #animation`; bez hashtagów trendu „#sadbeige”, który należy do innej twórczyni), handle `@DrBeigeShow` na wszystkich platformach (`@DrBeige` na YouTube jest zajęty), opis „Adult animated satire. Not a real doctor. Not real advice.” [R-Strategia].
 12. **Commit do Git:** scenariusz, JSON, assety i notatka. Historia commitów jest dowodem autorstwa [R-Postać].
 
 Czas na odcinek: Raport szacuje pipeline code-first na 2,5–7 h [R-Pipeline]. Ten format powinien trafiać w dolną część widełek, bo głos doktor, muzyka, scenografia i rigi są wielokrotnego użytku (szacunek; zmierzyć w pilocie, dni 13–16 planu z [R-30dni]). Koszt audio na odcinek to głównie 5 klipów SFX pacjenta: 5 × ok. 2 s × 40 kredytów × 2 podejścia ≈ 800 kredytów (szacunek). To znacznie poniżej scenariusza oszczędnego z Raportu (ok. 3 920 kredytów na minutę) [R-Eleven].
@@ -994,7 +996,7 @@ interface State0 {
 {
   "id": "S01E01",
   "patientNo": 1,
-  "title": "Dr. Mm-hm #001: The Printer Who Said No",
+  "title": "Dr. Beige #001: The Printer Who Said No",
   "fps": 30, "width": 1080, "height": 1920, "durationInFrames": 1920,
   "seed": 1001,
   "ledger": { "exitType": "E01", "winner": "patient", "patientCategory": "object",
@@ -1113,7 +1115,7 @@ Napis z `from` > `to` oznacza przejście przez szew (klatki 1890–1919 i 0–59
 4. Siatka tyknięć: okres 24 000 próbek, przesunięcie 12 000; room tone i muzyka mają dokładnie N × 1 600 próbek.
 5. Wszystkie periodyczne ruchy mają obwiednię zerową od `S0_IN` = N − 30, a stałe rytuału (`DING` = N − 180, `GLASSES` = N − 75, `S0_IN`, `HOLD` = N − 15) są liczone od N, nigdy wpisane na sztywno (6.1).
 6. Napisy: ≤ 6 słów, bez wulgaryzmów, w pasie y 1235–1320.
-7. Tytuł: maks. 60 znaków, zalecane 40–60 (poniżej 40 tylko ostrzeżenie), format „Dr. Mm-hm #nnn: …”, filtr wulgaryzmów (także opis i tagi) [R-Strategia], [R-Regulaminy].
+7. Tytuł: maks. 60 znaków, zalecane 40–60 (poniżej 40 tylko ostrzeżenie), format „Dr. Beige #nnn: …”, filtr wulgaryzmów (także opis i tagi) [R-Strategia], [R-Regulaminy].
 8. Reguły rejestru 1–8 z sekcji 6.3.
 9. W kodzie brak `Math.random`, `Date.now` i animacji CSS opartych na czasie (tylko funkcje klatki).
 10. Wszystkie ścieżki assetów istnieją; jest `qa/icon.png` pacjenta zaakceptowany przez autora.
@@ -1168,7 +1170,7 @@ Render i kontrola: `npx remotion render` do mastera bezstratnego, potem poleceni
 - Bez religii jako pacjenta w sezonie 1 (żadnych bóstw, świętych ani symboli wyznaniowych).
 
 **Zdrowie psychiczne (temat formatu)**
-- Doktor **nie udziela żadnych prawdziwych porad.** Rady są absurdalne i rysunkowe, dyplom jest gagiem. YouTube wyklucza z monetyzacji kanały z personami AI udającymi ekspertów od zdrowia [R-Regulaminy]. Dr. Mm-hm jest wyraźnie fikcyjną kreskówką, a opis brzmi: „Adult animated satire. Not a real doctor. Not real advice.”
+- Doktor **nie udziela żadnych prawdziwych porad.** Rady są absurdalne i rysunkowe, dyplom jest gagiem. YouTube wyklucza z monetyzacji kanały z personami AI udającymi ekspertów od zdrowia [R-Regulaminy]. Dr. Beige jest wyraźnie fikcyjną kreskówką, a opis brzmi: „Adult animated satire. Not a real doctor. Not real advice.”
 - Bez nazw i żartów z realnych zaburzeń. Zmyślone diagnozy pokazujemy rzadko i jako biurokratyczne kody w szkłach albo na pieczątce (np. „CODE 404-MON”, „FORM 7B: PENDING”), nie jako dziecięce kalambury.
 - Żadnych atrybutów lekarza ciała: bez stetoskopu, torby lekarskiej, bandaży i plastrów. To terapia dla dorosłych, nie leczenie zabawek (sekcja 12.1, „Doc McStuffins”).
 - **Bez samookaleczeń i samobójstwa,** także w aluzji: pacjent nigdy nie chce przestać istnieć, „zgniatarka” czy „wypalenie” nie są puentą o śmierci z wyboru (zasada świata nr 11). Pacjent-urządzenie nigdy nie odłącza ani nie wyłącza samego siebie, bo „pull the plug” to po angielsku idiom odłączenia aparatury podtrzymującej życie; rada A10 odłącza innych albo świat (6.4).
@@ -1219,7 +1221,7 @@ Render i kontrola: `npx remotion render` do mastera bezstratnego, potem poleceni
 
 **Udział widzów:** „Who's next on the couch?” (pacjenci z komentarzy), ankiety „zgadnij finał”, „znajdź easter egg Chestera”. Udostępnienia są ważniejsze dla zasięgu u nieobserwujących, więc odcinki projektujemy pod „wyślij to szefowi” [R-Strategia].
 
-**IP i merch.** Najpierw słowny znak tytułu w klasie 41; klasy 9 i 38 tylko wtedy, gdy clearance nie wykaże aktywnych znaków „MMHMM” w tych klasach (12.2, krok 3). Imiona postaci zgłaszamy dopiero przy potencjale merchowym (klasy 25, 16, 28) [R-Postać].
+**IP i merch.** Najpierw słowny znak tytułu „DR. BEIGE” w klasie 41; klasy 9 i 38 dopiero po potwierdzeniu w urzędowych bazach, że nie ma w nich kolizji (12.2, krok 3). Bez merchu kosmetycznego (klasa 3), bo tam działa aktywny znak „BEIGE” firmy Chanel (12.3). Imiona postaci zgłaszamy dopiero przy potencjale merchowym (klasy 25, 16, 28) [R-Postać].
 
 **Kadencja.** 3–5 odcinków tygodniowo na platformę, zero tygodni bez publikacji, bufor 2–3 tygodni [R-Strategia].
 
@@ -1256,12 +1258,32 @@ Render i kontrola: `npx remotion render` do mastera bezstratnego, potem poleceni
 
 Dla każdej głównej postaci i tytułu przed premierą wykonujemy pięć kroków i archiwizujemy wyniki w folderze `clearance/` ze zrzutami i datami [R-Postać], [R-Checklista]:
 
-1. **Odwrotne wyszukiwanie obrazem** w Google Lens, TinEye i Bing Visual Search: 3–5 ujęć Dr. Mm-hm, Chestera, Chirpa i logo (całość, sylwetka, twarz).
+1. **Odwrotne wyszukiwanie obrazem** w Google Lens, TinEye i Bing Visual Search: 3–5 ujęć Dr. Beige, Chestera, Chirpa i logo (całość, sylwetka, twarz).
 2. **Znaki graficzne:** WIPO Global Brand Database (wyszukiwanie obrazem: Concept, Shape, Color, Composite), Vienna Classification Assistant, DPMAregister dla logo tytułu i ikonicznej głowy doktor z okularami.
-3. **Znaki słowne:** TMview, EUIPO eSearch, e-UPRP, USPTO w klasach 9, 16, 25, 28, 35, 38, 41, a potem wyszukiwanie na YouTube, TikToku, Instagramie, Fandomie i w Google. Do sprawdzenia: „Dr. Mm-hm”, „Mm-hm.”, tagline „Every thing has trauma”, „Chester”, „Chirp”, „Nod-O-Matic”. Sprawdzić też, czy „Mm-hmm” nie jest catchphrase'em znanej postaci. **Osobno wyszukać „MMHMM”, „MM-HMM” i „MMHM”** w TMview, EUIPO eSearch i USPTO (TSDR), ze statusem rejestracji: to marka oprogramowania do wideo i wirtualnej kamery firmy mmhmm Inc. (aplikacja od 2020 r.), działająca w klasach 9 i 38. Wstępne wyszukiwanie z 8.11.2026 w agregatorze znaków znalazło rejestrację USPTO „MMHMM” w klasie 9 (nr 6686694, mmhmm inc.); status trzeba potwierdzić w TSDR, bo firma mogła zmienić nazwę, a rejestracje mogą nadal obowiązywać. Jeśli znak jest aktywny, zgłaszamy tylko klasę 41 (ewentualnie 16 i 25), bez 9 i 38. Jeśli koliduje także klasa 41, zmieniamy tytuł na mniej zbieżny (np. słowo opisowe plus znak graficzny głowy z okularami-ekranami). Decyzja zapada **przed pierwszym uploadem**, bo nazwa trafia do każdego tytułu „Dr. Mm-hm #nnn”.
+3. **Znaki słowne:** TMview, EUIPO eSearch, e-UPRP, USPTO w klasach 9, 16, 25, 28, 35, 38, 41, a potem wyszukiwanie na YouTube, TikToku, Instagramie, Fandomie i w Google. Do sprawdzenia: „Dr. Beige”, „Doctor Beige”, „DrBeige” (także jako handle i hashtag), tagline „Every thing has trauma”, „Chester”, „Chirp”, „Nod-O-Matic”. Sprawdzić też, czy „Mm-hmm” nie jest catchphrase'em znanej postaci (to nadal kwestia doktor, ale już nie nazwa). **Osobno potwierdzić w USPTO (TSDR) i EUIPO** znaki „BEIGE” (aktywny znak Chanel w klasie 3, nr rej. 3628223) i ewentualne nowe zgłoszenia „DR. BEIGE”. Poprzedni tytuł „Dr. Mm-hm” odpadł przez rejestrację USPTO „MMHMM” (klasa 9, nr 6686694, mmhmm inc., aplikacja wideo); szczegóły i lista wyszukiwań w 12.3. Ostateczne potwierdzenie w urzędowych bazach zapada **przed pierwszym uploadem**, bo nazwa trafia do każdego tytułu „Dr. Beige #nnn”.
 4. **Porównanie z najbliższymi:** tabela 12.1 (w tym Velma, także serial „Velma” HBO Max, Roz, Edna Mode, „Doc McStuffins” i „Therapy Gecko”) plus lista z Raportu (South Park, Kapitan Bomba, Family Guy, Rick and Morty, Big Mouth, Simpsonowie). Projekt doktor szkicujemy ręcznie dopiero po tej weryfikacji. Zmieniamy cechy, gdy pokrywa się więcej niż jeden wymiar: sylwetka, kolor, rekwizyt, imię, maniera głosu.
 5. **Higiena promptów:** w żadnym narzędziu AI nie używamy nazw cudzych postaci, studiów ani twórców i każdy output porównujemy z kanonem. Pozew WBD przeciw Midjourney twierdzi, że nawet ogólny prompt potrafi zwrócić cudze postacie [R-Postać].
 
 **Dowody autorstwa.** Bazowy projekt każdej głównej postaci trzeba narysować ręcznie, nawet prymitywnie, i datować przed animacją w kodzie. Prompty z samego AI nie dają ochrony w USA, UE ani w Polsce, a chroniony jest ludzki wkład [R-Postać]. Repozytorium Git z historią commitów, logi promptów, model sheety z datami i karty głosów to ubezpieczenie. Czeski powód przegrał m.in. dlatego, że nie udowodnił autorstwa promptu [R-Postać]. Prompty Voice Design nigdy nie opisują głosu przez odniesienie do realnej osoby ani znanej postaci [R-Postać].
 
-**Znak towarowy.** Słowny znak tytułu domyślnie tylko w klasie 41 (800 zł minimalnie w UPRP) [R-Postać]; klasy 9 i 38 (razem z 41: 1 840 zł w UPRP, 1 050 EUR w EUIPO [R-Postać]) dokładamy wyłącznie wtedy, gdy krok 3 nie wykaże aktywnych znaków „MMHMM” w tych klasach. Zgłaszamy go po czystym clearance, w dniach 28–30 planu [R-30dni], a decyzję o tytule podejmujemy przed pierwszym uploadem.
+**Znak towarowy.** Słowny znak tytułu domyślnie tylko w klasie 41 (800 zł minimalnie w UPRP) [R-Postać]; klasy 9 i 38 (razem z 41: 1 840 zł w UPRP, 1 050 EUR w EUIPO [R-Postać]) dokładamy wyłącznie wtedy, gdy krok 3 nie wykaże w tych klasach kolizji z „DR. BEIGE”. Zgłaszamy go po czystym clearance, w dniach 28–30 planu [R-30dni], a urzędowe potwierdzenie tytułu uzyskujemy przed pierwszym uploadem.
+
+### 12.3 Zmiana tytułu: „Dr. Mm-hm” → „Dr. Beige” (8.11.2026)
+
+**Powód.** Roboczy tytuł i imię terapeutki „Dr. Mm-hm” zderzały się z zarejestrowanym znakiem USPTO „MMHMM” (klasa 9, nr rej. 6686694, właściciel mmhmm inc., aplikacja do wideo i wirtualnej kamery). Znak nie obejmuje klasy 41, ale tytuł byłby fonetycznie identyczny z marką technologiczną działającą w tej samej przestrzeni wideo, co utrudnia wyszukiwanie, merch w klasach 9 i 38 oraz grozi sprzeciwem. Nowy tytuł i nazwisko nie opierają się na „Mm-hm” ani „Hmm”. Catchphrase „Mm-hm.” zostaje jako zwykły wykrzyknik w ustach doktor (biblioteka MM01–MM15).
+
+**Kandydaci (burza mózgów, 18):** Dr. Beige, Dr. Taupe, Dr. Drab, Dr. Copay, Dr. Dime, Dr. Nod, Dr. Dull, Thingapy, Thing Therapy, Every Thing Therapy, Trauma Couch, Couch Things, Patient Things, Thing Shrink, Shrink Rap, Object Lessons, Object Therapy, Cheap Couch.
+
+**Wyszukiwania z 8.11.2026 (wyszukiwarka internetowa i bezpośrednie sprawdzenie handli):**
+
+| Kandydat | Co sprawdziliśmy | Wynik | Decyzja |
+|---|---|---|---|
+| **Dr. Beige** | „Dr. Beige” i „Doctor Beige”: znak, serial, podcast, zespół, gra, aplikacja, kanał YouTube/TikTok/Instagram, postać z fandomu | brak serialu, filmu, gry, aplikacji, podcastu i postaci o tej nazwie; brak znaku „DR. BEIGE”; znak „BEIGE” Chanel tylko w klasie 3 (kosmetyki); `youtube.com/@drbeige` to uśpiony kanał prywatny (1 subskrybent, 2 filmy); `@DrBeigeShow` na YouTube wolny (404); niezależny trend „sad beige” (@sadbeige, ok. 295 tys. obserwujących na TikToku) to inne hasło | **wybrany** |
+| Thing Therapy | znak, serial, podcast, YouTube/TikTok | zgłoszenie USPTO „THING THERAPY” w klasie 41 (nr 98932076, w toku) | odrzucony |
+| Thingapy | znak, aplikacja, podcast, YouTube/TikTok | czysto, `@Thingapy` na YouTube wolny, ale niejasna wymowa („thing-a-pee” czy „thin-gapy”) | rezerwowy |
+| Dr. Copay | znak, YouTube/TikTok, podcast, show | czysto, ale „copay” to amerykańskie pojęcie ubezpieczeniowe, niezrozumiałe globalnie i medyczne w wydźwięku (sekcja 10, zakaz porad zdrowotnych) | rezerwowy |
+| Dr. Drab | znak, postacie, osoby | czysto w mediach, ale istnieją realni lekarze o nazwisku Drab (m.in. w Polsce i na Słowacji), a po polsku „drab” znaczy „łobuz” | odrzucony |
+| Dr. Taupe | postacie, osoby | czysto, ale trudna wymowa | odrzucony |
+| Trauma Couch | podcast, serial, YouTube | brak dokładnej nazwy, ale gęsto od podcastów terapeutycznych („Breaking the Couch” i inne), słabo wyszukiwalny | odrzucony |
+
+**Urzędowe bazy nie zadziałały z naszego środowiska** i trzeba je powtórzyć ręcznie w przeglądarce: tmsearch.uspto.gov (aplikacja JavaScript, brak wyników bez renderowania, a API odrzuca zapytania), EUIPO eSearch (HTTP 503), TMview / tmdn.org (żądanie odrzucone przez zaporę), agregator markinton.com (błąd tunelu 502). Wyniki o znakach pochodzą więc z agregatorów (markinton.com, trademarkdir.com) i trzeba je potwierdzić w TSDR, EUIPO eSearch, TMview i e-UPRP (klasy 9, 16, 25, 28, 35, 38, 41) przed pierwszym uploadem. Zrzuty i daty archiwizujemy w `clearance/`.

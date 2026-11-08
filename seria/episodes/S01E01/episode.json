@@ -1,0 +1,82 @@
+{
+  "id": "S01E01",
+  "patientNo": 1,
+  "title": "Dr. Mm-hm #001: The Printer Who Said No",
+  "fps": 30, "width": 1080, "height": 1920, "durationInFrames": 1920,
+  "seed": 1001,
+  "ledger": { "exitType": "E01", "winner": "patient", "patientCategory": "object",
+              "woundId": "W05", "adviceId": "A01", "twistId": "T03" },
+  "continuity": { "plantStage": 0, "diplomaText": "Doctor of Nodding", "spareTimers": 6, "spareGlasses": 2 },
+  "actors": [ { "id": "patient", "ref": "patient.json", "anchor": [410, 1150], "maxSize": { "w": 330, "h": 380 } } ],
+  "state0": {
+    "camera": "WIDE",
+    "doctor": { "pen": "raised", "brows": "neutral", "mouth": "flat", "headTilt": 0, "glassesY": 0, "lens": "patient_file_icon", "placement": "chair" },
+    "chester": { "eyes": "wide_up", "mouth": "tight", "sag": 0.02 },
+    "chirp": { "led": "off" },
+    "patient": { "topY": 230, "scale": 1.0, "motionLines": true },
+    "timer": { "dial": 1.0 },
+    "window": "calm",
+    "couchShadow": { "scale": 1.0, "opacity": 0.6 },
+    "caption": "PATIENT #001: OFFICE PRINTER"
+  },
+  "shots": [
+    { "from": 0, "to": 149, "camera": "WIDE" },
+    { "from": 150, "to": 239, "camera": "GLASSES", "ease": "cut" },
+    { "from": 240, "to": 359, "camera": "WIDE", "ease": "cut" },
+    { "from": 360, "to": 449, "camera": "NOTEPAD", "ease": "cut" },
+    { "from": 450, "to": 749, "camera": "WIDE", "ease": "cut" },
+    { "from": 750, "to": 809, "camera": "NOTEPAD", "ease": "cut" },
+    { "from": 810, "to": 1844, "camera": "WIDE", "ease": "cut" },
+    { "from": 1845, "to": 1889, "camera": "GLASSES", "ease": "cut" },
+    { "from": 1890, "to": 1919, "camera": "WIDE", "ease": "cut" }
+  ],
+  "poses": [
+    { "char": "patient", "at": 6, "set": { "enter": "fall_from_top" } },
+    { "char": "patient", "at": 15, "set": { "land": "heavy" } },
+    { "char": "chester", "at": 15, "set": { "eyes": "squint", "mouth": "wavy", "sag": 0.04 } },
+    { "char": "doctor", "at": 150, "set": { "lens": "burger" } },
+    { "char": "doctor", "at": 1050, "set": { "glassesY": 40, "brows": "one_up", "dur": 6 } },
+    { "char": "doctor", "at": 1740, "set": { "mouth": "O", "lens": "siren" } },
+    { "char": "doctor", "at": 1890, "set": { "pen": "raised", "brows": "neutral", "mouth": "flat", "glassesY": 0, "lens": "patient_file_icon" } },
+    { "char": "chester", "at": 1890, "set": { "eyes": "wide_up", "mouth": "tight", "sag": 0.02 } }
+  ],
+  "motion": [
+    { "char": "patient", "from": 6, "to": 14, "path": [[410, 610], [410, 1150]], "ease": "in" },
+    { "char": "patient", "from": 1760, "to": 1830, "path": [[410, 1150], [470, 760], [540, 500]], "scale": [1, 0.25], "z": 1, "zAt": 1795, "ease": "inOut" },
+    { "char": "patient", "from": 1890, "to": 1904, "path": [[410, 0], [410, 610]], "ease": "out" }
+  ],
+  "instances": [],
+  "timer": [ { "at": 15, "dial": 1.0, "mode": "run" } ],
+  "dialogue": [
+    { "char": "patient", "at": 18, "clip": "sfx/printer_talk.wav", "mouth": "rms", "mouthData": "sfx/printer_talk.rms.json" },
+    { "char": "doctor", "at": 30, "clip": "assets/vo/doctor/MM01.wav", "mouth": "none" },
+    { "char": "patient", "at": 250, "clip": "sfx/printer_curse.wav", "mouth": "rms", "mouthData": "sfx/printer_curse.rms.json" },
+    { "char": "doctor", "at": 1060, "clip": "assets/vo/doctor/MM15.wav", "mouth": "none" },
+    { "char": "patient", "at": 1560, "clip": "vo/patient/printer_no_VP6.wav", "mouth": "rms", "mouthData": "vo/patient/printer_no_VP6.rms.json", "text": "NO." }
+  ],
+  "sfx": [
+    { "at": 6, "clip": "assets/sfx/SFX05_fall.wav" },
+    { "at": 15, "clip": "assets/sfx/SFX06_land.wav" },
+    { "at": 60, "clip": "assets/sfx/SFX14_bubble.wav" },
+    { "at": 150, "clip": "assets/sfx/SFX11_lens.wav" },
+    { "at": 640, "clip": "assets/sfx/SFX10_chirp.wav" },
+    { "at": 1740, "clip": "assets/sfx/SFX02_ding.wav" },
+    { "at": 1846, "clip": "assets/sfx/SFX04_click.wav" },
+    { "at": 1852, "clip": "assets/sfx/SFX03_wind.wav", "gainDb": -3 },
+    { "at": 1884, "clip": "assets/sfx/SFX11_lens.wav" }
+  ],
+  "bed": { "tickClip": "assets/sfx/SFX01_tick.wav", "tickPeriodSamples": 24000, "tickOffsetSamples": 12000,
+           "tickBed": "assets/sfx/SFX01_tick_bed64.wav",
+           "roomTone": "assets/sfx/SFX18_roomtone_loop64.wav", "music": "assets/music/theme_loop64.wav" },
+  "props": [ { "id": "paper_jam", "svg": "props/paper_strip.svg", "from": 1745, "to": 1844, "anim": "fly", "path": [[760, 830], [700, 1000]] } ],
+  "bubbles": [ { "from": 60, "to": 149, "vignette": "vignettes/office_kick.svg", "moving": ["human_leg"] } ],
+  "notepad": [
+    { "from": 360, "to": 449, "doodle": "doodles/printer_with_horns.svg", "drawOnFrames": 15 },
+    { "from": 750, "to": 809, "doodle": "doodles/A01_fence.svg", "drawOnFrames": 18 }
+  ],
+  "windowLayer": [ { "from": 0, "to": 899, "layer": "calm" }, { "from": 900, "to": 1844, "layer": "office_print_queue" },
+                   { "from": 1845, "to": 1919, "layer": "calm" } ],
+  "particles": [ { "from": 1530, "to": 1739, "type": "paper", "origin": [410, 950], "count": 60 } ],
+  "captions": [ { "from": 1890, "to": 59, "text": "PATIENT #001: OFFICE PRINTER" } ],
+  "shakes": [ { "at": 1560, "amp": 14, "decayFrames": 18 } ]
+}

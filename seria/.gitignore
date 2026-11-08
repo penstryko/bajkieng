@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# render output (PNG sequences, WAV mixes, MP4 exports, stills)
+out/
+
+# large lossless masters / intermediates, wherever they end up
+*.mov
+*.mkv
+*.nut
+*.avi
+*_master.*
+*.ffv1.*
+seam.wav
+dec.wav
+seam.png
+
+# remotion / tooling caches
+.remotion/
+*.tsbuildinfo
+.DS_Store
