@@ -26,7 +26,7 @@ Pętlę projektuje się od końca. Ostatnie zdanie ma gramatycznie przechodzić 
   - unikać fraz zamykających („that's it”, „thanks for watching”), bo dają sygnał do przesunięcia.
 
   Autorka zaleca też Shorty poniżej 30 s, ale to porada sprzed 3-minutowych Shortsów — [Feisworld: How to SCRIPT and Loop YouTube Shorts](https://www.feisworld.com/blog/how-to-script-and-loop-youtube-shorts)
-- Średni procent obejrzenia powyżej 100% oznacza, że widzowie oglądają ponownie lub pozwalają Shortowi się zapętlić. Przy dobrze ukrytym szwie widz ogląda 2–3 s następnej pętli, zanim zauważy, że film się skończył. To praktyczne poradniki twórców, a nie dokumentacja YouTube — [subscribr.ai](https://subscribr.ai/youtube-strategy/youtube-shorts-low-watch-time-boost); [faceless.so: Viewed vs Swiped Away, Retention, Replays](https://faceless.so/blog/youtube-shorts-analytics-a-complete-guide)
+- Poradniki twórców zgodnie podają, że średni procent obejrzenia powyżej 100% oznacza, że widzowie oglądają ponownie lub pozwalają Shortowi się zapętlić (np. 10-sekundowy Short ze średnią 12 s). Radzą też sprawdzać na krzywej retencji, w którym momencie zaczyna się replay. To praktyka twórców, a nie dokumentacja YouTube. Streszczenie wyszukiwania nie przypisało cytatów do konkretnych stron z tej listy — [subscribr.ai](https://subscribr.ai/youtube-strategy/youtube-shorts-low-watch-time-boost); [faceless.so](https://faceless.so/blog/youtube-shorts-analytics-a-complete-guide); [1of10](https://1of10.com/blog/youtube-shorts-analytics/). Popularna teza, że przy perfekcyjnej pętli widz ogląda 2–3 s kolejnej iteracji, zanim zorientuje się, że film się skończył, jest anegdotyczna i bez przypisanego źródła.
 - W YouTube Analytics „Average view duration” liczy się z engaged views i odpowiadającego im czasu oglądania — [YouTube Help: audience retention](https://support.google.com/youtube/answer/9314415). Jeśli engaged views wykluczają pętle (zob. D1), to replaye zwiększają licznik w czasie oglądania, a nie w mianowniku. Stąd wartości powyżej 100%. To wnioskowanie, oficjalny wzór nie jest opublikowany.
 
 ### Inferences
@@ -83,7 +83,8 @@ Zgodność pierwszej i ostatniej klatki weryfikuj **na bezstratnym masterze** (f
 - **AAC priming**:
   - Apple przyjmuje domyślnie 2112 próbek primingu i 0 próbek reszty. Wartość 2112 była typowym opóźnieniem większości ówczesnych enkoderów AAC — [Apple TN2258: AAC Audio – Encoder Delay and Synchronization](https://developer.apple.com/library/mac/technotes/tn2258/_index.html);
   - opóźnienie enkodera można sygnalizować jawnie atomem edit list (elst) i strukturami sample group — [Apple QuickTime File Format, Appendix G: Audio Priming](https://developer.apple.com/documentation/quicktime-file-format/appendix_g_audio_priming_handling_encoder_delay_in_aac.md);
-  - wbudowany enkoder AAC w ffmpeg ma opóźnienie 1024 próbek, FDK-AAC zwykle 2048 — [AAC.js wiki: EncoderDelay](https://github.com/uupaa/AAC.js/wiki/EncoderDelay). To źródło wtórne, ale zgodne z testem lokalnym poniżej (pierwszy pakiet ma pts = −1024).
+  - wbudowany enkoder AAC w ffmpeg ma opóźnienie 1024 próbek. Potwierdza to test lokalny: pierwszy pakiet AAC ma pts = −1024, a `-use_editlist 0` dodaje dokładnie 1024 próbki;
+  - FDK-AAC ma zwykle około 2048 próbek, a Nero AAC-LC 2624. Te wartości pochodzą ze streszczenia wyników wyszukiwania i nie udało się ustalić, czy podaje je [Vimeo Engineering: A brief history of gapless audio](https://medium.com/vimeo-engineering-blog/a-brief-history-of-gapless-audio-and-what-you-can-do-about-it-ea9e1c343215) (HTTP 403 przy pobraniu), czy [AAC.js wiki: EncoderDelay](https://github.com/uupaa/AAC.js/wiki/EncoderDelay). Traktuj je jako orientacyjne.
 - **Pętla audio**: przerwa zwykle bierze się z paddingu enkodera (formaty stratne dodają ciszę na początku i końcu) albo z punktu pętli, który nie jest dokładny co do próbki. Trzaski powstają przy niedopasowaniu amplitudy lub nachylenia fali na szwie. Pętlę trzeba testować w docelowym odtwarzaczu — [bugnet.io: how to fix music that doesn't loop cleanly](https://bugnet.io/blog/how-to-fix-music-that-doesnt-loop-cleanly)
 - Na forum Adobe są zgłoszenia, że wideo z Premiere nie zapętla się płynnie i że winne bywa skompresowane audio. Usunięcie ścieżki audio usuwało szew — [Adobe Community: video not looping seamlessly after export from Premiere](https://community.adobe.com/questions-729/video-not-looping-seamlessly-after-export-from-premiere-1335045)
 - **[TEST LOKALNY] Wyniki** (master 90 klatek przy 30 fps, audio 144 000 próbek przy 48 kHz):
@@ -380,9 +381,7 @@ Od 31.03.2025 publiczne „views” Shorts liczą każde rozpoczęcie i replay (
   - strona nie wspomina o innym traktowaniu Shortsów powyżej 60 s w rekomendacjach.
 
   — [YouTube Help: Understand three-minute YouTube Shorts](https://support.google.com/youtube/answer/15424877?hl=en)
-- Według relacji wtórnych szef Shorts mówi, że nie ma „najlepszej długości” i trzeba dobrać tyle, ile wymaga historia — [OutlierKit: Shorts algorithm in YouTube's words](https://outlierkit.com/resources/youtube-shorts-algorithm/)
 - **„Viewed vs. swiped away”** to procent wyświetleń Shorta w feedzie, przy których widz został, wobec przewinięcia (Studio → Analytics → Content → Shorts). YouTube nie publikuje progów — [Creator Essentials: Viewed vs. Swiped Away](https://www.creatoressentials.com/glossary/viewed-vs-swiped-away/). Źródło wtórne, definicji z Help Center nie znalazłem.
-- Jedno źródło (pojedyncze) podaje, że od 1.10.2026 rekomendacje Shorts faworyzują treści oryginalne i ograniczają reuploady — [wynik wyszukiwania: vidiq / outlierkit, 2026](https://outlierkit.com/resources/youtube-shorts-algorithm/). **Niepotwierdzone.**
 
 ### Inferences
 - **Dla serialu w pętli**:
@@ -397,7 +396,7 @@ Od 31.03.2025 publiczne „views” Shorts liczą każde rozpoczęcie i replay (
 - Nie udało się pobrać oficjalnego wpisu glosariusza YouTube, który mówi, że engaged views „wykluczają pętle”. Potwierdzają to PPC Land, vidIQ i Creator Essentials, ale nie strona Google.
 - Brak oficjalnej definicji „qualified views” względem pętli i replayów.
 - Brak oficjalnego potwierdzenia, czy próg 10 mln dla Creator Pool od 2027 dotyczy wszystkich członków YPP (źródła sprzeczne).
-- Brak oficjalnych danych o różnicach w rekomendacji Shortsów powyżej 60 s.
+- Brak oficjalnych danych o różnicach w rekomendacji Shortsów powyżej 60 s. W streszczeniach wyszukiwania pojawiły się dwie tezy, których źródła nie udało się ustalić, więc **nie należy ich cytować jako faktów**: (1) szef Shorts miał powiedzieć, że nie ma „najlepszej długości” i trzeba dobrać tyle, ile wymaga historia; (2) od 1.10.2026 rekomendacje Shorts miały faworyzować treści oryginalne i ograniczać zasięg reuploadów (pojedyncze, niepotwierdzone doniesienie).
 
 ---
 
@@ -424,7 +423,7 @@ Pętle i replaye nie zwiększają więc wypłat. W metrykach reklamowych TikToka
   — [TikTok Ads Help: Video play metrics](https://ads.tiktok.com/resources/help/article/video-play)
 - **Organiczne „Watched full video”** to odsetek wyświetleń zakończonych obejrzeniem całości; „Average watch time” i „Total play time” to średni i łączny czas oglądania — [HEC Montréal digital: TikTok Analytics](https://digital.hec.ca/en/blog/tiktok-analytics-to-optimize-your-reach/); [Meltwater help](https://help.meltwater.com/en/articles/9337341-measure-tiktok-analytics). Źródła wtórne.
 - Blogi twierdzą, że każdy replay lub pętla w aplikacji to nowe wyświetlenie, a wyświetlenia twórcy są filtrowane. **Brak oficjalnego potwierdzenia** — [AdManage](https://admanage.ai/blog/how-does-tiktok-count-views); [itgeared](https://www.itgeared.com/how-does-tiktok-count-views)
-- Twórca na TikToku podał, że od 4 grudnia (rok niepewny) liczyć się mają wyświetlenia z wyszukiwania trwające co najmniej 30 s. **Niepotwierdzone oficjalnie**, sprzeczne z definicją „tylko For You” — [TikTok search page / creator video](https://www.tiktok.com/discover/what-are-qualified-views)
+- W wynikach wyszukiwania pojawiła się teza z filmu twórcy, że od 4 grudnia (rok nieznany) do qualified views mają się liczyć też wyświetlenia z wyszukiwania trwające co najmniej 30 s. Inny poradnik przypisuje to Creator Academy. Konkretnego źródła nie udało się ustalić, nie ma oficjalnego potwierdzenia, a teza jest sprzeczna z definicją „tylko For You” ze strony pomocy. Nie cytować jako faktu (zob. Gaps).
 
 ### Inferences
 - **Długość pod CRP**: odcinek musi trwać co najmniej 60 s po przetworzeniu przez TikTok. Przy wymogu wyrównania do 1024 próbek najbezpieczniejsze są długości od 64 s w górę (64/72/80/96 s). Dokładne 60,0 s jest ryzykowne z powodu możliwego zaokrąglenia przy transkodowaniu.
@@ -435,6 +434,8 @@ Pętle i replaye nie zwiększają więc wypłat. W metrykach reklamowych TikToka
 - Nie udało się pobrać pełnej treści stron TikTok Support i Creator Academy (renderowanie JS). Definicję „tylko For You” znam z wyniku wyszukiwania.
 - Brak oficjalnego dokumentu, czy organiczny licznik wyświetleń w aplikacji liczy replaye. Definicje reklamowe mówią, że nie, blogi, że tak.
 - Brak potwierdzonych zmian CRP na 2026 poza aktualizacją warunków US z 20.07.2026. Nie analizowałem diffu treści.
+- Niezweryfikowana teza o liczeniu wyświetleń z wyszukiwania (co najmniej 30 s) jako qualified views: źródło nieustalone, brak oficjalnego potwierdzenia.
+- Stawki RPM CRP podawane przez blogi (ok. 0,40–1,00 USD za 1000 qualified views) nie są oficjalne. Nie należy ich podawać jako faktu.
 
 ---
 
