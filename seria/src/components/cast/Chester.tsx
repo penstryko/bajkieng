@@ -71,7 +71,7 @@ const LeatherEye: React.FC<{ cx: number; cy: number; st: EyeState; blink: number
   const rot = side === 0 ? -st.tilt : st.tilt;
   const clip = `${uid}-eye${side}`;
   const pupil: XY = [cx + st.p[0] + extra[0], cy + st.p[1] + extra[1]];
-  const sag = 7 + 6 * (1 - o); // lid edge curvature
+  const sag = 8 + 14 * (1 - o); // lid edge curvature (closed seam curves down: a content, shut eye)
   return (
     <g>
       <defs>
@@ -79,8 +79,8 @@ const LeatherEye: React.FC<{ cx: number; cy: number; st: EyeState; blink: number
           <circle cx={cx} cy={cy} r={r} />
         </clipPath>
       </defs>
-      {/* puckered socket (the tuft depression) */}
-      <ellipse cx={cx} cy={cy + 1} rx={r + 7} ry={r + 5} fill={C.shade} />
+      {/* puckered socket (the tuft depression); shallower when the lids are shut */}
+      <ellipse cx={cx} cy={cy + 1} rx={r + 2 + 5 * Math.min(1, o * 4)} ry={r + 5 * Math.min(1, o * 4)} fill={C.shade} opacity={0.55 + 0.45 * Math.min(1, o * 4)} />
       <g clipPath={`url(#${clip})`}>
         <rect x={cx - r} y={cy - r} width={span} height={span} fill={C.eyeWhite} />
         <circle cx={pupil[0]} cy={pupil[1]} r={st.pr} fill={C.pupil} />
@@ -98,8 +98,14 @@ const LeatherEye: React.FC<{ cx: number; cy: number; st: EyeState; blink: number
         </g>
         <path d={`M${cx - r - 4} ${yL} Q${cx} ${yL + sag * 0.5} ${cx + r + 4} ${yL}`} fill="none" stroke={C.seams} strokeWidth={3} />
       </g>
+      {o < 0.15 ? (
+        // lash creases under the shut seam
+        <g stroke={C.seams} strokeWidth={2.5} strokeLinecap="round" opacity={1 - o / 0.15}>
+          <path d={`M${cx - 14} ${meet + 9} l-4 6 M${cx} ${meet + 12} v7 M${cx + 14} ${meet + 9} l4 6`} />
+        </g>
+      ) : null}
       {/* rim of the socket + tuft creases radiating out (diamond tufting) */}
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke={C.seams} strokeWidth={4} />
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke={C.seams} strokeWidth={4} opacity={Math.min(1, 0.25 + o * 4)} />
       <g stroke={C.seams} strokeWidth={3} strokeLinecap="round" opacity={0.9}>
         <path d={`M${cx - r * 0.72} ${cy - r * 0.72} l-11 -11 M${cx + r * 0.72} ${cy - r * 0.72} l11 -11`} />
         <path d={`M${cx - r * 0.75} ${cy + r * 0.72} l-9 9 M${cx + r * 0.75} ${cy + r * 0.72} l9 9`} />
@@ -134,8 +140,8 @@ const FOLDS: Partial<Record<ChesterMouth, string>> = {
 const MouthHole: React.FC<{ open: number }> = ({ open }) => {
   const h = Math.max(6, MOUTH.maxOpen * open);
   const w = (MOUTH.x1 - MOUTH.x0) + 14 * open;
-  const top = MY - 0.6 * h;
-  const bot = MY + 0.4 * h;
+  const top = MY - 0.5 * h;
+  const bot = MY + 0.5 * h;
   const cy = (top + bot) / 2;
   return (
     <g>
@@ -145,9 +151,10 @@ const MouthHole: React.FC<{ open: number }> = ({ open }) => {
       {h > 40 ? (
         // the couch's "contents": a lost coin and a remote (signature prop)
         <g opacity={Math.min(1, (h - 40) / 20)}>
-          <rect x={MOUTH_CX - 6} y={bot - 22} width={40} height={14} rx={4} fill={REMOTE} transform={`rotate(-14 ${MOUTH_CX + 14} ${bot - 15})`} />
-          <circle cx={MOUTH_CX + 2} cy={bot - 18} r={1.8} fill="#6B6B6B" transform={`rotate(-14 ${MOUTH_CX + 14} ${bot - 15})`} />
-          <ellipse cx={MOUTH_CX - 24} cy={bot - 12} rx={9} ry={5} fill={COIN} />
+          <rect x={MOUTH_CX + 2} y={cy + 6} width={40} height={14} rx={4} fill={REMOTE} transform={`rotate(-14 ${MOUTH_CX + 22} ${cy + 13})`} />
+          <circle cx={MOUTH_CX + 10} cy={cy + 10} r={1.8} fill="#6B6B6B" transform={`rotate(-14 ${MOUTH_CX + 22} ${cy + 13})`} />
+          <circle cx={MOUTH_CX + 20} cy={cy + 10} r={1.8} fill="#6B6B6B" transform={`rotate(-14 ${MOUTH_CX + 22} ${cy + 13})`} />
+          <ellipse cx={MOUTH_CX - 8} cy={cy + 20} rx={9} ry={5} fill={COIN} />
         </g>
       ) : null}
       {/* corner creases */}
@@ -162,9 +169,10 @@ const MouthFold: React.FC<{ mouth: ChesterMouth }> = ({ mouth }) => (
     <path d={`M${MOUTH.x0 + 4} ${MY - 6} Q${MOUTH_CX} ${MY - 20} ${MOUTH.x1 - 4} ${MY - 6}`} fill="none" stroke={C.gloss} strokeWidth={3} strokeLinecap="round" opacity={0.8} />
     <path d={FOLDS[mouth] ?? FOLDS.flat} fill="none" stroke={C.seams} strokeWidth={mouth === "tight" ? 7 : 5.5} strokeLinecap="round" />
     {mouth === "tight" ? (
-      <g stroke={C.seams} strokeWidth={3} strokeLinecap="round">
-        <path d={`M${MOUTH.x0 + 6} ${MY - 9} v18 M${MOUTH.x1 - 6} ${MY - 9} v18`} />
-        <path d={`M${MOUTH_CX - 22} ${MY - 5} v-7 M${MOUTH_CX} ${MY - 5} v-8 M${MOUTH_CX + 22} ${MY - 5} v-7 M${MOUTH_CX - 11} ${MY + 5} v7 M${MOUTH_CX + 11} ${MY + 5} v7`} />
+      <g fill="none" stroke={C.seams} strokeWidth={3.5} strokeLinecap="round">
+        {/* clenched: crimped corners + strained puckers above and below */}
+        <path d={`M${MOUTH.x0 + 2} ${MY - 9} q-6 9 0 18 M${MOUTH.x1 - 2} ${MY - 9} q6 9 0 18`} />
+        <path d={`M${MOUTH_CX - 30} ${MY - 14} q10 4 20 0 M${MOUTH_CX + 10} ${MY - 14} q10 4 20 0`} strokeWidth={2.5} />
       </g>
     ) : null}
     {/* lower crease */}
@@ -187,6 +195,17 @@ const Tuft: React.FC<{ x: number; y: number }> = ({ x, y }) => (
   </g>
 );
 
+/** backrest outline: flat Chesterfield block with a gently puffed (tufted) top edge */
+const BACK_PATH = (() => {
+  const x0 = 84;
+  const x1 = 576;
+  const n = 6;
+  const step = (x1 - x0) / n;
+  let d = `M40 1102 V884 Q40 840 ${x0} 840`;
+  for (let i = 0; i < n; i++) d += ` Q${x0 + step * (i + 0.5)} ${833} ${x0 + step * (i + 1)} 840`;
+  return `${d} Q620 840 620 884 V1102 Z`;
+})();
+
 const Backrest: React.FC = () => {
   // diamond crease lattice right of the face
   const creases: string[] = [];
@@ -206,7 +225,7 @@ const Backrest: React.FC = () => {
   return (
     <g>
       {/* backrest body */}
-      <rect x={40} y={840} width={580} height={262} rx={44} fill={C.leather} stroke={C.seams} strokeWidth={5} />
+      <path d={BACK_PATH} fill={C.leather} stroke={C.seams} strokeWidth={5} strokeLinejoin="round" />
       {/* rolled top edge */}
       <path d="M62 846 Q330 832 598 846" fill="none" stroke={C.gloss} strokeWidth={8} strokeLinecap="round" />
       <path d="M52 872 Q330 862 608 872" fill="none" stroke={C.shade} strokeWidth={4} strokeLinecap="round" />
@@ -266,9 +285,9 @@ const SeatFront: React.FC = () => (
       ))}
     </g>
     <path d="M48 1366 H612" stroke={C.seams} strokeWidth={4} />
-    {/* split seam with stuffing poking out (adult wear) */}
-    <path d="M488 1262 q14 -8 30 2" fill="none" stroke={C.seams} strokeWidth={4} strokeLinecap="round" />
-    <path d="M492 1262 q6 -10 12 -4 q6 -8 12 2 q-12 6 -24 2 Z" fill={C.stuffing} stroke={C.seams} strokeWidth={2} />
+    {/* old split seam, badly stitched shut (adult wear) */}
+    <path d="M470 1262 q24 -10 52 0" fill="none" stroke={C.seams} strokeWidth={4} strokeLinecap="round" />
+    <path d="M478 1250 l6 18 M490 1248 l4 18 M502 1248 l2 18 M514 1250 l0 18" stroke={C.stuffing} strokeWidth={2} strokeLinecap="round" opacity={0.7} />
     {/* seat front edge (cushion face with piping) */}
     <rect x={40} y={1098} width={580} height={92} rx={18} fill={C.leather} stroke={C.seams} strokeWidth={5} />
     <path d="M60 1106 Q330 1098 600 1106" fill="none" stroke={C.gloss} strokeWidth={6} strokeLinecap="round" />
@@ -329,6 +348,7 @@ export const Chester: React.FC<ChesterProps> = (p) => {
     <g transform={t}>
       <Backrest />
       {/* face (x 60–250, y 860–1010) */}
+      {open > 0.02 ? <MouthHole open={open} /> : <MouthFold mouth={p.mouth} />}
       <BrowFold cx={EL_X} side={0} fold={fold} />
       <BrowFold cx={ER_X} side={1} fold={fold} />
       <LeatherEye cx={EL_X} cy={EYE_Y} st={le} blink={p.blink} extra={extraL} side={0} uid={uid} />
@@ -338,7 +358,6 @@ export const Chester: React.FC<ChesterProps> = (p) => {
           <path d={`M${EL_X - 46} ${EYE_Y - 10} l-8 -4 M${EL_X - 46} ${EYE_Y + 6} l-9 2 M${ER_X + 46} ${EYE_Y - 10} l8 -4 M${ER_X + 46} ${EYE_Y + 6} l9 2`} />
         </g>
       ) : null}
-      {open > 0.02 ? <MouthHole open={open} /> : <MouthFold mouth={p.mouth} />}
     </g>
   );
 };

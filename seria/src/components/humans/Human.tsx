@@ -5,7 +5,7 @@
 import React from "react";
 import type { HumanProps } from "../../contract";
 import type { HumanAccessory, HumanPose } from "../../enums";
-import { HUMAN_COLORS as C } from "../../engine";
+import { FONTS, HUMAN_COLORS as C } from "../../engine";
 
 const INK = "#121212";
 type P = [number, number];
@@ -157,8 +157,8 @@ function rigFor(pose: HumanPose, m: number): Rig {
           <g>
             <rect x={70} y={-160} width={130} height={14} fill="#4a4c52" stroke={INK} strokeWidth={3} />
             <path d="M84 -146 v140 M188 -146 v140" stroke={INK} strokeWidth={6} />
-            <text x={120} y={-246 - bob * 2} fontFamily="Anton" fontSize={34} fill="#F2ECDD" stroke={INK} strokeWidth={2}>z</text>
-            <text x={146} y={-276 - bob * 2} fontFamily="Anton" fontSize={24} fill="#F2ECDD" stroke={INK} strokeWidth={1.5}>z</text>
+            <text x={120} y={-246 - bob * 2} fontFamily={FONTS.caption} fontSize={34} fill="#F2ECDD" stroke={INK} strokeWidth={2}>z</text>
+            <text x={146} y={-276 - bob * 2} fontFamily={FONTS.caption} fontSize={24} fill="#F2ECDD" stroke={INK} strokeWidth={1.5}>z</text>
           </g>
         ),
       };

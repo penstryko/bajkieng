@@ -6,7 +6,7 @@
 // Everything time-varying comes from windowT (frames since the layer started; 0 in S0).
 import React from "react";
 import type { SetProps } from "../../contract";
-import { FONTS, HUMAN_COLORS, POS, SET_COLORS as C } from "../../engine";
+import { FONTS, POS, SET_COLORS as C } from "../../engine";
 import { Human } from "../humans/Human";
 import { rnd } from "./room";
 import { tone } from "./color";
@@ -96,7 +96,7 @@ const Kiosk: React.FC<{ neonOn: boolean; t: number }> = ({ neonOn, t }) => {
 };
 
 const queueCount = (t: number): number => {
-  const k = Math.min(1, t / 150);
+  const k = Math.min(1, t / 210);
   return Math.round(99999 * (1 - Math.pow(1 - k, 3)));
 };
 const fmtThousands = (n: number): string => {
@@ -106,20 +106,22 @@ const fmtThousands = (n: number): string => {
 
 /** S01E01 window consequence: office tower, head-banging humans, growing PRINT QUEUE bubble. Window-local. */
 const OfficePrintQueue: React.FC<{ t: number }> = ({ t }) => {
-  const tx0 = 12, tx1 = 164, ty0 = 92;
-  const cols = 3, rows = 4, cw = 40, ch = 38, gx = 8, gy = 7;
+  // tower left of the mullion (local x 145–155), bubble above it, inside the glass
+  const tx0 = 6, tx1 = 142, ty0 = 134;
+  const cols = 2, cw = 56, ch = 48, gx = 8, gy = 8;
   const ix0 = tx0 + (tx1 - tx0 - (cols * cw + (cols - 1) * gx)) / 2;
-  const iy0 = ty0 + 16;
+  const iy0 = ty0 + 12;
   const cells: React.ReactNode[] = [];
-  for (let r = 0; r < rows; r++)
+  for (let r = 0; r < 3; r++)
     for (let c = 0; c < cols; c++) {
       const x = ix0 + c * (cw + gx), y = iy0 + r * (ch + gy);
       const i = r * cols + c;
-      const dark = i === 4 || i === 9;
-      const period = 16 + (i % 3) * 4;
-      const ph = (t + i * 7) % period;
-      const bang = t <= 0 ? 0 : ph < period / 2 ? 34 * Math.sin((ph / (period / 2)) * Math.PI) : 0;
-      const hit = t > 0 && ph >= period / 2 - 2 && ph < period / 2 + 2;
+      const dark = i === 3;
+      const period = 14 + (i % 3) * 4;
+      const ph = (t + i * 5) % period;
+      const half = period / 2;
+      const bang = t <= 0 ? 0 : ph < half ? 44 * Math.sin((ph / half) * Math.PI) * (ph < half / 2 ? 0.6 : 1) : 0;
+      const hit = t > 0 && ph >= half - 3 && ph < half + 1;
       cells.push(
         <g key={i}>
           <rect x={x} y={y} width={cw} height={ch} fill={dark ? "#141a26" : "#D8E6C8"} />
@@ -129,11 +131,14 @@ const OfficePrintQueue: React.FC<{ t: number }> = ({ t }) => {
                 <rect x={x} y={y} width={cw} height={ch} />
               </clipPath>
               <g clipPath={`url(#set-office-cell-${i})`}>
-                <Human pose="type" x={x + (i % 2 ? 24 : 16)} y={y + ch + 1} scale={0.15} flip={i % 2 === 1} moveAngle={bang} />
+                <Human pose="type" x={x + (i % 2 ? cw - 22 : 22)} y={y + ch + 12} scale={0.17} flip={i % 2 === 1} moveAngle={bang} />
               </g>
               {hit ? (
-                <g stroke={INK} strokeWidth={1.6} strokeLinecap="round">
-                  <path d={`M${x + cw / 2 - 6} ${y + 8} l-3 -4 M${x + cw / 2} ${y + 6} v-5 M${x + cw / 2 + 6} ${y + 8} l3 -4`} />
+                <g stroke={INK} strokeWidth={2.2} strokeLinecap="round">
+                  {(() => {
+                    const hx = x + (i % 2 ? cw - 22 - 14 : 22 + 14);
+                    return <path d={`M${hx - 7} ${y + 12} l-4 -6 M${hx} ${y + 9} v-7 M${hx + 7} ${y + 12} l4 -6`} />;
+                  })()}
                 </g>
               ) : null}
             </g>
@@ -141,25 +146,24 @@ const OfficePrintQueue: React.FC<{ t: number }> = ({ t }) => {
         </g>,
       );
     }
-  // growing bubble over the tower
-  const grow = Math.min(1, t / 90);
-  const s = 0.35 + 0.65 * (1 - Math.pow(1 - grow, 3)) + 0.18 * Math.min(1, Math.max(0, (t - 90) / 600));
+  // the bubble keeps growing for 8 s while the number counts up to 99 999 (then holds)
+  const g = Math.min(1, t / 240);
+  const s = 0.3 + 0.7 * (1 - Math.pow(1 - g, 2));
   const n = queueCount(t);
-  const bx = 92, by = 76; // tail point on the tower top
-  const bw = 176, bh = 96;
+  const bx = 74, by = 124; // tail target: tower roof
+  const bw = 140, bh = 88, bcy = 72; // body centre y at full size
   return (
     <g>
       <rect x={tx0} y={ty0} width={tx1 - tx0} height={WH - ty0} fill="#222b3d" stroke={INK} strokeWidth={3} />
-      <rect x={tx0 + 4} y={ty0 - 10} width={tx1 - tx0 - 8} height={12} fill="#1a2132" />
+      <rect x={tx0 + 10} y={ty0 - 10} width={tx1 - tx0 - 20} height={12} fill="#1a2132" stroke={INK} strokeWidth={2} />
       {cells}
-      {/* dots tail + bubble (scale about the tail) */}
-      {[0, 1, 2].map((i) => (
-        <circle key={i} cx={bx + 4 * i} cy={by - 4 - 9 * i} r={2.5 + i * 1.3} fill="#F4F1EA" stroke={INK} strokeWidth={1.8} opacity={Math.min(1, t / 6)} />
-      ))}
-      <g transform={`translate(${bx} ${by - 30}) scale(${s}) translate(${-bx} ${-(by - 30)})`}>
-        <rect x={bx - bw / 2} y={by - 30 - bh} width={bw} height={bh} rx={26} fill="#F4F1EA" stroke={INK} strokeWidth={4} />
-        <text x={bx} y={by - 30 - bh + 34} textAnchor="middle" fontFamily={FONTS.crt} fontSize={30} fill={INK}>PRINT QUEUE:</text>
-        <text x={bx} y={by - 30 - 14} textAnchor="middle" fontFamily={FONTS.crt} fontSize={56} fill="#C8262B">{fmtThousands(n)}</text>
+      {t > 0
+        ? [0, 1].map((i) => <circle key={i} cx={bx - 2 * i} cy={by - 4 - 8 * i} r={2.6 + i * 1.4} fill="#F4F1EA" stroke={INK} strokeWidth={1.8} />)
+        : null}
+      <g transform={`translate(${bx} ${bcy + bh / 2}) scale(${s}) translate(${-bx} ${-(bcy + bh / 2)})`}>
+        <rect x={bx - bw / 2} y={bcy - bh / 2} width={bw} height={bh} rx={22} fill="#F4F1EA" stroke={INK} strokeWidth={4} />
+        <text x={bx} y={bcy - 12} textAnchor="middle" fontFamily={FONTS.crt} fontSize={24} fill={INK}>PRINT QUEUE:</text>
+        <text x={bx} y={bcy + 32} textAnchor="middle" fontFamily={FONTS.crt} fontSize={48} fill="#C8262B">{fmtThousands(n)}</text>
       </g>
     </g>
   );
@@ -177,8 +181,8 @@ const Blinds: React.FC<{ k: number }> = ({ k }) => {
       <rect x={0} y={0} width={WW} height={top + 16} fill={tone(C.blinds, -0.1)} stroke={INK} strokeWidth={2} />
       {[4, 9, 14].map((y) => <rect key={y} x={2} y={y} width={WW - 4} height={2} fill={tone(C.blinds, -0.4)} />)}
       <rect x={0} y={Math.max(top + 14, reach - 6)} width={WW} height={8} fill={tone(C.blinds, -0.25)} stroke={INK} strokeWidth={2} />
-      <path d={`M${WW - 30} ${top + 16} V${Math.max(top + 70, reach + 40)}`} stroke="#d8d0bf" strokeWidth={2} />
-      <circle cx={WW - 30} cy={Math.max(top + 70, reach + 40)} r={4} fill="#d8d0bf" />
+      <path d={`M${WW - 22} ${top + 16} V${Math.max(top + 46, reach + 30)}`} stroke="#d8d0bf" strokeWidth={2} />
+      <circle cx={WW - 22} cy={Math.max(top + 46, reach + 30)} r={3.5} fill="#d8d0bf" />
     </g>
   );
 };
@@ -217,4 +221,3 @@ export const WindowLayer: React.FC<Pick<SetProps, "windowLayer" | "windowT" | "w
   </g>
 );
 
-export const HUMAN_TONE = HUMAN_COLORS;

@@ -53,8 +53,9 @@ export const Background: React.FC = () => {
       <path d="M28 348 C 34 380 22 410 36 450 C 46 420 56 392 52 348 Z" fill={C.stain} opacity={0.7} />
       <path d="M232 620 l14 26 l-6 18 l16 30 l-4 22" stroke="#2f2922" strokeWidth={3} fill="none" strokeLinecap="round" />
       {/* peeling wallpaper corner (right, above the platform buttons) */}
-      <path d="M1080 560 L1036 560 L1080 640 Z" fill="#3b342b" />
-      <path d="M1036 560 L1080 560 L1052 600 Q1046 584 1036 560 Z" fill={tone(C.wallStripe, 0.12)} stroke="#2f2922" strokeWidth={2} />
+      <path d="M1080 548 L1030 552 Q1040 600 1080 652 Z" fill="#6b6152" />
+      <path d="M1030 552 Q1044 600 1080 652 L1080 640 Q1062 616 1058 590 Q1050 566 1030 552 Z" fill="#2a251f" opacity={0.5} />
+      <path d="M1030 552 Q1010 590 1036 612 Q1050 596 1046 576 Q1040 560 1030 552 Z" fill={tone(C.wallStripe, 0.1)} stroke="#211d18" strokeWidth={2.5} />
 
       {/* drop ceiling */}
       <rect x={0} y={0} width={1080} height={cb} fill={C.ceiling} />
@@ -122,8 +123,8 @@ const Diploma: React.FC<{ text: string }> = ({ text }) => {
         </text>
       ))}
       {/* red seal + ribbon, bottom right; foxing spot */}
-      <path d={`M${x1 - 38} ${y1 - 30} l-8 26 l10 -6 l6 10 l2 -28 z`} fill="#7e1b22" />
-      <circle cx={x1 - 36} cy={y1 - 34} r={12} fill="#a3262f" stroke="#5c1218" strokeWidth={2} />
+      <path d={`M${x1 - 26} ${y1 - 8} l-8 26 l10 -6 l6 10 l2 -28 z`} fill="#7e1b22" />
+      <circle cx={x1 - 24} cy={y1 - 12} r={13} fill="#a3262f" stroke="#5c1218" strokeWidth={2} />
       <circle cx={inner.x + 14} cy={inner.y + inner.h - 12} r={7} fill="#c9b48a" opacity={0.6} />
     </g>
   );
@@ -141,10 +142,10 @@ const Plant: React.FC<{ stage: number; leafFall?: number }> = ({ stage, leafFall
   // 7 leaves at stage 0 → 1 leaf at stage 12; droop grows with the stage
   const nLeaves = Math.max(1, 7 - Math.round(k * 6));
   const LEAVES = [
-    { a: -62, len: 120, size: 1.0 }, { a: -28, len: 150, size: 1.05 }, { a: 8, len: 140, size: 1.0 },
-    { a: -82, len: 95, size: 0.9 }, { a: 34, len: 105, size: 0.95 }, { a: -46, len: 70, size: 0.85 }, { a: 22, len: 70, size: 0.85 },
+    { a: -50, len: 100, size: 1.0 }, { a: -18, len: 124, size: 1.05 }, { a: 14, len: 114, size: 1.0 },
+    { a: -66, len: 80, size: 0.9 }, { a: 40, len: 88, size: 0.95 }, { a: -34, len: 64, size: 0.85 }, { a: 28, len: 62, size: 0.85 },
   ];
-  const droop = 10 + 55 * k;
+  const droop = 12 + 78 * k;
   const fallen = Math.min(4, Math.floor(s / 3));
   return (
     <g>
@@ -158,21 +159,22 @@ const Plant: React.FC<{ stage: number; leafFall?: number }> = ({ stage, leafFall
       {Array.from({ length: fallen }, (_, i) => (
         <ellipse key={i} cx={70 + i * 36} cy={y - 4} rx={14} ry={5} fill={mixHex("#7E6036", "#5a4326", (i % 2) * 0.5)} transform={`rotate(${(i % 2 ? 12 : -9)} ${70 + i * 36} ${y - 4})`} />
       ))}
-      {/* stems + leaves */}
+      {/* stems + leaves: stems arc up then bend over; the bend (droop) grows with the stage */}
       {LEAVES.slice(0, nLeaves).map((L, i) => {
-        const ang = ((L.a + droop * (L.a < -50 ? 0.5 : 1)) * Math.PI) / 180;
-        const bend = (L.a < 0 ? -1 : 1) * (12 + 30 * k);
-        const ex = stemBase[0] + Math.sin(ang) * L.len;
-        const ey = stemBase[1] - Math.cos(ang) * L.len;
-        const mx = (stemBase[0] + ex) / 2 + bend * 0.4;
-        const my = (stemBase[1] + ey) / 2 - 18;
-        const leafAng = (ang * 180) / Math.PI + 90 * (L.a < 0 ? -1 : 1) * (0.25 + 0.6 * k);
-        const sz = L.size * (1 - 0.25 * k);
+        const side = L.a < 0 ? -1 : 1;
+        const endA = ((L.a + side * droop) * Math.PI) / 180;
+        const len = L.len * (1 - 0.15 * k);
+        const ex = stemBase[0] + Math.sin(endA) * len;
+        const ey = stemBase[1] - Math.cos(endA) * len * 0.9;
+        const cx = stemBase[0] + Math.sin((L.a * Math.PI) / 180) * len * 0.55;
+        const cy = stemBase[1] - len * (0.75 - 0.15 * k);
+        const tangent = (Math.atan2(ey - cy, ex - cx) * 180) / Math.PI;
+        const sz = L.size * (1.15 - 0.3 * k);
         const col = i === 0 && s >= 9 ? tone(leafCol, -0.15) : leafCol;
         return (
           <g key={i}>
-            <path d={`M${stemBase[0]} ${stemBase[1]} Q${mx} ${my} ${ex} ${ey}`} stroke={mixHex("#4c6b26", "#6b5230", k)} strokeWidth={5} fill="none" strokeLinecap="round" />
-            <g transform={`translate(${ex} ${ey}) rotate(${leafAng}) scale(${sz})`}>
+            <path d={`M${stemBase[0]} ${stemBase[1]} Q${cx} ${cy} ${ex} ${ey}`} stroke={mixHex("#4c6b26", "#6b5230", k)} strokeWidth={5} fill="none" strokeLinecap="round" />
+            <g transform={`translate(${ex} ${ey}) rotate(${tangent + side * 10 * k}) scale(${sz})`}>
               <path d="M0 0 C 10 -14 34 -16 46 0 C 34 14 10 14 0 0 Z" fill={col} stroke={INK} strokeWidth={3} />
               <path d="M2 0 L40 0" stroke={leafShade} strokeWidth={2} />
               {k > 0.3 ? <path d="M30 -6 l8 4 l-6 4" stroke="#5a4326" strokeWidth={2} fill="none" /> : null}

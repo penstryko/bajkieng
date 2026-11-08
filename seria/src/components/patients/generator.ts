@@ -69,13 +69,14 @@ export interface MarkerDef {
 export const MARKERS: Record<string, MarkerDef> = {
   // office printer: control-panel lid, paper fan in the input tray, output slot = mouth with a paper tongue, paper drawer
   paper_tray_tongue: {
-    bodyAspect: 1.02,
-    topExtra: 0.26,
-    face: [0.06, 0.15, 0.94, 0.92],
-    eyeLine: 0.25,
-    mouthLine: 0.6,
+    bodyAspect: 1.14,
+    topExtra: 0.34,
+    face: [0.06, 0.15, 0.94, 0.95],
+    eyeLine: 0.22,
+    mouthLine: 0.5,
     ownsSlot: true,
-    wearSpots: [[0.16, 0.42], [0.84, 0.47], [0.3, 0.86], [0.75, 0.86]],
+    // free zones of the printer front: lower-left / lower-right beside the paper tongue, right edge
+    wearSpots: [[0.15, 0.7], [0.86, 0.7], [0.3, 0.9]],
   },
   toaster_slots: { bodyAspect: 1.25, topExtra: 0.08, face: [0.1, 0.2, 0.9, 0.9] },
   cracked_screen_badge: { face: [0.12, 0.16, 0.88, 0.8] },
@@ -125,11 +126,13 @@ export function makePatient(spec: PatientSpec, maxSize?: { w: number; h: number 
   const shape = SHAPES[spec.shape] ?? SHAPES.rect_horizontal;
   const marker = MARKERS[spec.functionMarker] ?? null;
   const aspect = marker?.bodyAspect ?? shape.aspect;
-  const topExtra = marker?.topExtra ?? 0;
+  const antenna = spec.accessories.includes("antenna") ? 0.12 : 0;
+  const topExtra = Math.min(0.5, (marker?.topExtra ?? 0) + antenna);
   // total natural aspect: body w / (body h / (1 − topExtra))
   const totalAspect = aspect * (1 - topExtra);
-  const boxW = maxW / 1.1; // leave 10 % for horizontal squash
-  const boxH = maxH;
+  // the 6 px outline is drawn OUTSIDE the parts (union outline), so subtract 2 × 6 px; leave 10 % for squash
+  const boxW = (maxW - 12) / 1.1;
+  const boxH = maxH - 6;
   let w = boxW, h = boxW / totalAspect;
   if (h > boxH) {
     h = boxH;
@@ -149,7 +152,7 @@ export function makePatient(spec: PatientSpec, maxSize?: { w: number; h: number 
   const eyes = { cx: (face.x0 + face.x1) / 2, cy: eyeCy, ew, eh, gap, ratio: ew / w };
   const mouthCy = face.y0 + fh * (marker?.mouthLine ?? shape.mouthLine ?? 0.7);
   const mouth = { cx: eyes.cx, cy: mouthCy, w: Math.min(fw * 0.62, w * 0.5) };
-  const slot = { cx: mouth.cx, cy: mouth.cy, w: marker?.ownsSlot ? w * 0.66 : mouth.w };
+  const slot = { cx: mouth.cx, cy: mouth.cy, w: marker?.ownsSlot ? w * 0.6 : mouth.w };
 
   // wear placements: marker-preferred spots first, then seeded spots away from the eyes/mouth
   const spots = marker?.wearSpots ?? [];

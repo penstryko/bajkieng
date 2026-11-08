@@ -56,36 +56,52 @@ const PERM_CURLS: Curl[] = (() => {
   });
   // side curls hugging the temples (15 px wider than the face on each side)
   [
-    [668, 662, 13],
-    [852, 662, 13],
-    [669, 684, 12],
-    [851, 684, 12],
+    [668, 664, 13],
+    [852, 664, 13],
   ].forEach(([x, y, r]) => out.push({ x, y, r }));
   return out;
 })();
 
-const Perm: React.FC = () => (
+/** point on a circle at angle a (degrees, clockwise from +x, SVG y-down) */
+const pt = (x: number, y: number, r: number, a: number) => `${(x + r * Math.cos((a * Math.PI) / 180)).toFixed(2)} ${(y + r * Math.sin((a * Math.PI) / 180)).toFixed(2)}`;
+
+const Perm: React.FC<{ uid: string }> = ({ uid }) => (
   <g>
+    <defs>
+      <clipPath id={`${uid}-perm`}>
+        {PERM_CURLS.map((c, i) => (
+          <circle key={i} cx={c.x} cy={c.y} r={c.r} />
+        ))}
+      </clipPath>
+    </defs>
+    {/* ink outline of the scalloped silhouette */}
     {PERM_CURLS.map((c, i) => (
       <circle key={`o${i}`} cx={c.x} cy={c.y} r={c.r + 4} fill={INK} />
     ))}
-    {PERM_CURLS.map((c, i) => (
-      <circle key={`s${i}`} cx={c.x} cy={c.y} r={c.r} fill={C.hairShade} />
-    ))}
-    {PERM_CURLS.map((c, i) => (
-      <circle key={`l${i}`} cx={c.x - 2.5} cy={c.y - 3} r={c.r - 3.5} fill={C.hair} />
-    ))}
-    {/* curl texture: tiny C-strokes */}
-    {PERM_CURLS.filter((_, i) => i % 2 === 0).map((c, i) => (
-      <path
-        key={`t${i}`}
-        d={`M${c.x + 3} ${c.y - 5} a5 5 0 1 0 2 8`}
-        fill="none"
-        stroke={C.hairShade}
-        strokeWidth={2.5}
-        strokeLinecap="round"
-      />
-    ))}
+    {/* shade, then the lit mass shifted up-left → shade survives only on the lower-right rim */}
+    <g clipPath={`url(#${uid}-perm)`}>
+      <rect x={640} y={510} width={240} height={180} fill={C.hairShade} />
+      {PERM_CURLS.map((c, i) => (
+        <circle key={`l${i}`} cx={c.x - 4} cy={c.y - 6} r={c.r} fill={C.hair} />
+      ))}
+      {/* curl definition: a shadow crescent on the lower-right of most curls */}
+      {PERM_CURLS.map((c, i) =>
+        random(`perm-tex-${i}`) < 0.72 ? (
+          <path
+            key={`t${i}`}
+            d={`M${pt(c.x - 2, c.y - 2, c.r - 5, -15 + 30 * random(`perm-a-${i}`))} A${c.r - 5} ${c.r - 5} 0 0 1 ${pt(c.x - 2, c.y - 2, c.r - 5, 95 + 25 * random(`perm-b-${i}`))}`}
+            fill="none"
+            stroke={C.hairShade}
+            strokeWidth={3}
+            strokeLinecap="round"
+          />
+        ) : null,
+      )}
+      {/* a few light glints on top */}
+      {PERM_CURLS.filter((_, i) => i % 5 === 1).map((c, i) => (
+        <path key={`g${i}`} d={`M${pt(c.x - 3, c.y - 4, c.r - 7, 200)} A${c.r - 7} ${c.r - 7} 0 0 1 ${pt(c.x - 3, c.y - 4, c.r - 7, 255)}`} fill="none" stroke="#D3CFC9" strokeWidth={2.5} strokeLinecap="round" />
+      ))}
+    </g>
   </g>
 );
 
@@ -99,14 +115,14 @@ interface BrowShape {
 }
 const BROWS_ART: Record<Brows, BrowShape> = {
   neutral: { l: [0, 0], r: [0, 0] },
-  low_flat: { l: [6, 0], r: [6, 0], w: 6 },
+  low_flat: { l: [6, 0], r: [6, 0], w: 8 },
   one_up: { l: [0, 0], r: [-13, -6], arch: 3 },
   skeptic: { l: [4, 10], r: [-13, -8], arch: 3 },
   v: { l: [2, 16], r: [2, 16] },
   high: { l: [-14, 0], r: [-14, 0], arch: 2 },
   arched: { l: [-12, 0], r: [-12, 0], arch: 7 },
   slant_down: { l: [-2, -15], r: [-2, -15] },
-  v_strong: { l: [5, 26], r: [5, 26], w: 9 },
+  v_strong: { l: [5, 26], r: [5, 26], w: 13 },
 };
 const BROW_C = { l: 716, r: 804, y: 675 };
 
@@ -114,8 +130,8 @@ const Brow: React.FC<{ side: "l" | "r"; shape: BrowShape }> = ({ side, shape }) 
   const [dy, ang] = shape[side];
   const cx = BROW_C[side];
   const cy = BROW_C.y + dy;
-  const w = 46;
-  const h = shape.w ?? 8;
+  const w = 50;
+  const h = shape.w ?? 11;
   const a = shape.arch ?? 0;
   // inner end = towards the nose; mirror the angle for the right brow
   const rot = side === "l" ? ang : -ang;
@@ -125,7 +141,7 @@ const Brow: React.FC<{ side: "l" | "r"; shape: BrowShape }> = ({ side, shape }) 
       d={`M${cx - w / 2} ${cy + h / 2} Q${cx} ${cy - h / 2 - a * 2} ${cx + w / 2} ${cy + h / 2} L${cx + w / 2 - 3} ${cy - h / 2 + 1} Q${cx} ${cy - h - a * 2} ${cx - w / 2 + 3} ${cy - h / 2 + 1} Z`}
       fill={C.hairShade}
       stroke={INK}
-      strokeWidth={2}
+      strokeWidth={3}
       strokeLinejoin="round"
     />
   );
@@ -276,18 +292,19 @@ const Torso: React.FC = () => (
       <circle key={i} cx={x} cy={y} r={2.2} fill={C.cardiganShade} />
     ))}
     {/* big buttons */}
-    {[992, 1066].map((y) => (
+    {[988, 1066].map((y) => (
       <g key={y}>
         <circle cx={760} cy={y} r={11} fill={C.clipboard} stroke={INK} strokeWidth={3} />
         <circle cx={756} cy={y - 1} r={1.8} fill={INK} />
         <circle cx={764} cy={y - 1} r={1.8} fill={INK} />
       </g>
     ))}
+    {/* lanyard (comes from under the collar) */}
+    <path d="M736 868 L755 934 M784 868 L765 934" stroke={C.lanyard} strokeWidth={5} strokeLinecap="round" />
     {/* collar points */}
     <path d="M714 854 L760 872 L731 902 Z" fill={C.collar} stroke={INK} strokeWidth={3} strokeLinejoin="round" />
     <path d="M806 854 L760 872 L789 902 Z" fill={C.collar} stroke={INK} strokeWidth={3} strokeLinejoin="round" />
-    {/* lanyard + badge "DR." */}
-    <path d="M733 878 L755 934 M787 878 L765 934" stroke={C.lanyard} strokeWidth={5} strokeLinecap="round" />
+    {/* badge "DR." */}
     <rect x={753} y={927} width={14} height={12} rx={2} fill="#9AA0A6" stroke={INK} strokeWidth={2} />
     <rect x={730} y={935} width={60} height={40} rx={4} fill={C.badge} stroke={INK} strokeWidth={3} />
     <rect x={730} y={935} width={60} height={8} rx={2} fill={C.lanyard} />
@@ -302,8 +319,9 @@ const Extras: React.FC<{ extras: DoctorProps["extras"] }> = ({ extras }) => (
   <g>
     {extras.includes("sweat") ? (
       <g stroke={INK} strokeWidth={2.5} strokeLinejoin="round">
-        <path d="M866 660 q11 17 0 27 q-11 -10 0 -27 Z" fill={SWEAT} />
-        <path d="M880 698 q7 11 0 17 q-7 -6 0 -17 Z" fill={SWEAT} />
+        <path d="M878 612 q16 24 0 38 q-16 -14 0 -38 Z" fill={SWEAT} />
+        <path d="M873 621 q-3 8 -1 14" fill="none" stroke="#FFFFFF" strokeWidth={2.5} strokeLinecap="round" />
+        <path d="M898 660 q9 14 0 22 q-9 -8 0 -22 Z" fill={SWEAT} />
       </g>
     ) : null}
     {extras.includes("steam") ? (
@@ -342,9 +360,9 @@ const Clipboard: React.FC = () => (
     ))}
     <path d="M674 1058 q6 -6 10 0 t10 0 t10 0 t10 0 M674 1092 q6 -6 10 0 t10 0 t10 0 M700 1126 q6 -6 10 0 t10 0 t10 0 t10 0" fill="none" stroke={C.hairShade} strokeWidth={2} />
     {/* clip */}
-    <rect x={726} y={998} width={68} height={24} rx={5} fill="#9AA0A6" stroke={INK} strokeWidth={3} />
-    <rect x={742} y={992} width={36} height={10} rx={4} fill="none" stroke={INK} strokeWidth={3} />
-    <rect x={732} y={1003} width={56} height={4} rx={2} fill="#C9CDD1" />
+    <path d="M728 1024 L732 1002 H788 L792 1024 Z" fill="#9AA0A6" stroke={INK} strokeWidth={3} strokeLinejoin="round" />
+    <rect x={738} y={1007} width={44} height={4} rx={2} fill="#C9CDD1" />
+    <circle cx={760} cy={1017} r={3} fill={INK} />
   </g>
 );
 
@@ -411,12 +429,51 @@ const Hands: React.FC<{ pen: DoctorProps["pen"]; penPhase: number }> = ({ pen, p
   );
 };
 
+/** drop_out pose: both arms thrown up (rubber-hose), pen still in the right hand. */
+const RaisedArms: React.FC = () => (
+  <g>
+    <Tube d="M682 884 Q640 760 646 566" />
+    <Tube d="M838 884 Q890 740 862 520" />
+    <g stroke={INK} strokeWidth={3} strokeLinejoin="round">
+      {/* left open glove */}
+      <path d="M630 566 q-10 -18 2 -30 l2 -18 q4 -8 10 0 l2 12 l2 -16 q5 -8 10 0 l1 16 l4 -10 q6 -6 9 2 l-3 22 q4 18 -12 26 q-16 6 -27 -4 Z" fill={C.skin} />
+      <rect x={634} y={562} width={26} height={12} rx={5} fill={C.collar} strokeWidth={2.5} />
+    </g>
+    <g transform="translate(866 570) rotate(-8)">
+      <Pen press={0} />
+    </g>
+    <g stroke={INK} strokeWidth={3} strokeLinejoin="round">
+      <path d="M846 520 q-4 -14 8 -18 l16 -2 q14 0 14 14 l-2 14 q-4 10 -18 8 l-12 -4 q-8 -4 -6 -12 Z" fill={C.skin} />
+      <path d="M852 514 h18 M852 523 h16" fill="none" strokeWidth={2} />
+      <rect x={850} y={530} width={26} height={12} rx={5} fill={C.collar} strokeWidth={2.5} />
+    </g>
+  </g>
+);
+
 // ───────────────────────────── component ─────────────────────────────
 export const Doctor: React.FC<DoctorProps> = (p) => {
   const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const off = placementOffset(p.placement, p.placementT);
 
   if (p.layer === "hands") {
+    if (p.placement === "drop_out") {
+      // the clipboard stays; arms fly up and fall with her behind it (pen hand peeks out at t = 1)
+      return (
+        <g>
+          <defs>
+            <clipPath id={`${uid}-dropout-hands`}>
+              <rect x={0} y={0} width={1080} height={POS.doctor.dropOutClipY} />
+            </clipPath>
+          </defs>
+          <Clipboard />
+          <g clipPath={`url(#${uid}-dropout-hands)`}>
+            <g transform={`translate(${off.x} ${off.y + p.bob})`}>
+              <RaisedArms />
+            </g>
+          </g>
+        </g>
+      );
+    }
     const ho = handsOffset(p.placement, p.placementT);
     return (
       <g transform={ho.x || ho.y ? `translate(${ho.x} ${ho.y})` : undefined}>
@@ -434,7 +491,7 @@ export const Doctor: React.FC<DoctorProps> = (p) => {
       </g>
       <g transform={headT}>
         <Face mouth={p.mouth} blink={p.blink} />
-        <Perm />
+        <Perm uid={uid} />
         <Brow side="l" shape={BROWS_ART[p.brows] ?? BROWS_ART.neutral} />
         <Brow side="r" shape={BROWS_ART[p.brows] ?? BROWS_ART.neutral} />
         <Glasses
