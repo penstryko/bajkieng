@@ -11,12 +11,8 @@ import { WindowLayer } from "./window";
 export { WINDOW_LAYER_IDS } from "./registry";
 export { TomatoTimer, ROOM } from "./room";
 
-/**
- * SetProps plus one optional extension (not yet in contract.ts):
- * `patientNo` — number on the "NOW SERVING" counter (decor layer). Integrator: pass episode.patientNo
- * in every frame including state0Scene(); absent → the counter shows "---".
- */
-export type SetPropsExt = SetProps & { patientNo?: number };
+/** Kept as an alias: `patientNo` (NOW SERVING counter) and `decorJolt` are now part of SetProps (contract.ts). */
+export type SetPropsExt = SetProps;
 
 export const Set: React.FC<SetPropsExt> = (p) => {
   switch (p.layer) {
@@ -25,7 +21,7 @@ export const Set: React.FC<SetPropsExt> = (p) => {
     case "window":
       return <WindowLayer windowLayer={p.windowLayer} windowT={p.windowT} windowSlot={p.windowSlot} neonOn={p.neonOn} blinds={p.blinds} />;
     case "decor":
-      return <Decor diplomaText={p.diplomaText} plantStage={p.plantStage} leafFall={p.leafFall} patientNo={p.patientNo} />;
+      return <Decor diplomaText={p.diplomaText} plantStage={p.plantStage} leafFall={p.leafFall} patientNo={p.patientNo} jolt={p.decorJolt} />;
     case "chair":
       return <Chair state={p.chairState} />;
     case "table":

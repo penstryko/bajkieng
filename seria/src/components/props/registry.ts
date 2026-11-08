@@ -10,7 +10,9 @@ export const VIGNETTE_KEYS = ["office_kick", "office_yell", "paper_jam_yank"] as
 export const VIGNETTE_MOVING: Record<(typeof VIGNETTE_KEYS)[number], readonly string[]> = {
   office_kick: ["human_leg", "printer_shake"],
   office_yell: ["human_arm"],
-  paper_jam_yank: ["paper"],
+  paper_jam_yank: ["paper", "printer_jolt"],
 };
 /** Flying/popping props (PropItem.tsx). */
-export const PROP_KEYS = ["paper_strip", "paper_jam", "paper_sheet", "paper_ball"] as const;
+export const PROP_KEYS = ["paper_strip", "paper_jam", "paper_sheet", "paper_ball", "spit_burst", "cloth", "lens_glint"] as const;
+/** Reset-ritual props: allowed only inside the GLASSES reset shot [N−75, N−30) (lint 2), never in S0. */
+export const RITUAL_PROP_KEYS = ["cloth", "lens_glint"] as const;

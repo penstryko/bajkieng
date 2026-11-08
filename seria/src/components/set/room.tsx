@@ -224,15 +224,23 @@ const PatientCounter: React.FC<{ patientNo?: number }> = ({ patientNo }) => {
   );
 };
 
-export const Decor: React.FC<Pick<SetProps, "diplomaText" | "plantStage" | "leafFall"> & { patientNo?: number }> = ({
-  diplomaText, plantStage, leafFall, patientNo,
-}) => (
-  <g>
-    <Diploma text={diplomaText} />
-    <Plant stage={plantStage} leafFall={leafFall} />
-    <PatientCounter patientNo={patientNo} />
-  </g>
-);
+export const Decor: React.FC<Pick<SetProps, "diplomaText" | "plantStage" | "leafFall" | "patientNo"> & { jolt?: [number, number] }> = ({
+  diplomaText, plantStage, leafFall, patientNo, jolt,
+}) => {
+  // wall decor jolts against the wall (landlord's knocks); the diploma also tilts a little
+  const j = jolt && (jolt[0] !== 0 || jolt[1] !== 0) ? jolt : null;
+  return (
+    <g>
+      <g transform={j ? `translate(${j[0]} ${j[1]}) rotate(${(j[0] * 0.6).toFixed(3)} 820 380)` : undefined}>
+        <Diploma text={diplomaText} />
+      </g>
+      <Plant stage={plantStage} leafFall={leafFall} />
+      <g transform={j ? `translate(${(-j[0] * 0.8).toFixed(3)} ${j[1]})` : undefined}>
+        <PatientCounter patientNo={patientNo} />
+      </g>
+    </g>
+  );
+};
 
 // ───────────────────────────── z3 doctor's armchair ─────────────────────────────
 
@@ -304,15 +312,32 @@ export const TomatoTimer: React.FC<{ timer: TimerProps; cx?: number; cy?: number
     ? <circle cx={cx} cy={fy} r={fr} fill={C.timerTomato} opacity={0.85} />
     : <path d={`M${cx} ${fy} L${cx} ${fy - fr} A${fr} ${fr} 0 ${sweep > 180 ? 1 : 0} 1 ${ex} ${ey} Z`} fill={C.timerTomato} opacity={0.85} />;
   const wob = timer.ringing > 0 ? 7 * timer.ringing * Math.sin(timer.ringing * 38) : 0;
+  // DING (ringing 1 → 0 over 30 frames): frames since DING drive a hop with squash, ring bursts and a 2-frame flash
+  const tD = timer.ringing > 0 ? Math.round((1 - timer.ringing) * 30) : -1;
+  const hop = tD >= 0 && tD < 10 ? -28 * Math.sin((Math.PI * tD) / 10) : 0;
+  const sq = tD === 0 ? [1.18, 0.8] : tD === 1 ? [0.9, 1.12] : tD === 10 || tD === 11 ? [1.12, 0.88] : [1, 1];
+  const burst = tD >= 0 && tD < 22 ? 1 - tD / 22 : 0;
+  const rings = (side: -1 | 1) =>
+    [0, 1, 2].map((i) => {
+      const r = 58 + i * 18 + (tD % 6) * 2;
+      return <path key={i} d={`M${cx + side * r} ${cy - 22 - i * 9} q${side * (12 + i * 5)} ${22 + i * 9} 0 ${44 + i * 18}`} />;
+    });
   return (
-    <g transform={`translate(${timer.jitter[0]} ${timer.jitter[1]}) translate(${cx} ${cy + 40}) scale(${scale}) rotate(${wob}) translate(${-cx} ${-(cy + 40)})`}>
-      {timer.ringing > 0 ? (
-        <g stroke="#F2ECDD" strokeWidth={5} strokeLinecap="round" fill="none" opacity={Math.min(1, timer.ringing * 1.5)}>
-          <path d={`M${cx - 62} ${cy - 20} q-12 20 0 40 M${cx - 76} ${cy - 30} q-18 30 0 60`} />
-          <path d={`M${cx + 62} ${cy - 20} q12 20 0 40 M${cx + 76} ${cy - 30} q18 30 0 60`} />
+    <g transform={`translate(${timer.jitter[0]} ${timer.jitter[1] + hop}) translate(${cx} ${cy + 40}) scale(${scale * sq[0]} ${scale * sq[1]}) rotate(${wob}) translate(${-cx} ${-(cy + 40)})`}>
+      {tD >= 0 && tD < 2 ? <circle cx={cx} cy={cy} r={92 - 16 * tD} fill="#FFF6D8" opacity={0.85 - 0.3 * tD} /> : null}
+      {burst > 0 ? (
+        <g strokeLinecap="round" fill="none" opacity={Math.min(1, burst * 1.6)}>
+          <g stroke={INK} strokeWidth={11}>{rings(-1)}{rings(1)}</g>
+          <g stroke="#FFF1C4" strokeWidth={6}>{rings(-1)}{rings(1)}</g>
+          <g stroke={INK} strokeWidth={5}>
+            {[-60, -30, 0, 30, 60].map((a) => {
+              const c = Math.sin((a * Math.PI) / 180), k = Math.cos((a * Math.PI) / 180);
+              return <path key={a} d={`M${cx + 56 * c} ${cy - 44 * k - 6} l${16 * c} ${-16 * k}`} />;
+            })}
+          </g>
         </g>
       ) : null}
-      <ellipse cx={cx} cy={cy + 41} rx={38} ry={5} fill="#000" opacity={0.35} />
+      <ellipse cx={cx} cy={cy + 41 - hop} rx={38} ry={5} fill="#000" opacity={0.35} />
       <ellipse cx={cx} cy={cy} rx={45} ry={39} fill={C.timerTomato} stroke={INK} strokeWidth={5} />
       <path d={`M${cx - 30} ${cy + 26} Q${cx} ${cy + 40} ${cx + 30} ${cy + 26}`} stroke={tone(C.timerTomato, -0.35)} strokeWidth={6} fill="none" strokeLinecap="round" />
       <ellipse cx={cx - 22} cy={cy - 22} rx={10} ry={6} fill="#fff" opacity={0.35} transform={`rotate(-30 ${cx - 22} ${cy - 22})`} />

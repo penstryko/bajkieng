@@ -1,0 +1,35 @@
+{"t":"2026-11-08T19:32:19.106Z","episode":"S01E01","event":"start","creditsUsedBefore":48899,"creditLimit":142668,"todo":["SFX01_tick","SFX02_ding","SFX03_wind","SFX04_click","SFX05_fall","SFX06_land","SFX07_springs","SFX10_chirp","SFX11_lens","SFX12_scribble","SFX13_page","SFX14_bubble","SFX15_knocks","SFX20_wipe","SFX18_roomtone_loop64","theme_loop64","SFX01_tick_bed64","cue_cured","MM01","MM02","MM07","MM15","MM13","printer_talk","printer_rant","printer_cry","printer_curse","printer_exit","printer_no_VP6","window_office_chaos","doctor_print_hiccup","print_job_incoming","doctor_print_frenzy"],"estimate":5440}
+{"t":"2026-11-08T19:32:21.329Z","episode":"S01E01","asset":"SFX01_tick","endpoint":"sound-generation","estimate":20,"characterCost":6,"spentEstimate":20,"spentHeader":6}
+{"t":"2026-11-08T19:32:22.860Z","episode":"S01E01","asset":"SFX02_ding","endpoint":"sound-generation","estimate":60,"characterCost":17,"spentEstimate":80,"spentHeader":23}
+{"t":"2026-11-08T19:32:24.346Z","episode":"S01E01","asset":"SFX03_wind","endpoint":"sound-generation","estimate":32,"characterCost":9,"spentEstimate":112,"spentHeader":32}
+{"t":"2026-11-08T19:32:25.894Z","episode":"S01E01","asset":"SFX04_click","endpoint":"sound-generation","estimate":20,"characterCost":6,"spentEstimate":132,"spentHeader":38}
+{"t":"2026-11-08T19:32:27.739Z","episode":"S01E01","asset":"SFX05_fall","endpoint":"sound-generation","estimate":20,"characterCost":6,"spentEstimate":152,"spentHeader":44}
+{"t":"2026-11-08T19:32:29.247Z","episode":"S01E01","asset":"SFX06_land","endpoint":"sound-generation","estimate":32,"characterCost":9,"spentEstimate":184,"spentHeader":53}
+{"t":"2026-11-08T19:32:31.027Z","episode":"S01E01","asset":"SFX07_springs","endpoint":"sound-generation","estimate":60,"characterCost":17,"spentEstimate":244,"spentHeader":70}
+{"t":"2026-11-08T19:32:32.493Z","episode":"S01E01","asset":"SFX10_chirp","endpoint":"sound-generation","estimate":20,"characterCost":6,"spentEstimate":264,"spentHeader":76}
+{"t":"2026-11-08T19:32:33.942Z","episode":"S01E01","asset":"SFX11_lens","endpoint":"sound-generation","estimate":20,"characterCost":6,"spentEstimate":284,"spentHeader":82}
+{"t":"2026-11-08T19:32:35.539Z","episode":"S01E01","asset":"SFX12_scribble","endpoint":"sound-generation","estimate":32,"characterCost":9,"spentEstimate":316,"spentHeader":91}
+{"t":"2026-11-08T19:32:36.890Z","episode":"S01E01","asset":"SFX13_page","endpoint":"sound-generation","estimate":20,"characterCost":6,"spentEstimate":336,"spentHeader":97}
+{"t":"2026-11-08T19:32:38.391Z","episode":"S01E01","asset":"SFX14_bubble","endpoint":"sound-generation","estimate":24,"characterCost":7,"spentEstimate":360,"spentHeader":104}
+{"t":"2026-11-08T19:32:40.190Z","episode":"S01E01","asset":"SFX15_knocks","endpoint":"sound-generation","estimate":64,"characterCost":18,"spentEstimate":424,"spentHeader":122}
+{"t":"2026-11-08T19:32:42.049Z","episode":"S01E01","asset":"SFX20_wipe","endpoint":"sound-generation","estimate":24,"characterCost":7,"spentEstimate":448,"spentHeader":129}
+{"t":"2026-11-08T19:32:43.622Z","episode":"S01E01","asset":"cue_cured","endpoint":"sound-generation","estimate":120,"characterCost":33,"spentEstimate":568,"spentHeader":162}
+{"t":"2026-11-08T19:32:45.082Z","episode":"S01E01","asset":"printer_talk","endpoint":"sound-generation","estimate":60,"characterCost":17,"spentEstimate":628,"spentHeader":179}
+{"t":"2026-11-08T19:32:46.590Z","episode":"S01E01","asset":"printer_rant","endpoint":"sound-generation","estimate":100,"characterCost":28,"spentEstimate":728,"spentHeader":207}
+{"t":"2026-11-08T19:32:48.444Z","episode":"S01E01","asset":"printer_cry","endpoint":"sound-generation","estimate":100,"characterCost":28,"spentEstimate":828,"spentHeader":235}
+{"t":"2026-11-08T19:32:50.041Z","episode":"S01E01","asset":"printer_curse","endpoint":"sound-generation","estimate":32,"characterCost":9,"spentEstimate":860,"spentHeader":244}
+{"t":"2026-11-08T19:32:51.610Z","episode":"S01E01","asset":"printer_exit","endpoint":"sound-generation","estimate":80,"characterCost":22,"spentEstimate":940,"spentHeader":266}
+{"t":"2026-11-08T19:32:53.232Z","episode":"S01E01","asset":"window_office_chaos","endpoint":"sound-generation","estimate":120,"characterCost":33,"spentEstimate":1060,"spentHeader":299}
+{"t":"2026-11-08T19:32:54.879Z","episode":"S01E01","asset":"doctor_print_hiccup","endpoint":"sound-generation","estimate":32,"characterCost":9,"spentEstimate":1092,"spentHeader":308}
+{"t":"2026-11-08T19:32:56.486Z","episode":"S01E01","asset":"print_job_incoming","endpoint":"sound-generation","estimate":48,"characterCost":13,"spentEstimate":1140,"spentHeader":321}
+{"t":"2026-11-08T19:32:57.999Z","episode":"S01E01","asset":"doctor_print_frenzy","endpoint":"sound-generation","estimate":160,"characterCost":44,"spentEstimate":1300,"spentHeader":365}
+{"t":"2026-11-08T19:33:01.595Z","episode":"S01E01","asset":"SFX18_roomtone_loop64","endpoint":"sound-generation(loop)","estimate":1200,"characterCost":330,"spentEstimate":2500,"spentHeader":695}
+{"t":"2026-11-08T19:33:11.171Z","episode":"S01E01","asset":"theme_loop64","endpoint":"music","estimate":1440,"characterCost":null,"spentEstimate":3940,"spentHeader":695}
+{"t":"2026-11-08T19:33:24.940Z","episode":"S01E01","asset":"voice:doctor","endpoint":"text-to-voice/design (eleven_ttv_v3)","estimate":600,"characterCost":null,"spentEstimate":4540,"spentHeader":695}
+{"t":"2026-11-08T19:33:32.744Z","episode":"S01E01","asset":"voice:doctor","endpoint":"text-to-voice (save)","voiceId":"LZirsF5GBfgWydOjub6v"}
+{"t":"2026-11-08T19:33:40.894Z","episode":"S01E01","asset":"tts:doctor_flat","endpoint":"text-to-speech/with-timestamps (eleven_v3)","estimate":184,"characterCost":114,"spentEstimate":4724,"spentHeader":809}
+{"t":"2026-11-08T19:33:45.423Z","episode":"S01E01","asset":"tts:doctor_expressive","endpoint":"text-to-speech/with-timestamps (eleven_v3)","estimate":86,"characterCost":49,"spentEstimate":4810,"spentHeader":858}
+{"t":"2026-11-08T19:33:54.839Z","episode":"S01E01","asset":"voice:patient_vp6","endpoint":"text-to-voice/design (eleven_ttv_v3)","estimate":600,"characterCost":null,"spentEstimate":5410,"spentHeader":858}
+{"t":"2026-11-08T19:33:58.825Z","episode":"S01E01","event":"end","calls":30,"spentEstimate":5410,"spentHeader":858,"creditsUsedAfter":50781,"accountDelta":1882,"failed":[]}
+{"t":"2026-11-08T19:34:51.543Z","episode":"S01E01","event":"start","creditsUsedBefore":51109,"creditLimit":142668,"todo":[],"estimate":0}
+{"t":"2026-11-08T19:34:56.543Z","episode":"S01E01","event":"end","calls":0,"spentEstimate":0,"spentHeader":0,"creditsUsedAfter":51109,"accountDelta":0,"failed":[]}

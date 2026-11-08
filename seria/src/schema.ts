@@ -52,6 +52,9 @@ export interface PatientPose extends Tween {
   land?: PatientLanding;
   variant?: "base" | "transformed";
   eyesSwap?: PatientEyes;
+  /** Extension: control-panel state for function markers with a panel (printer): "fence" = blinking amber LED +
+   *  fence glyph on the display (advice A01 applied), "base" = back to the patient.json display. */
+  panel?: "base" | "fence";
 }
 export type PoseEvent =
   | { char: "doctor"; at: Frame; set: DoctorPose }
@@ -88,7 +91,16 @@ export interface State0 {
   doctor: { pen: "raised"; brows: "neutral"; mouth: "flat"; headTilt: 0; glassesY: 0; lens: "patient_file_icon"; placement: "chair" };
   chester: { eyes: "wide_up"; mouth: "tight"; sag: 0.02 };
   chirp: { led: "off" };
-  patient: { topY: number; scale: 1.0; motionLines: true }; // topY default 230; x from actor anchor
+  patient: {
+    topY: number; // default 230; x from actor anchor
+    scale: 1.0;
+    motionLines: true;
+    /** Extension: eye pair shown in S0 (the hook frame: mid-fall), default = patient.json eyes. The pose before
+     *  HOLD must set the same eyesSwap (lint 2), so frames 0–5 and N−15…N−1 stay identical. */
+    eyes?: PatientEyes;
+    /** Extension: brows shown in S0, default = patient.json brows (same continuity rule). */
+    brows?: PatientBrows;
+  };
   timer: { dial: 1.0 };
   window: "calm";
   couchShadow: { scale: 1.0; opacity: 0.6 };
@@ -166,6 +178,17 @@ export interface Bed {
   musicGainDb?: number;
   roomToneGainDb?: number;
   tickGainDb?: number;
+  /** Extension: music gain ramps (dB, linear-in-dB ramps of `rampFrames`, default 3, on both sides). Negative =
+   *  duck (e.g. the twist's half second of silence), positive = swell (e.g. the climax). Gains of overlapping
+   *  entries add up. Keep every entry inside [6, N−75) so the bed is identical at both ends of the file. */
+  musicDucks?: MusicDuck[];
+}
+
+export interface MusicDuck {
+  from: Frame;
+  to: Frame;
+  gainDb: number; // −60 … +8
+  rampFrames?: number;
 }
 
 export interface PropEvent {
@@ -175,6 +198,11 @@ export interface PropEvent {
   to: Frame;
   anim: PropAnim;
   path?: XY[];
+  /** Extension (fly/launch): the path is travelled in this many frames, then the prop rests at the last point
+   *  until `to` (default: the whole range). */
+  flightFrames?: number;
+  /** Extension (fly/launch): easing of the travel (default launch "in", fly "inOut"). */
+  ease?: Ease;
 }
 
 export interface BubbleEvent {
@@ -204,6 +232,15 @@ export interface ParticleEvent {
   type: ParticleType;
   origin: XY;
   count: number;
+  /** Extension: emission cone centre in degrees (screen coords, y down: 0 = right, 90 = down, 180 = left);
+   *  absent = all directions. */
+  dir?: number;
+  /** Extension: cone width in degrees (default 360). */
+  spread?: number;
+  /** Extension: initial speed multiplier (default 1). */
+  speed?: number;
+  /** Extension: particles older than 4 frames are hidden while inside this rect (keep a face readable). */
+  avoid?: Rect;
 }
 
 export interface CaptionEvent {
@@ -214,8 +251,10 @@ export interface CaptionEvent {
 
 export interface ShakeEvent {
   at: Frame;
-  amp: number; // 6–24 px
+  amp: number; // 6–24 px (4–6 for small knocks)
   decayFrames: number;
+  /** Extension: also jolt the wall decor (diploma, NOW SERVING counter) by ~40 % of the amplitude. */
+  decor?: boolean;
 }
 
 export interface Episode {

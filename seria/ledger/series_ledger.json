@@ -1,0 +1,6 @@
+{
+  "$comment": "Series results register (bible 6.3). One entry per published/locked episode, in air order. Lint rule 8 checks each episode against the entries before it. Owned by the episode/audio builder.",
+  "episodes": [
+    { "id": "S01E01", "patientName": "Office Printer", "exitType": "E01", "winner": "patient", "patientCategory": "object", "woundId": "W05", "adviceId": "A01", "twistId": "T03" }
+  ]
+}

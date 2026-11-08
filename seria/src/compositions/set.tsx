@@ -3,7 +3,7 @@
 // pages; the components themselves stay pure.
 //
 //   ModelSheetSet      9 pages (frames): 0 S0 composite · 1 seated curse + office window · 2 memory bubble ·
-//                      3 empty room variants · 4 twist (doctor spits jammed paper) · 5–7 notepad · 8 window ×3
+//                      3 empty room variants · 4 twist (doctor spits jammed paper) · 5–7 notepad · 8 window growth
 //   ModelSheetPatient  6 pages: 0 printer expressions · 1 shapes · 2 eyes · 3 mouths · 4 wear/accessories/markers · 5 icon test
 //   ModelSheetProps    3 pages: 0 bubbles + caption · 1 humans · 2 props + particles
 //   PatientIcon        160×160 black silhouette of episodes/<episodeId>/patient.json → qa/icon.png
@@ -21,7 +21,7 @@ import { Doctor } from "../components/cast/Doctor";
 import { Chester } from "../components/cast/Chester";
 import { Chirp } from "../components/cast/Chirp";
 import {
-  FONTS, NO_IDLE, POS, SET_COLORS, bubbleInflate, grawlix, particlesAt, landing,
+  FONTS, NO_IDLE, POS, SET_COLORS, bubbleInflate, grawlix, particlesAt, landing, ritual,
 } from "../engine";
 import {
   HUMAN_ACCESSORIES, HUMAN_POSES, MOUTH_SHAPES, MOUTH_STYLES, PATIENT_ACCESSORY_KINDS, PATIENT_EYES, PATIENT_PALETTE,
@@ -170,19 +170,30 @@ const ModelSheetSet: React.FC = () => {
         </AbsoluteFill>
       );
     default: {
-      // window ×3 (office layer late in the episode) — readability check of the S01E01 consequence
+      // window: the S01E01 consequence (office_print_queue) — growth over QUEUE_RAMP and readability at ×1 (WIDE)
+      const crop = (key: string, t: number, x: number, y: number, k: number, label: string, layer = "office_print_queue") => (
+        <g key={key}>
+          <clipPath id={`qa-win-${key}`}>
+            <rect x={370} y={340} width={340} height={330} />
+          </clipPath>
+          <g transform={`translate(${x} ${y}) scale(${k}) translate(-540 -505)`}>
+            <g clipPath={`url(#qa-win-${key})`}>
+              <Set layer="background" {...setBase} />
+              <Set layer="window" {...setBase} windowLayer={layer} windowT={t} />
+            </g>
+          </g>
+          <Label x={x} y={y + 165 * k + 40} size={26}>{label}</Label>
+        </g>
+      );
       return (
         <AbsoluteFill style={{ backgroundColor: SET_COLORS.wall }}>
           <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{ display: "block" }}>
-            <g transform="translate(540 700) scale(3.2) translate(-540 -500)">
-              <Set layer="background" {...setBase} />
-              <Set layer="window" {...setBase} windowLayer="office_print_queue" windowT={130} />
-            </g>
-            <g transform="translate(540 1500) scale(1.6) translate(-540 -500)">
-              <Set layer="background" {...setBase} />
-              <Set layer="window" {...setBase} windowLayer="office_print_queue" windowT={20} />
-            </g>
-            <Label x={540} y={1880}>office_print_queue · windowT 130 (×3.2) / 20 (×1.6)</Label>
+            <Label x={540} y={70} size={40}>Window · office_print_queue (S01E01 consequence)</Label>
+            {crop("zoom", 600, 540, 560, 2.4, "×2.4 · windowT 600 (f 1500): queue maxed, heads on keyboards")}
+            {crop("t60", 60, 190, 1330, 1, "×1 · t 60 (f 960)")}
+            {crop("t300", 300, 540, 1330, 1, "×1 · t 300 (f 1200)")}
+            {crop("t600", 600, 890, 1330, 1, "×1 · t 600+ (f 1500)")}
+            {crop("calm", 0, 540, 1720, 0.9, `calm (S0 and f ${ritual(1920).GLASSES}+)`, "calm")}
           </svg>
         </AbsoluteFill>
       );
@@ -292,6 +303,8 @@ const ModelSheetPatient: React.FC = () => {
           {grid(11, 4, (i, x, y) => (
             <Cell key={i} spec={genericSpec(1, { shape: "rect_vertical", wear: [PATIENT_WEAR[i]], eyes: "half_lidded", palette: { base: "#C0C4C8", shade: "#9a9ea2", accent: "#E4572E" } })} x={x} y={y} s={0.62} label={PATIENT_WEAR[i]} />
           ), 40, 300)}
+          {/* accessory placement search: two flat accessories on a round body avoid eyes, mouth and each other */}
+          <Cell spec={genericSpec(5, { shape: "sphere", accessories: ["display:1%", "urgent_sticky"], wear: ["dust"], eyes: "tired_bags", mouth: { type: "rhubarb", driver: "rms", style: "thin" } })} x={945} y={1000} s={0.62} label="display + urgent" />
           {PATIENT_ACCESSORY_KINDS.map((a, i) => {
             const x = (1080 / 4) * ((i % 4) + 0.5), y = 1360 + 250 * Math.floor(i / 4);
             const acc = a === "display" ? "display:ERR 49" : a;

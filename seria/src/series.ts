@@ -4,14 +4,14 @@
 
 export const SERIES = {
   /** Series display title (working title, see bible §12 clearance). */
-  title: "Dr. Mm-hm",
-  /** Episode title prefix, e.g. "Dr. Mm-hm #001: The Printer Who Said No". */
-  episodeTitlePrefix: "Dr. Mm-hm",
+  title: "Dr. Beige",
+  /** Episode title prefix, e.g. "Dr. Beige #001: The Printer Who Said No". */
+  episodeTitlePrefix: "Dr. Beige",
   /** On-screen badge text on the doctor's lanyard (bible §3.1). */
   doctorBadge: "DR.",
   /** Display names (captions, model sheets). Never used as identifiers. */
   names: {
-    doctor: "Dr. Mm-hm",
+    doctor: "Dr. Beige",
     chester: "Chester",
     chirp: "Chirp",
   },

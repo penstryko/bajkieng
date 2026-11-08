@@ -56,6 +56,9 @@ export interface DoctorProps {
   /** patient shown on the "patient_file_icon" lens (monochrome #8EF0C9 silhouette) */
   patient?: PatientSpec;
   patientNo?: number;
+  /** reset ritual: scene point of the left hand wiping the lenses (the `cloth` prop draws hand + rag there); the
+   *  left arm reaches up to it instead of gripping the clipboard. Absent = normal pose (always absent in S0). */
+  wipeHand?: XY;
 }
 
 // ───────────────────────────── Glasses (cast builder) ─────────────────────────────
@@ -96,6 +99,10 @@ export interface ChesterProps {
   /** springPoke: 0 hidden … 1 fully out; with wobble angle in degrees */
   spring: number;
   springWobble: number;
+  /** base (bottom-centre) of the panic spring in scene px; default [212, 1104] = the bare seat strip between the
+   *  armrest and a solo patient (keeps it off the patient and below Chester's face zone). Integrator derives it
+   *  from the actors' anchors. */
+  springAt?: XY;
   /** scaleY delta ±0.01 (sleepy breathing); 0 in S0 */
   breath: number;
 }
@@ -150,6 +157,10 @@ export interface SetProps {
   timer: TimerProps;
   /** z15 vignette opacity (default 0.35) */
   vignetteOpacity: number;
+  /** number on the "NOW SERVING" counter (decor layer); pass episode.patientNo on every frame incl. S0; absent → "---" */
+  patientNo?: number;
+  /** px jolt of the wall decor (diploma, NOW SERVING counter) relative to the wall, e.g. the landlord's knocks; absent/[0,0] in S0 */
+  decorJolt?: XY;
 }
 
 // ───────────────────────────── Patient (set builder) ─────────────────────────────
@@ -179,6 +190,11 @@ export interface PatientProps {
   motionLines: boolean;
   /** 0..1 crying intensity (tears) */
   tears: number;
+  /** frames since the crying started (drives the falling drops); 0 / absent when not crying */
+  tearsT?: number;
+  /** control-panel state (function marker "paper_tray_tongue"): status LED 0..1 amber, display glyph instead of the
+   *  display text (e.g. "fence" = the advice A01 was applied). Absent in S0. */
+  panel?: { led: number; glyph?: "fence" };
   /** 0..1 swallow progress into Chester's mouth (mask + scaleY → 0); 0 = none */
   swallow: number;
   /** if set: render as a flat silhouette of this colour (icon test R1, lens patient file icon) */
@@ -260,6 +276,8 @@ export interface PropItemProps {
   /** frames since the prop appeared */
   t: number;
   motionLines: boolean;
+  /** direction of travel in degrees (0 = right, 90 = down); motion lines trail behind it. Default 0. */
+  heading?: number;
 }
 
 /** z13 particles (engine particlesAt) */

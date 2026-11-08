@@ -252,6 +252,8 @@ export interface PropState {
   opacity: number;
   motionLines: boolean;
   t: number; // local frame since prop.from
+  /** direction of travel in degrees (screen coords, 0 = right, 90 = down); motion lines trail behind it */
+  heading?: number;
 }
 
 /** Props track (bible §9.2 `props`): pop | fly | drop | launch. Without a path, props sit at path[0] or the patient anchor. */
@@ -272,10 +274,16 @@ export function propAt(p: PropEvent, frame: number, fallback: XY = POS.patient.s
     }
     case "fly":
     case "launch": {
-      const ease: Ease = p.anim === "launch" ? "in" : "inOut";
-      const k = easeProgress(frame, p.from, p.to, ease);
+      const ease: Ease = p.ease ?? (p.anim === "launch" ? "in" : "inOut");
+      // optional flight time: travel the path in `flightFrames`, then rest at its last point until `to`
+      const end = p.flightFrames ? Math.min(p.to, p.from + p.flightFrames) : p.to;
+      const k = easeProgress(Math.min(frame, end), p.from, end, ease);
       const [x, y] = pathAt(path, k);
-      return { visible: true, x, y, scale: 1, rotate: p.anim === "launch" ? k * 360 : 0, opacity: 1, motionLines: p.anim === "launch", t };
+      const flying = frame < end || !p.flightFrames;
+      const [px, py] = pathAt(path, Math.max(0, k - 0.03));
+      const [nx, ny] = pathAt(path, Math.min(1, k + 0.03));
+      const heading = (Math.atan2(ny - py, nx - px) * 180) / Math.PI;
+      return { visible: true, x, y, scale: 1, rotate: p.anim === "launch" ? k * 360 : 0, opacity: 1, motionLines: p.anim === "launch" && flying, t, heading };
     }
   }
 }
@@ -386,7 +394,7 @@ export function grawlix(frame: number, at: number, text = "#$%&!", seed: number 
   return [...text].map((char, i) => ({
     char,
     scale: popIn(frame, at + 2 * i, { settle: 14 }),
-    rot: 14 * noise(seed, `gr${i}`),
+    rot: 9 * noise(seed, `gr${i}`), // capped so neighbouring glyphs cannot collide (Bubble lays them out with spacing)
     dx: 2 * noise(seed, `gx${i}:${k}`),
     dy: 2 * noise(seed, `gy${i}:${k}`),
   }));
@@ -441,16 +449,20 @@ export function particlesAt(frame: number, ev: ParticleEvent, seed: number | str
     const t0 = ev.from + Math.floor(r("t0") * spawnWindow);
     const age = frame - t0;
     if (age < 0) continue;
-    const ang = r("a") * TAU;
-    const speed = ph.v * (0.4 + 0.6 * r("s"));
+    // emission: all directions, or a cone (ev.dir ± ev.spread / 2, degrees, y down) with a faster, tighter speed range
+    const cone = ev.dir !== undefined;
+    const ang = cone ? (((ev.dir as number) + ((ev.spread ?? 360) * (r("a") - 0.5))) * Math.PI) / 180 : r("a") * TAU;
+    const speed = ph.v * (ev.speed ?? 1) * (cone ? 0.7 + 0.3 * r("s") : 0.4 + 0.6 * r("s"));
     const vx = Math.cos(ang) * speed;
-    const vy = Math.sin(ang) * speed * 0.6 - ph.up * r("u");
+    const vy = Math.sin(ang) * speed * (cone ? 1 : 0.6) - ph.up * r("u") * (cone ? 0.5 : 1);
     // linear drag approximation: v(t) = v0·e^(−d t); x(t) = v0 (1 − e^(−d t)) / d
     const dragT = ph.drag > 0 ? (1 - Math.exp(-ph.drag * age)) / ph.drag : age;
     const x = ev.origin[0] + vx * dragT + ph.flutter * Math.sin(age * 0.18 + r("p") * TAU) * (ph.flutter ? 1 : 0);
     const y = ev.origin[1] + vy * dragT + 0.5 * ph.g * age * age * (ph.drag > 0 ? Math.exp(-ph.drag * age * 0.5) : 1);
     const fadeIn = clamp(age / 3, 0, 1);
     const fadeOut = clamp((ev.to - frame) / 10, 0, 1);
+    const a = ev.avoid;
+    if (a && age > 4 && x > a[0] && x < a[2] && y > a[1] && y < a[3]) continue; // keep the protected rect clear
     out.push({
       x, y,
       rot: (r("r0") * 360 + ph.spin * age * noise(seed, `spin${i}`)) % 360,

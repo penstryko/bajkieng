@@ -1,0 +1,87 @@
+{
+  "$comment": "Audio catalog for tools/gen_audio.mjs (ElevenLabs) and tools/placeholder_audio.sh (local ffmpeg). One entry per final file. Paths are relative to seria/. Prompts are verbatim from the bible (sec. 7.2-7.4, 4.4) unless noted in 'note'. durationS = exact final length (trim/pad); maxS = natural length capped. 'library': true = only generated with --library (not used by S01E01).",
+  "sampleRate": 48000,
+  "budgetCredits": 15000,
+  "loop": { "samples": 3072000, "xfadeSamples": 4800, "bpm": 120, "downbeatOffsetSamples": 12000, "tickPeriodSamples": 24000, "tickOffsetSamples": 12000, "ticks": 128 },
+  "voices": {
+    "doctor": {
+      "store": "assets/vo/doctor/voice.json",
+      "save": true,
+      "saveName": "seria doctor (therapist) - Voice Design",
+      "designModel": "eleven_ttv_v3",
+      "guidanceScale": 35,
+      "description": "Native English. Female, late 60s. Studio quality.\nPersona: underpaid, deadpan therapist. Emotion: flat, bored, unshockable.\nA very low, slow, monotone voice with a dry, slightly nasal hum and a lazy closed-mouth delivery; long pauses and very little pitch movement, usually flat, but capable of rare sudden sharp reactions.",
+      "previewText": "Mm-hm. Go on. So the toaster left you, and now you feel like crumbs. I see. And how does that make you feel? Interesting. That will be ninety dollars. Time is up. Same time next week. Mm-hm. Mm-hm?",
+      "fallbackVoiceId": "XrExE9yKIg1WjnnlVkGX",
+      "note": "bible 3.1 (prompt + preview text verbatim). fallbackVoiceId = premade 'Matilda' (alto), used only if saving the designed voice fails (account voice slots)."
+    },
+    "patient_vp6": {
+      "store": "episodes/S01E01/vo/patient/voice_vp6.json",
+      "save": false,
+      "designModel": "eleven_ttv_v3",
+      "guidanceScale": 35,
+      "description": "Native English. Male, 40s. Studio quality.\nPersona: dead-eyed office drone. Emotion: numb, resigned, tired.\nA flat, mumbling, mid-low voice with no energy, words trailing off at the end.",
+      "previewText": "Copy. Scan. Print. Repeat. Twenty-four hours a day, four hundred pages at three in the morning, and nobody ever says thank you. Print it again? In color? ... ... No.",
+      "fallbackVoiceId": "pqHfZKP75CvOlQylNhV4",
+      "note": "bible 4.4 VP6 prompt verbatim. The account has no free voice slot for a second designed voice, so the one clear word 'No.' is cut from the Voice Design preview (last phrase after the long pause) instead of saving the voice. fallbackVoiceId = premade 'Bill', used only if the cut fails."
+    }
+  },
+  "ttsGroups": {
+    "doctor_flat": { "voice": "doctor", "model": "eleven_v3", "stability": 0.5, "note": "bible 7.3: flat lines, stability 45-50 -> v3 'Natural' (0.5). One request, split by character timestamps." },
+    "doctor_expressive": { "voice": "doctor", "model": "eleven_v3", "stability": 0.0, "note": "bible 7.3: expressive lines, stability 30-35 -> v3 'Creative' (0.0). One request, split by character timestamps." }
+  },
+  "clips": [
+    { "id": "SFX01_tick", "path": "assets/sfx/SFX01_tick.wav", "kind": "sfx", "requestS": 0.5, "durationS": 0.08, "fadeOutMs": 15, "prompt": "Single dry mechanical tick of a cheap plastic kitchen timer, close and crisp, no room sound", "ph": "tick" },
+    { "id": "SFX02_ding", "path": "assets/sfx/SFX02_ding.wav", "kind": "sfx", "requestS": 1.5, "durationS": 1.5, "fadeOutMs": 120, "prompt": "Single bright ring of a small kitchen timer bell, metallic, short natural decay", "ph": "ding" },
+    { "id": "SFX03_wind", "path": "assets/sfx/SFX03_wind.wav", "kind": "sfx", "requestS": 0.8, "durationS": 0.8, "fadeOutMs": 40, "prompt": "Kitchen timer dial twisted quickly, fast ratcheting plastic clicks", "ph": "ratchet" },
+    { "id": "SFX04_click", "path": "assets/sfx/SFX04_click.wav", "kind": "sfx", "requestS": 0.5, "durationS": 0.3, "fadeOutMs": 30, "prompt": "One crisp ballpoint pen click, close", "ph": "click" },
+    { "id": "SFX05_fall", "path": "assets/sfx/SFX05_fall.wav", "kind": "sfx", "requestS": 0.5, "durationS": 0.3, "fadeOutMs": 30, "prompt": "Very short cartoon falling whistle, quick descending pitch", "ph": "whistle_down" },
+    { "id": "SFX06_land", "path": "assets/sfx/SFX06_land.wav", "kind": "sfx", "requestS": 0.8, "durationS": 0.8, "fadeOutMs": 60, "prompt": "Heavy object dropping onto an old sprung sofa, soft thump followed by a springy boing", "ph": "thud_boing" },
+    { "id": "SFX07_springs", "path": "assets/sfx/SFX07_springs.wav", "kind": "sfx", "requestS": 1.5, "durationS": 1.5, "fadeOutMs": 120, "prompt": "Old sofa springs creaking and groaning slowly under weight", "ph": "creak" },
+    { "id": "SFX08_gulp", "path": "assets/sfx/SFX08_gulp.wav", "kind": "sfx", "library": true, "requestS": 0.7, "durationS": 0.7, "fadeOutMs": 60, "prompt": "Big cartoon gulp, deep and muffled, like something swallowed by thick cushions", "ph": "gulp" },
+    { "id": "SFX09_cough", "path": "assets/sfx/SFX09_cough.wav", "kind": "sfx", "library": true, "requestS": 1.2, "durationS": 1.2, "fadeOutMs": 80, "prompt": "Muffled cartoon cough ending with a small object popping out", "ph": "cough" },
+    { "id": "SFX10_chirp", "path": "assets/sfx/SFX10_chirp.wav", "kind": "sfx", "requestS": 0.5, "durationS": 0.4, "fadeOutMs": 40, "prompt": "Single high-pitched chirp of a smoke detector with a low battery", "ph": "chirp" },
+    { "id": "SFX11_lens", "path": "assets/sfx/SFX11_lens.wav", "kind": "sfx", "requestS": 0.5, "durationS": 0.28, "fadeOutMs": 30, "prompt": "Tiny old television switching channel, short static blip", "ph": "blip", "note": "0.3 s in the bible, trimmed to 0.28 s so the ritual blip at N-36 ends before N/30-0.9 s" },
+    { "id": "SFX12_scribble", "path": "assets/sfx/SFX12_scribble.wav", "kind": "sfx", "requestS": 0.8, "durationS": 0.8, "fadeOutMs": 60, "prompt": "Fast marker scribbling and squeaking on paper", "ph": "scribble" },
+    { "id": "SFX13_page", "path": "assets/sfx/SFX13_page.wav", "kind": "sfx", "requestS": 0.5, "durationS": 0.4, "fadeOutMs": 40, "prompt": "One sharp paper page flip on a clipboard", "ph": "flip" },
+    { "id": "SFX14_bubble", "path": "assets/sfx/SFX14_bubble.wav", "kind": "sfx", "requestS": 0.6, "durationS": 0.6, "fadeOutMs": 60, "prompt": "Soft cartoon bubble appearing with a gentle airy whoosh", "ph": "whoosh_up" },
+    { "id": "SFX15_knocks", "path": "assets/sfx/SFX15_knocks.wav", "kind": "sfx", "requestS": 1.6, "durationS": 1.45, "fadeOutMs": 40, "prompt": "Three slow, heavy knocks on a wooden door", "ph": "knocks", "note": "cut before the 4th knock of the generation (onset 1.50 s): the signature is three knocks (bible 3.4/7.1)" },
+    { "id": "SFX16_blinds", "path": "assets/sfx/SFX16_blinds.wav", "kind": "sfx", "library": true, "requestS": 0.7, "durationS": 0.7, "fadeOutMs": 60, "prompt": "Window blinds dropping quickly with a plastic rattle", "ph": "rattle" },
+    { "id": "SFX17_boom", "path": "assets/sfx/SFX17_boom.wav", "kind": "sfx", "library": true, "requestS": 1.2, "durationS": 1.2, "fadeOutMs": 100, "prompt": "Comedic cartoon explosion, soft puff and a pop, not realistic, short", "ph": "puff" },
+    { "id": "SFX19_neon", "path": "assets/sfx/SFX19_neon.wav", "kind": "sfx", "library": true, "requestS": 1.0, "durationS": 1.0, "fadeOutMs": 80, "prompt": "Faulty neon sign buzzing and flickering off and on, short electrical hum", "ph": "buzz" },
+    { "id": "SFX20_wipe", "path": "assets/sfx/SFX20_wipe.wav", "kind": "sfx", "requestS": 0.6, "durationS": 0.6, "fadeOutMs": 60, "prompt": "Soft microfiber cloth quickly wiping a pair of eyeglass lenses, two short gentle squeaky rubs, close, no room sound", "ph": "rub", "note": "NEW library entry (not in bible 7.2): the glasses-wipe of the reset ritual (6.1, 61.5-63.0 s). Author to approve adding it to 7.2." },
+
+    { "id": "SFX18_roomtone_loop64", "path": "assets/sfx/SFX18_roomtone_loop64.wav", "kind": "roomtone_loop", "requestS": 30, "loopFlag": true, "channels": 1, "samples": 3072000, "rmsDb": -44, "prompt": "Quiet small office at night, faint distant city traffic, steady, no voices", "ph": "roomtone", "note": "ElevenLabs loops export as MP3 only: decoded to 48 kHz, tiled to >= L+F samples, then report command 5 (qsin 100 ms tail->head) to exactly 3,072,000 samples." },
+    { "id": "theme_loop64", "path": "assets/music/theme_loop64.wav", "kind": "music_loop", "requestS": 72, "samples": 3072000, "rmsDb": -30, "prompt": "Instrumental, 120 BPM, 4/4, D minor, loopable, consistent energy, no intro, no ending, no outro.\nDeadpan waiting-room lounge jazz: muted upright bass walking line, brushed snare, dry electric piano chords,\noccasional soft vibraphone notes. Cheap, slightly worn and melancholic but quietly comedic. Sparse, leaves room\nfor sound effects and a ticking clock. 72 seconds, steady dynamics throughout.", "ph": "music", "note": "bible 7.4 prompt; length asked as 72 s (not 64) to leave whole bars for the bar-aligned cut. Post: tempo check (atempo to exactly 120 BPM if drifted), downbeat placed at 0.25 s + 2k s (bible 6.2), report command 5." },
+    { "id": "SFX01_tick_bed64", "path": "assets/sfx/SFX01_tick_bed64.wav", "kind": "tickbed", "from": "SFX01_tick", "samples": 3072000, "peakDb": -16, "prompt": "(code) SFX01_tick placed at sample 12000 + k*24000, k = 0..127", "note": "CONTRACT 8: pre-rendered tick track (the 12,000-sample offset is 7.5 frames)." },
+    { "id": "cue_cured", "path": "assets/music/cue_cured.wav", "kind": "sfx", "requestS": 3.0, "durationS": 3.0, "fadeOutMs": 250, "prompt": "Short cheesy celebratory fanfare on cheap electric organ, 3 seconds, slightly out of tune", "ph": "fanfare", "note": "bible 7.4 'Cured!' cue; generated with Sound Effects instead of Eleven Music (3 s sting, cheaper)." },
+
+    { "id": "MM01", "path": "assets/vo/doctor/MM01.wav", "kind": "tts_line", "group": "doctor_flat", "text": "[flatly] Mm-hm.", "maxS": 2.0, "ph": "hum_flat", "label": "neutral acknowledgement" },
+    { "id": "MM02", "path": "assets/vo/doctor/MM02.wav", "kind": "tts_line", "group": "doctor_flat", "text": "[bored] Mmm-hm.", "maxS": 2.0, "ph": "hum_bored", "label": "bored" },
+    { "id": "MM03", "path": "assets/vo/doctor/MM03.wav", "kind": "tts_line", "group": "doctor_flat", "text": "[curious] Mm-hm?", "maxS": 2.0, "ph": "hum_up", "label": "curious" },
+    { "id": "MM04", "path": "assets/vo/doctor/MM04.wav", "kind": "tts_line", "group": "doctor_flat", "text": "[skeptical] Mm... hm.", "maxS": 2.5, "ph": "hum_skeptic", "label": "skeptical" },
+    { "id": "MM07", "path": "assets/vo/doctor/MM07.wav", "kind": "tts_line", "group": "doctor_flat", "text": "[sarcastic] Mmm-hmmm.", "maxS": 2.5, "ph": "hum_sarcastic", "label": "sarcastic" },
+    { "id": "MM08", "path": "assets/vo/doctor/MM08.wav", "kind": "tts_line", "group": "doctor_flat", "text": "[exhales] Mm... hm...", "maxS": 3.0, "ph": "hum_sleepy", "label": "sleepy" },
+    { "id": "MM10", "path": "assets/vo/doctor/MM10.wav", "kind": "tts_line", "group": "doctor_flat", "text": "[sighs] Mm-hm.", "maxS": 2.5, "ph": "hum_down", "label": "disappointed" },
+    { "id": "MM11", "path": "assets/vo/doctor/MM11.wav", "kind": "tts_line", "group": "doctor_flat", "text": "[whispers] Mm-hm.", "maxS": 2.0, "ph": "hum_whisper", "label": "conspiratorial" },
+    { "id": "MM12", "path": "assets/vo/doctor/MM12.wav", "kind": "tts_line", "group": "doctor_flat", "text": "[firmly] Mm. Hm.", "maxS": 2.0, "ph": "hum_firm", "label": "diagnosis (firm)" },
+    { "id": "MM15", "path": "assets/vo/doctor/MM15.wav", "kind": "tts_line", "group": "doctor_flat", "text": "[slowly, with finality] Mm-hm.", "maxS": 2.5, "ph": "hum_verdict", "label": "verdict (catchphrase)" },
+    { "id": "MM05", "path": "assets/vo/doctor/MM05.wav", "kind": "tts_line", "group": "doctor_expressive", "text": "[angry] Mm. HM.", "maxS": 2.0, "ph": "hum_angry", "label": "menacing" },
+    { "id": "MM06", "path": "assets/vo/doctor/MM06.wav", "kind": "tts_line", "group": "doctor_expressive", "text": "[shouts] MM-HM?!", "maxS": 2.0, "ph": "hum_alarm", "label": "alarmed" },
+    { "id": "MM09", "path": "assets/vo/doctor/MM09.wav", "kind": "tts_line", "group": "doctor_expressive", "text": "[happy] Mm-hm!", "maxS": 2.0, "ph": "hum_happy", "label": "delighted (rare)" },
+    { "id": "MM13", "path": "assets/vo/doctor/MM13.wav", "kind": "tts_line", "group": "doctor_expressive", "text": "[whispers] ...mm-hm?", "maxS": 2.0, "ph": "hum_scared", "label": "terrified (quiet)" },
+    { "id": "MM14", "path": "assets/vo/doctor/MM14.wav", "kind": "tts_line", "group": "doctor_expressive", "text": "[laughs] Mm-hm.", "maxS": 2.5, "ph": "hum_laugh", "label": "suppressed laugh" },
+
+    { "id": "printer_talk", "path": "episodes/S01E01/sfx/printer_talk.wav", "kind": "sfx", "requestS": 1.5, "durationS": 1.5, "fadeOutMs": 80, "mouth": true, "prompt": "Office printer talking: short bursts of motor whirring, paper-feed clicks and soft beeps in a rhythm like a nervous person explaining something, 1.5 seconds, no music, no human voice", "ph": "thingish_talk", "note": "bible 4.4 TALK example, length 1.5 s (hook timing)" },
+    { "id": "printer_rant", "path": "episodes/S01E01/sfx/printer_rant.wav", "kind": "sfx", "requestS": 2.5, "durationS": 2.5, "fadeOutMs": 100, "mouth": true, "prompt": "Office printer ranting: rapid angry bursts of motor grinding, paper-feed rattles and sharp error beeps in a rhythm like a person ranting about their awful job, 2.5 seconds, no music, no human voice", "ph": "thingish_rant" },
+    { "id": "printer_cry", "path": "episodes/S01E01/sfx/printer_cry.wav", "kind": "sfx", "requestS": 2.5, "durationS": 2.5, "fadeOutMs": 150, "mouth": true, "prompt": "Office printer sobbing: slow wavering motor whines, stuttering paper-feed hiccups and sad descending beeps in a rhythm like a person sobbing, 2.5 seconds, no music, no human voice", "ph": "thingish_cry" },
+    { "id": "printer_curse", "path": "episodes/S01E01/sfx/printer_curse.wav", "kind": "sfx", "requestS": 0.8, "durationS": 0.8, "fadeOutMs": 60, "mouth": true, "prompt": "Office printer swearing: one harsh loud error buzz with a grinding paper jam crunch, 0.8 seconds, no music, no human voice", "ph": "thingish_curse", "note": "bible 4.4 CURSE example verbatim" },
+    { "id": "printer_exit", "path": "episodes/S01E01/sfx/printer_exit.wav", "kind": "sfx", "requestS": 2.0, "durationS": 2.0, "fadeOutMs": 150, "mouth": true, "prompt": "Office printer leaving happily: a light rising motor hum with cheerful ascending beeps and a final bright chime, in a rhythm like a person humming with relief, 2 seconds, no music, no human voice", "ph": "thingish_exit" },
+    { "id": "printer_no_VP6", "path": "episodes/S01E01/vo/patient/printer_no_VP6.wav", "kind": "design_word", "voice": "patient_vp6", "word": "No.", "maxS": 1.2, "mouth": true, "ph": "word_no", "prompt": "(Voice Design VP6 preview, last phrase) No." },
+
+    { "id": "window_office_chaos", "path": "episodes/S01E01/sfx/window_office_chaos.wav", "kind": "sfx", "requestS": 3.0, "durationS": 3.0, "fadeOutMs": 300, "prompt": "Muffled office heard through a closed window: many keyboards slammed at once, dull thuds of foreheads on desks, phones ringing, frustrated groans, 3 seconds, no music, no speech", "ph": "office_chaos", "note": "episode SFX (window consequences, 6.1 'dzwieki z okna')" },
+    { "id": "doctor_print_hiccup", "path": "episodes/S01E01/sfx/doctor_print_hiccup.wav", "kind": "sfx", "requestS": 0.8, "durationS": 0.8, "fadeOutMs": 60, "prompt": "A single short muffled paper-feed whirr and click of a small office printer, like a hiccup, 0.8 seconds, no music, no human voice", "ph": "hiccup", "note": "episode SFX (twist T03: the doctor catches the printer's problem)" },
+    { "id": "print_job_incoming", "path": "episodes/S01E01/sfx/print_job_incoming.wav", "kind": "sfx", "requestS": 1.2, "durationS": 1.2, "fadeOutMs": 80, "prompt": "Office printer receiving a huge print job: three urgent electronic alert beeps followed by a motor spinning up, 1.2 seconds, no music, no human voice", "ph": "job_beeps" },
+    { "id": "doctor_print_frenzy", "path": "episodes/S01E01/sfx/doctor_print_frenzy.wav", "kind": "sfx", "requestS": 4.0, "durationS": 4.0, "fadeOutMs": 400, "prompt": "Out-of-control office printer printing at insane speed: frantic continuous paper feed, rapid page ejections and fluttering sheets, 4 seconds, no music, no human voice", "ph": "frenzy", "note": "episode SFX (climax: the 99,999-page queue blasts out of the doctor)" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "key": "patient_vp6",
+  "designModel": "eleven_ttv_v3",
+  "description": "Native English. Male, 40s. Studio quality.\nPersona: dead-eyed office drone. Emotion: numb, resigned, tired.\nA flat, mumbling, mid-low voice with no energy, words trailing off at the end.",
+  "previewText": "Copy. Scan. Print. Repeat. Twenty-four hours a day, four hundred pages at three in the morning, and nobody ever says thank you. Print it again? In color? ... ... No.",
+  "guidanceScale": 35,
+  "seed": 1001,
+  "generatedVoiceId": "0sfOgDMgWucy4GM4SoEn",
+  "previewRaw": "episodes/S01E01/vo/patient/_src/patient_vp6_design_preview.mp3",
+  "previewsReturned": 3,
+  "takeUsed": 0
+}

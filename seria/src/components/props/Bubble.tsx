@@ -12,6 +12,8 @@ import { CAP_HEIGHT, fitSize } from "./text";
 const INK = "#121212";
 const FILL = { memory: "#EDE6D6", thought: "#F4F1EA", speech: "#FFFFFF" } as const;
 const GRAWLIX_COLORS = ["#C8262B", INK, "#C8262B", "#1F5E66", INK];
+/** Approximate advance widths (em) of the grawlix glyphs in Anton (caption font). */
+const ANTON_W: Record<string, number> = { "#": 0.62, $: 0.55, "%": 0.95, "&": 0.66, "!": 0.3, "@": 0.95, "*": 0.5, "?": 0.5 };
 
 /** Scalloped cloud outline around a rect: rounded rect + bumps (union outline pass in the caller). */
 const cloudParts = (x0: number, y0: number, x1: number, y1: number): string[] => {
@@ -69,8 +71,14 @@ export const Bubble: React.FC<BubbleProps> = ({ kind, box, tail, inflate, dots, 
   const wedge = `M${ax - 34} ${ay - 10} L${wedgeTip[0]} ${wedgeTip[1]} L${ax + 30} ${ay - 10} Z`;
   const inner: [number, number, number, number] = [x0 + 30, y0 + 30, x1 - 30, y1 - 30];
   const gl = grawlix ?? [];
-  const gw = (x1 - x0 - 90) / Math.max(1, gl.length);
-  const gSize = Math.min((y1 - y0) * 0.5, gw / 0.62);
+  // grawlix layout by (approximate) Anton glyph widths + 0.2 em tracking, fitted into the body, so wide glyphs
+  // ("%" ≈ 0.95 em) never touch their neighbours, even with the engine's ±9° rotation and ±2 px jitter
+  const GW = (c: string) => ANTON_W[c] ?? 0.62;
+  const TRACK = 0.2;
+  const emTotal = gl.reduce((a, g) => a + GW(g.char), 0) + TRACK * Math.max(0, gl.length - 1);
+  const gSize = Math.min((y1 - y0) * 0.5, (x1 - x0 - 100) / Math.max(1, emTotal));
+  const gx0 = (x0 + x1) / 2 - (emTotal * gSize) / 2;
+  const gCenters = gl.map((g, i) => gx0 + (gl.slice(0, i).reduce((a, h) => a + GW(h.char) + TRACK, 0) + GW(g.char) / 2) * gSize);
   return (
     <g>
       {kind !== "speech"
@@ -103,7 +111,7 @@ export const Bubble: React.FC<BubbleProps> = ({ kind, box, tail, inflate, dots, 
             </g>
           ) : null}
           {gl.map((g, i) => {
-            const cx = x0 + 45 + (i + 0.5) * gw;
+            const cx = gCenters[i];
             const cy = (y0 + y1) / 2;
             return (
               <g key={i} transform={`translate(${cx + g.dx} ${cy + g.dy}) rotate(${g.rot}) scale(${g.scale})`}>

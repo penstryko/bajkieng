@@ -127,7 +127,12 @@ export function makePatient(spec: PatientSpec, maxSize?: { w: number; h: number 
   const marker = MARKERS[spec.functionMarker] ?? null;
   const aspect = marker?.bodyAspect ?? shape.aspect;
   const antenna = spec.accessories.includes("antenna") ? 0.12 : 0;
-  const topExtra = Math.min(0.5, (marker?.topExtra ?? 0) + antenna);
+  // flat accessories (display / URGENT note / OUT OF ORDER sign) may straddle the top edge when the face is
+  // full (lib/marks.tsx accessoryLayout): reserve a small band for them (the printer shows its display in its panel)
+  const flatAcc = spec.accessories.slice(0, 2).some(
+    (a) => (a.startsWith("display:") && spec.functionMarker !== "paper_tray_tongue") || a === "urgent_sticky" || a === "out_of_order_sign",
+  );
+  const topExtra = Math.min(0.5, (marker?.topExtra ?? 0) + antenna + (flatAcc ? 0.14 : 0));
   // total natural aspect: body w / (body h / (1 − topExtra))
   const totalAspect = aspect * (1 - topExtra);
   // the 6 px outline is drawn OUTSIDE the parts (union outline), so subtract 2 × 6 px; leave 10 % for squash

@@ -304,20 +304,24 @@ const SeatFront: React.FC = () => (
   </g>
 );
 
-const Spring: React.FC<{ out: number; wobble: number }> = ({ out, wobble }) => {
+/** Panic spring popping out of the seat at `at` (bottom centre). Default: the bare seat strip between the armrest
+ *  and a solo patient (x 212), height ≤ 86 px so its top stays below Chester's face zone (y 1010). */
+export const SPRING_DEFAULT_AT: XY = [212, 1104];
+const Spring: React.FC<{ out: number; wobble: number; at?: XY }> = ({ out, wobble, at = SPRING_DEFAULT_AT }) => {
+  const [bx, by] = at;
   const k = Math.max(0, Math.min(1.2, out));
-  const h = 96 * k;
+  const h = 72 * k;
   const coils = 6;
   const pts: string[] = [];
   for (let i = 0; i <= coils * 2; i++) {
-    const y = 1102 - (h * i) / (coils * 2);
-    pts.push(`${i === 0 ? "M" : "L"}${500 + (i % 2 ? 15 : -15)} ${y}`);
+    const y = by - (h * i) / (coils * 2);
+    pts.push(`${i === 0 ? "M" : "L"}${bx + (i % 2 ? 15 : -15)} ${y}`);
   }
   return (
-    <g transform={`rotate(${wobble} 500 1102)`}>
+    <g transform={`rotate(${wobble} ${bx} ${by})`}>
       <path d={pts.join(" ")} fill="none" stroke={C.seams} strokeWidth={10} strokeLinejoin="round" strokeLinecap="round" />
       <path d={pts.join(" ")} fill="none" stroke={C.spring} strokeWidth={5} strokeLinejoin="round" strokeLinecap="round" />
-      <path d="M478 1104 q4 -12 14 -8 q6 -10 16 -2 q12 -4 12 8 q-20 8 -42 2 Z" fill={C.stuffing} stroke={C.seams} strokeWidth={2.5} />
+      <path d={`M${bx - 22} ${by + 2} q4 -12 14 -8 q6 -10 16 -2 q12 -4 12 8 q-20 8 -42 2 Z`} fill={C.stuffing} stroke={C.seams} strokeWidth={2.5} />
     </g>
   );
 };
@@ -334,7 +338,7 @@ export const Chester: React.FC<ChesterProps> = (p) => {
       <g transform={t}>
         <SeatFront />
         <Armrest />
-        {p.spring > 0 ? <Spring out={p.spring} wobble={p.springWobble} /> : null}
+        {p.spring > 0 ? <Spring out={p.spring} wobble={p.springWobble} at={p.springAt} /> : null}
       </g>
     );
   }

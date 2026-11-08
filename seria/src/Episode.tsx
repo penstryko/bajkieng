@@ -1,30 +1,37 @@
-// Owned by the INTEGRATOR. Scaffold version: a working resolver (episode.json → per-frame scene
-// state) + the z-ordered layer stack + the state0 hard override. The integrator refines the
-// resolver (grawlix bubbles, tears during CRY, Chester gulps, window consequences, …) but must keep:
+// Owned by the INTEGRATOR. Resolver (episode.json → per-frame scene state) + the z-ordered layer stack
+// + the state0 hard override. Invariants:
 //   1. withState0(): frames 0–5 and N−15…N−1 render ONLY state0Scene() (lint 2),
 //   2. the layer order of bible §5.2 (engine/layout.ts Z),
 //   3. components receive props only (no frame reads inside components).
+// Beyond the scaffold this resolves what episode.json cannot express directly (beat sheet "Potrzeby wobec
+// integratora"): the NOW SERVING number, grawlix / one-word speech bubbles from dialogue, tears during the
+// patient's CRY clip (liquid tears, drops, puddle, sob squash), the doctor's closed-mouth hum ("Mm-" / "-hm") from
+// the MM line envelopes, the doctor's own grawlix when she "catches" the patient's curse (T03), the one-off glasses
+// jump of the `terrified` preset, motion lines only while falling, a shadow that follows the patient, the printer's
+// panel state (advice applied), Chester's spring placed off the patient, and the wall decor jolting on knocks.
 import React, { useMemo } from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import type {
   BubbleProps, CaptionProps, ChesterProps, ChirpProps, DoctorProps, NotepadCardProps, ParticlesProps,
-  PatientProps, PatientShadowProps, PropItemProps, SetProps,
+  PatientProps, PatientShadowProps, PropItemProps,
 } from "./contract";
 import { CHESTER_EXPRESSIONS, DOCTOR_EXPRESSIONS, type ActorId, type ChirpLed, type LensIcon } from "./enums";
+import { SPRING_DEFAULT_AT } from "./components/cast/Chester";
 import type {
-  Actor, ChesterPose, ChirpPose, DoctorPose, EpisodeBundle, PatientPose, PatientSpec, PoseEvent, XY,
+  Actor, ChesterPose, ChirpPose, DialogueEvent, DoctorPose, ShakeEvent, EpisodeBundle, MouthData, PatientPose, PatientSpec,
+  PoseEvent, Rect, XY,
 } from "./schema";
 import {
   NO_IDLE, POS, SET_COLORS, WIDE_CAMERA, assetKey, blinkAt, blinkSchedule, bubbleInflate, cameraAt,
-  cameraTransform, captionAt, chirpAt, dialAt, drawOn, idleBob, breath, interpolateClamp, landing,
-  lastChange, lensAt, motionAt, mouthAt, noise, particlesAt, patientIdle, poseAt, progress, propAt,
+  cameraTransform, captionAt, chirpAt, clamp, dialAt, drawOn, grawlix, idleBob, breath, interpolateClamp, landing,
+  lastChange, lensAt, motionAt, mouthAt, noise, particlesAt, patientIdle, poseAt, popIn, popOut, progress, propAt,
   shakeAt, springPoke, withState0, type CameraState,
 } from "./engine";
 import { Doctor } from "./components/cast/Doctor";
 import { Chester } from "./components/cast/Chester";
 import { Chirp } from "./components/cast/Chirp";
-import { Set } from "./components/set/Set";
-import { Patient, PatientShadow } from "./components/patients/Patient";
+import { Set, type SetPropsExt } from "./components/set/Set";
+import { Patient, PatientShadow, makePatient } from "./components/patients/Patient";
 import { NotepadCard } from "./components/props/Notepad";
 import { Bubble } from "./components/props/Bubble";
 import { Caption } from "./components/props/Caption";
@@ -41,7 +48,7 @@ interface PatientRender {
 export interface SceneState {
   camera: CameraState;
   shake: XY;
-  set: NoLayer<SetProps>;
+  set: NoLayer<SetPropsExt>;
   doctor: NoLayer<DoctorProps>;
   chester: NoLayer<ChesterProps>;
   chirp: ChirpProps;
@@ -56,6 +63,12 @@ export interface SceneState {
 
 const s0AnchorY = (topY: number, a: Actor) => topY + a.maxSize.h;
 
+/** Chester's panic spring sits on the bare seat strip left of the leftmost actor (never on a patient). */
+const springBase = (actors: readonly Actor[]): XY => {
+  const left = Math.min(...actors.map((a) => a.anchor[0] - a.maxSize.w / 2), 10000);
+  return left < 10000 ? [clamp(left - 33, 190, 240), SPRING_DEFAULT_AT[1]] : SPRING_DEFAULT_AT;
+};
+
 /** The ONE state rendered on frames 0–5 and N−15…N−1 (bible §6.2). Frame-independent by construction. */
 export function state0Scene(b: EpisodeBundle): SceneState {
   const ep = b.episode;
@@ -68,12 +81,13 @@ export function state0Scene(b: EpisodeBundle): SceneState {
       diplomaText: ep.continuity.diplomaText, chairState: "intact",
       timer: { dial: s0.timer.dial, angle: -s0.timer.dial * 330, visible: true, ringing: 0, jitter: [0, 0] },
       vignetteOpacity: SET_COLORS.vignetteOpacity,
+      patientNo: ep.patientNo,
     },
     doctor: {
       ...s0.doctor, lensNoise: 0, noiseSeed: 0, glassesJump: 0, lean: 1, penPhase: 0, blink: 0, bob: 0, breath: 0,
       placementT: 1, extras: [], patient: b.patients.patient, patientNo: ep.patientNo,
     },
-    chester: { ...s0.chester, mouthOpen: 0, blink: 0, pupil: [0, 0], eyeShake: [0, 0], spring: 0, springWobble: 0, breath: 0 },
+    chester: { ...s0.chester, mouthOpen: 0, blink: 0, pupil: [0, 0], eyeShake: [0, 0], spring: 0, springWobble: 0, springAt: springBase(ep.actors), breath: 0 },
     chirp: { led: s0.chirp.led, ledLevel: 0, tilt: 0, jitter: [0, 0] },
     patients: ep.actors.flatMap((a) => {
       const spec = b.patients[a.id];
@@ -82,7 +96,7 @@ export function state0Scene(b: EpisodeBundle): SceneState {
         z: 8,
         props: {
           spec, x: a.anchor[0], y: s0AnchorY(s0.patient.topY, a), scale: s0.patient.scale, sx: 1, sy: 1, rotate: 0,
-          brows: spec.brows, eyes: spec.eyes, mouth: "X", variant: "base", blink: 0, idle: NO_IDLE,
+          brows: s0.patient.brows ?? spec.brows, eyes: s0.patient.eyes ?? spec.eyes, mouth: "X", variant: "base", blink: 0, idle: NO_IDLE,
           motionLines: s0.patient.motionLines, tears: 0, swallow: 0, maxSize: a.maxSize,
         },
       }];
@@ -99,9 +113,36 @@ export function state0Scene(b: EpisodeBundle): SceneState {
   };
 }
 
-// ───────────────────────────── resolver ─────────────────────────────
+// ───────────────────────────── prepared (per bundle, once) ─────────────────────────────
 const byChar = <S,>(poses: readonly PoseEvent[], char: string) =>
   poses.filter((p) => p.char === char).map((p) => ({ at: p.at, set: p.set as S }));
+
+/** Length of a clip in frames, from its RMS envelope (one value per 1600-sample hop). */
+const rmsFrames = (md: MouthData | undefined): number =>
+  md && "type" in md && md.type === "rms" ? Math.ceil((md.values.length * md.hopSamples) / 1600) : 0;
+
+/** A doctor hum line: voiced runs (frames relative to `at`) → "Mm-" on the first run, "-hm" after it. */
+interface HumLine {
+  at: number;
+  len: number;
+  runs: [number, number][];
+}
+
+/** Speech bubble from a patient line: grawlix for the curse clip, one word for `text`. */
+interface SpeechLine {
+  actor: ActorId | "doctor";
+  at: number;
+  to: number;
+  grawlix: boolean;
+  text?: string;
+}
+
+/** Tears ramp for the patient's CRY clip. */
+interface CryLine {
+  actor: ActorId;
+  at: number;
+  end: number;
+}
 
 interface Prepared {
   doctor: { at: number; set: DoctorPose }[];
@@ -110,16 +151,45 @@ interface Prepared {
   patients: Partial<Record<ActorId, { at: number; set: PatientPose }[]>>;
   lensChanges: { at: number; lens: string }[];
   blinks: { doctor: number[]; chester: number[]; patient: number[] };
+  hums: HumLine[];
+  glassesJumps: { at: number; amp: number }[];
+  speech: SpeechLine[];
+  cries: CryLine[];
+}
+
+/** The doctor's own voice lines (MM hums) live in assets/vo/doctor/. */
+const isDoctorVo = (clip: string): boolean => clip.startsWith("assets/vo/doctor/");
+
+/** Path of the RMS envelope that belongs to a dialogue clip (explicit mouthData, else <clip>.rms.json). */
+export const humDataPath = (d: DialogueEvent): string => d.mouthData ?? d.clip.replace(/\.wav$/i, ".rms.json");
+
+function voicedRuns(md: MouthData | undefined): [number, number][] {
+  if (!md || !("type" in md) || md.type !== "rms") return [];
+  const th = md.thresholds?.B ?? 0.12;
+  const per = md.hopSamples / 1600; // frames per value (1 for hop 1600)
+  const runs: [number, number][] = [];
+  md.values.forEach((v, i) => {
+    if (v < th) return;
+    const f = Math.floor(i * per);
+    const last = runs[runs.length - 1];
+    if (last && f - last[1] <= 2) last[1] = f; // bridge gaps of ≤ 2 frames
+    else runs.push([f, f]);
+  });
+  return runs.filter(([a, b]) => b - a >= 1);
 }
 
 function prepare(b: EpisodeBundle): Prepared {
   const ep = b.episode;
   const N = ep.durationInFrames;
-  // expand §3 expression presets (explicit fields win)
+  // expand §3 expression presets (explicit fields win); glassesJump is a one-off pulse (glassesJumps)
   const doctor = byChar<DoctorPose>(ep.poses, "doctor").map((e) => {
     if (!e.set.expression) return e;
     const { glassesJump: _j, ...preset } = DOCTOR_EXPRESSIONS[e.set.expression] as Record<string, unknown>;
     return { at: e.at, set: { ...(preset as DoctorPose), ...e.set } };
+  });
+  const glassesJumps = byChar<DoctorPose>(ep.poses, "doctor").flatMap((e) => {
+    const preset = e.set.expression ? (DOCTOR_EXPRESSIONS[e.set.expression] as { glassesJump?: number }) : null;
+    return preset?.glassesJump ? [{ at: e.at, amp: preset.glassesJump }] : [];
   });
   const chester = byChar<ChesterPose>(ep.poses, "chester").map((e) => {
     if (!e.set.expression) return e;
@@ -128,6 +198,35 @@ function prepare(b: EpisodeBundle): Prepared {
   });
   const patients: Prepared["patients"] = {};
   for (const a of ep.actors) patients[a.id] = byChar<PatientPose>(ep.poses, a.id);
+
+  // hum mouths only for her MM lines (assets/vo/doctor/…), never for borrowed clips such as the patient's curse
+  const hums: HumLine[] = ep.dialogue
+    .filter((d) => d.char === "doctor" && d.mouth === "none" && isDoctorVo(d.clip))
+    .flatMap((d) => {
+      const md = b.mouthData[humDataPath(d)];
+      const runs = voicedRuns(md);
+      return runs.length ? [{ at: d.at, len: rmsFrames(md), runs }] : [];
+    });
+
+  const speech: SpeechLine[] = [];
+  const cries: CryLine[] = [];
+  // T03 callback: a doctor line that plays a patient's curse clip gets her own grawlix bubble
+  const curseClips = Object.values(b.patients).flatMap((sp) => (sp ? [sp.soundLanguage.curse] : []));
+  for (const d of ep.dialogue) {
+    if (d.char !== "doctor" || !curseClips.includes(d.clip)) continue;
+    const len = rmsFrames(b.mouthData[humDataPath(d)]) || 24;
+    speech.push({ actor: "doctor", at: d.at, to: d.at + len + 8, grawlix: true });
+  }
+  for (const d of ep.dialogue) {
+    const actor = ep.actors.find((a) => a.id === d.char);
+    const spec = actor ? b.patients[actor.id] : undefined;
+    if (!actor || !spec) continue;
+    const len = rmsFrames(d.mouthData ? b.mouthData[d.mouthData] : undefined) || 24;
+    const curse = d.clip === spec.soundLanguage.curse;
+    if (curse || d.text) speech.push({ actor: actor.id, at: d.at, to: d.at + len + 8, grawlix: curse && !d.text, text: d.text });
+    if (d.clip === spec.soundLanguage.cry) cries.push({ actor: actor.id, at: d.at, end: d.at + len + 15 });
+  }
+
   return {
     doctor, chester, patients,
     chirp: byChar<ChirpPose>(ep.poses, "chirp"),
@@ -137,9 +236,51 @@ function prepare(b: EpisodeBundle): Prepared {
       chester: blinkSchedule(`${ep.seed}-chester`, N, { minGap: 90, maxGap: 180 }),
       patient: blinkSchedule(`${ep.seed}-patient`, N),
     },
+    hums, glassesJumps, speech, cries,
   };
 }
 
+// ───────────────────────────── small per-frame helpers ─────────────────────────────
+
+/** Closed-mouth hum while an MM line sounds: "hum" on the first voiced run and between runs, "hum_up" after. */
+function humMouth(frame: number, hums: readonly HumLine[]): "hum" | "hum_up" | null {
+  for (const h of hums) {
+    const t = frame - h.at;
+    if (t < 0 || t >= h.len) continue;
+    const i = h.runs.findIndex(([a, b]) => t >= a && t <= b);
+    if (i >= 0) return i === 0 ? "hum" : "hum_up";
+    if (t > h.runs[0][0] && t < h.runs[h.runs.length - 1][1]) return "hum";
+  }
+  return null;
+}
+
+/** One-off upward glasses jump: up in 2 frames, hold 4, settle over 8 (px). */
+function glassesJumpAt(frame: number, jumps: readonly { at: number; amp: number }[]): number {
+  let out = 0;
+  for (const j of jumps) {
+    const t = frame - j.at;
+    if (t < 0 || t >= 14) continue;
+    const k = t < 2 ? (t + 1) / 3 : t < 6 ? 1 : 1 - progress(t, 6, 8, "inOut");
+    out = Math.max(out, j.amp * k);
+  }
+  return out;
+}
+
+/** Speech bubble body (scene px): above the solo patient, inside the action zone and visible in WIDE and PATIENT. */
+const SPEECH_BOX: Rect = [240, 600, 580, 762];
+/** The doctor's speech bubble: above her perm (over the diploma / right half of the window), tail to her head. */
+const DOCTOR_SPEECH_BOX: Rect = [556, 372, 876, 504];
+const DOCTOR_SPEECH_TAIL: XY = [716, 548];
+
+/** Wall-decor jolt: ≈ 60 % of the shakes flagged `decor` (the landlord's knocks), on top of the camera shake. */
+function decorJoltAt(frame: number, shakes: readonly ShakeEvent[]): XY | undefined {
+  const flagged = shakes.filter((sh) => sh.decor);
+  if (!flagged.length) return undefined;
+  const [dx, dy] = shakeAt(frame, flagged);
+  return dx === 0 && dy === 0 ? undefined : [0.6 * dx, 0.6 * dy];
+}
+
+// ───────────────────────────── resolver ─────────────────────────────
 function resolveScene(b: EpisodeBundle, pre: Prepared, frame: number): SceneState {
   const ep = b.episode;
   const N = ep.durationInFrames;
@@ -151,9 +292,13 @@ function resolveScene(b: EpisodeBundle, pre: Prepared, frame: number): SceneStat
   const lens = lensAt(pre.lensChanges, frame, N, ep.state0.doctor.lens);
   const penChange = lastChange(pre.doctor, "pen", frame);
   const placeChange = lastChange(pre.doctor, "placement", frame);
+  const hum = humMouth(frame, pre.hums);
   const doctor: NoLayer<DoctorProps> = {
     ...s0.doctor,
-    brows: d.brows, mouth: d.mouth, glassesY: d.glassesY, headTilt: d.headTilt, lean: d.lean ?? 1, pen: d.pen,
+    brows: d.brows,
+    mouth: hum ?? d.mouth,
+    glassesY: d.glassesY, headTilt: d.headTilt, lean: d.lean ?? 1, pen: d.pen,
+    glassesJump: glassesJumpAt(frame, pre.glassesJumps),
     placement: d.placement, extras: d.extras ?? [],
     lens: lens.lens as LensIcon, lensNoise: lens.noise, noiseSeed: lens.noiseSeed,
     penPhase: d.pen === "writing" ? (frame % 20) / 20 : d.pen === "click" && penChange ? progress(frame, penChange.at, 4) : 0,
@@ -183,6 +328,7 @@ function resolveScene(b: EpisodeBundle, pre: Prepared, frame: number): SceneStat
   // patients
   const patients: PatientRender[] = [];
   const shadows: PatientShadowProps[] = [];
+  const patientTops: Partial<Record<ActorId, XY>> = {};
   ep.actors.forEach((a, i) => {
     const base = s0.patients.find((p) => p.props.spec === b.patients[a.id]);
     const spec = b.patients[a.id] as PatientSpec | undefined;
@@ -190,28 +336,49 @@ function resolveScene(b: EpisodeBundle, pre: Prepared, frame: number): SceneStat
     const pose = poseAt<Record<string, unknown>>(pre.patients[a.id] ?? [], frame, {});
     const landChange = lastChange(pre.patients[a.id] ?? [], "land", frame);
     const m = motionAt(ep.motion, a.id, frame);
+    // the track motionAt() used: motion lines only on tracks that go DOWN (falls), not on the exit upwards
+    const track = m ? ep.motion.filter((t) => t.char === a.id && t.from <= frame).sort((p, q) => p.from - q.from).pop() : undefined;
+    const down = !!track && track.path.length > 1 && track.path[track.path.length - 1][1] > track.path[0][1];
     const x = m ? m.x : base.props.x;
     const y = m ? m.y : base.props.y;
     const seated = !m || (!m.moving && Math.abs(y - a.anchor[1]) < 1);
+    const falling = !!m && m.moving && down && y < a.anchor[1] - 1;
     const sq = landChange ? landing(landChange.value as PatientProps["spec"]["landing"], frame, landChange.at, spec.seed) : { sx: 1, sy: 1, dy: 0, rot: 0 };
     const line = [...ep.dialogue].reverse().find((l) => l.char === a.id && l.at <= frame && l.mouth !== "none");
+    const cry = pre.cries.find((cr) => cr.actor === a.id && frame >= cr.at && frame < cr.end + 12);
+    const tears = cry ? progress(frame, cry.at, 8, "out") * (1 - progress(frame, cry.end, 12, "in")) : 0;
+    // sobbing: scaleY 1 → 0.96 at ≈ 4 Hz (7.5 frames) while the tears run
+    const sob = cry && tears > 0 ? 1 - 0.04 * tears * (0.5 - 0.5 * Math.cos((2 * Math.PI * (frame - cry.at)) / 7.5)) : 1;
+    // control panel (pose `panel`): "fence" = advice applied → amber LED blinks (4 on / 4 off) + fence glyph;
+    // the paper slot clamps shut with a 3-frame squash when it switches on
+    const panelChange = lastChange(pre.patients[a.id] ?? [], "panel", frame);
+    const fenceOn = panelChange?.value === "fence";
+    const panelT = panelChange ? frame - panelChange.at : 0;
+    const panel = fenceOn ? { led: panelT % 8 < 4 ? 1 : 0.25, glyph: "fence" as const } : undefined;
+    const clamp3 = fenceOn && panelT < 3 ? [0.9, 0.93, 0.97][panelT] : 1;
+    const scale = m ? m.scale : 1;
     patients.push({
       z: m?.z ?? 8,
       props: {
         ...base.props,
-        x, y: y + sq.dy, scale: m ? m.scale : 1, sx: sq.sx, sy: sq.sy, rotate: (m ? m.rotate : 0) + sq.rot,
+        x, y: y + sq.dy, scale, sx: sq.sx * (2 - clamp3), sy: sq.sy * sob * clamp3, rotate: (m ? m.rotate : 0) + sq.rot,
         brows: (pose.brows as PatientProps["brows"]) ?? spec.brows,
         eyes: (pose.eyesSwap as PatientProps["eyes"]) ?? spec.eyes,
         variant: (pose.variant as PatientProps["variant"]) ?? "base",
         mouth: line?.mouthData ? mouthAt(b.mouthData[line.mouthData], frame, line.at) : "X",
         blink: blinkAt(frame, pre.blinks.patient.map((f) => f + i * 17)),
         idle: seated && m ? patientIdle(spec.idle, frame, N, spec.seed) : NO_IDLE,
-        motionLines: !m || (m.moving && y < a.anchor[1] - 1),
+        motionLines: !m || falling,
+        tears,
+        tearsT: cry ? frame - cry.at : 0,
+        panel,
         swallow: m?.swallow ? m.t : 0,
       },
     });
+    patientTops[a.id] = [x, y - makePatient(spec, a.maxSize).h * scale];
     shadows.push({
       ...s0.shadows[i],
+      cx: x,
       scale: interpolateClamp(y, [0, base.props.y, a.anchor[1]], [0.6, 1, 1.1]),
       opacity: m?.z != null ? 0 : s0.shadows[i].opacity,
     });
@@ -220,24 +387,46 @@ function resolveScene(b: EpisodeBundle, pre: Prepared, frame: number): SceneStat
   // set
   const win = ep.windowLayer.find((w) => frame >= w.from && frame <= w.to);
   const timer = dialAt(frame, ep.timer, N);
-  const set: NoLayer<SetProps> = {
+  const set: NoLayer<SetPropsExt> = {
     ...s0.set,
     windowLayer: win?.layer ?? "calm",
     windowT: win ? frame - win.from : 0,
     timer: { dial: timer.dial, angle: timer.angle, visible: timer.visible, ringing: timer.ringing, jitter: [0, 0] },
+    decorJolt: decorJoltAt(frame, ep.shakes),
   };
 
-  // overlays
+  // overlays: memory bubbles (episode.bubbles) + speech bubbles (from dialogue)
   const tail: XY = [POS.patient.soloAnchor[0], POS.patient.soloBox[1]];
   const bubbles: BubbleProps[] = ep.bubbles.flatMap((bb) => {
     const st = bubbleInflate(frame, bb.from, bb.to);
     if (!st.visible) return [];
     return [{ kind: "memory" as const, box: POS.bubble, tail, inflate: st.inflate, dots: st.dots, vignette: assetKey(bb.vignette), moving: bb.moving, t: st.t }];
   });
+  for (const sp of pre.speech) {
+    if (frame < sp.at || frame > sp.to) continue;
+    const out = popOut(frame, sp.to + 1, 5);
+    const grow = progress(frame, sp.at, 4, "out") * out;
+    const isDoc = sp.actor === "doctor";
+    const top = sp.actor === "doctor" ? DOCTOR_SPEECH_TAIL : patientTops[sp.actor] ?? tail;
+    const box = isDoc ? DOCTOR_SPEECH_BOX : SPEECH_BOX;
+    bubbles.push({
+      kind: "speech",
+      box,
+      tail: isDoc ? DOCTOR_SPEECH_TAIL : [clamp(top[0] + 30, SPEECH_BOX[0] + 70, SPEECH_BOX[2] - 70), Math.max(SPEECH_BOX[3] + 30, top[1] + 26)],
+      inflate: popIn(frame, sp.at, { settle: 12 }) * out,
+      dots: [grow, grow, grow],
+      t: frame - sp.at,
+      grawlix: sp.grawlix ? grawlix(frame, sp.at + 2, "#$%&!", `${ep.seed}-${sp.at}`) : undefined,
+      text: sp.text,
+    });
+  }
   const props: PropItemProps[] = ep.props.flatMap((p) => {
     const st = propAt(p, frame);
-    return st ? [{ id: assetKey(p.svg), x: st.x, y: st.y, scale: st.scale, rotate: st.rotate, opacity: st.opacity, t: st.t, motionLines: st.motionLines }] : [];
+    return st ? [{ id: assetKey(p.svg), x: st.x, y: st.y, scale: st.scale, rotate: st.rotate, opacity: st.opacity, t: st.t, motionLines: st.motionLines, heading: st.heading }] : [];
   });
+  // reset ritual: the doctor's left arm follows the cloth prop
+  const cloth = props.find((pi) => pi.id === "cloth");
+  if (cloth) doctor.wipeHand = [cloth.x, cloth.y];
   const particles: ParticlesProps[] = ep.particles.flatMap((pe) => {
     const ps = particlesAt(frame, pe, ep.seed);
     return ps.length ? [{ type: pe.type, particles: ps }] : [];

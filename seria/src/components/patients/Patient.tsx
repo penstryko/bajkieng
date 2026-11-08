@@ -46,6 +46,62 @@ const BodyParts: React.FC<{ m: PatientModel; pal: Pal; fillOverride?: string }> 
   );
 };
 
+/** Seat level in the puppet's local frame: the solo anchor is y 1150, the seat top ≈ 1086 (the front edge, z9, covers y ≥ 1100). */
+const SEAT_Y = -64;
+
+/** Liquid tears: 18 px streams with a specular stripe from both eyes, 2–3 drops falling to the seat (driven by t). */
+const Tears: React.FC<{ m: PatientModel; tears: number; t: number; toner: boolean }> = ({ m, tears, t, toner }) => {
+  const e = m.eyes;
+  const bodyH = m.body.y1 - m.body.y0;
+  const col = toner ? "#2e2e2e" : "#5fb0e8";
+  const hi = toner ? "#a8a8a8" : "#e6f6ff";
+  return (
+    <g opacity={Math.min(1, tears * 1.4)}>
+      {[-1, 1].map((s) => {
+        const x = e.cx + (s * e.gap) / 2 + s * e.ew * 0.2;
+        const y0 = e.cy + e.eh * 0.38;
+        const len = (bodyH * 0.22 + 34) * tears;
+        const hw = 9; // half width → 18 px stream
+        const bend = s * 6;
+        const stream = `M${x - hw} ${y0} Q${x - hw + bend} ${y0 + len * 0.5} ${x - hw + 2} ${y0 + len} Q${x} ${y0 + len + 14} ${x + hw - 2} ${y0 + len} Q${x + hw + bend} ${y0 + len * 0.5} ${x + hw} ${y0} Z`;
+        // drops: fall from the stream end to the seat, accelerating, 3 per side, staggered
+        const yEnd = y0 + len + 6;
+        const drops = [0, 1, 2].map((i) => {
+          const period = 12;
+          const ph = ((t + i * 4 + (s > 0 ? 2 : 0)) % period) / period;
+          const y = yEnd + (SEAT_Y - yEnd) * ph * ph;
+          const dx = s * (4 + 10 * ph);
+          return t > 2 && y < SEAT_Y - 4 ? (
+            <path key={i} d={`M${x + dx} ${y - 14} q-9 14 0 20 q9 -6 0 -20 z`} fill={col} stroke={INK} strokeWidth={2.5} />
+          ) : null;
+        });
+        return (
+          <g key={s}>
+            <path d={stream} fill={col} stroke={INK} strokeWidth={3} strokeLinejoin="round" />
+            <path d={`M${x - 3} ${y0 + 6} Q${x - 3 + bend * 0.6} ${y0 + len * 0.5} ${x - 2} ${y0 + len - 4}`} stroke={hi} strokeWidth={3} strokeLinecap="round" fill="none" opacity={0.9} />
+            <path d={`M${x} ${y0 + len - 2} q-12 18 0 26 q12 -8 0 -26 z`} fill={col} stroke={INK} strokeWidth={3} />
+            <circle cx={x - 3} cy={y0 + len + 14} r={2.5} fill={hi} />
+            {drops}
+          </g>
+        );
+      })}
+    </g>
+  );
+};
+
+/** Dark puddle on the seat, growing while the patient cries (drawn behind the body, visible at its sides). */
+const Puddle: React.FC<{ m: PatientModel; tears: number; t: number; toner: boolean }> = ({ m, tears, t, toner }) => {
+  const grow = Math.min(1, tears * Math.min(1, t / 40 + 0.25));
+  const rx = (m.w / 2 + 46) * grow;
+  if (rx < 4) return null;
+  return (
+    <g>
+      <ellipse cx={0} cy={SEAT_Y + 8} rx={rx} ry={12 * grow + 3} fill={toner ? "#1e1e1e" : "#3d7fb0"} stroke={INK} strokeWidth={3} opacity={0.92} />
+      <ellipse cx={-rx * 0.55} cy={SEAT_Y + 5} rx={rx * 0.16} ry={3} fill="#ffffff" opacity={0.35} />
+    </g>
+  );
+};
+
 /** Draws the puppet in its local frame (anchor at 0,0). Exported for model sheets and the icon test. */
 export const PatientPuppet: React.FC<{
   m: PatientModel;
@@ -54,14 +110,16 @@ export const PatientPuppet: React.FC<{
   brows: PatientProps["brows"];
   blink: number;
   tears: number;
+  tearsT?: number;
+  panel?: PatientProps["panel"];
   silhouette?: string;
   uid: string;
-}> = ({ m, mouth, eyes, brows, blink, tears, silhouette, uid }) => {
+}> = ({ m, mouth, eyes, brows, blink, tears, tearsT = 0, panel, silhouette, uid }) => {
   const spec = m.spec;
   const pal: Pal = { base: spec.palette.base, shade: spec.palette.shade, accent: spec.palette.accent, ink: INK };
   const bodyH = m.body.y1 - m.body.y0;
   const art = shapeArt(spec.shape, m.w, bodyH, pal);
-  const mk = markerArt(m, pal, mouth, { silhouette });
+  const mk = markerArt(m, pal, mouth, { silhouette, panel });
   if (silhouette) {
     return (
       <g>
@@ -78,6 +136,7 @@ export const PatientPuppet: React.FC<{
   const mouthStyle = spec.mouth.style ?? "thin";
   return (
     <g>
+      {tears > 0 ? <Puddle m={m} tears={tears} t={tearsT} toner={tonerTears} /> : null}
       {mk.back}
       <BodyParts m={m} pal={pal} />
       <clipPath id={clipId}>
@@ -106,20 +165,7 @@ export const PatientPuppet: React.FC<{
       )}
       <EyePair kind={eyes} cx={e.cx} cy={e.cy} ew={e.ew} eh={e.eh} gap={e.gap} blink={blink} adult={spec.adultCoding} pal={pal} uid={uid} />
       <Brows kind={brows} cx={e.cx} y={m.browY} gap={e.gap} ew={e.ew} ink={INK} />
-      {tears > 0
-        ? [-1, 1].map((s) => {
-            const x = e.cx + (s * e.gap) / 2 + s * e.ew * 0.18;
-            const y0 = e.cy + e.eh * 0.42;
-            const len = (bodyH * 0.18 + 30) * tears;
-            const col = tonerTears ? "#3a3a3a" : "#7fc4f0";
-            return (
-              <g key={s} opacity={Math.min(1, tears * 1.4)}>
-                <path d={`M${x - 5} ${y0} Q${x + s * 4} ${y0 + len * 0.5} ${x - 3} ${y0 + len} L${x + 5} ${y0 + len} Q${x + s * 8} ${y0 + len * 0.5} ${x + 5} ${y0} Z`} fill={col} opacity={0.85} />
-                <path d={`M${x} ${y0 + len - 2} q-11 16 0 24 q11 -8 0 -24 z`} fill={col} stroke={INK} strokeWidth={2.5} />
-              </g>
-            );
-          })
-        : null}
+      {tears > 0 ? <Tears m={m} tears={tears} t={tearsT} toner={tonerTears} /> : null}
     </g>
   );
 };
@@ -154,7 +200,7 @@ export const Patient: React.FC<PatientProps> = (p) => {
           })}
         </g>
       ) : null}
-      <PatientPuppet m={m} mouth={p.mouth} eyes={p.eyes} brows={p.brows} blink={p.blink} tears={p.tears} silhouette={p.silhouette} uid={uid} />
+      <PatientPuppet m={m} mouth={p.mouth} eyes={p.eyes} brows={p.brows} blink={p.blink} tears={p.tears} tearsT={p.tearsT} panel={p.panel} silhouette={p.silhouette} uid={uid} />
     </g>
   );
 };

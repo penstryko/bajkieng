@@ -1,7 +1,7 @@
 // z1 window behind the doctor (bible §5.1–5.2): x 390–690, y 360–640. Outside layers:
 //   calm               — evening city, lit windows, the rival kiosk Nod-O-Matic 99¢ with its neon (S0: ON)
-//   office_print_queue — S01E01 consequence: office tower across the street, grey humans banging their
-//                        heads on keyboards, growing "PRINT QUEUE: 99 999" bubble (no fire, no danger)
+//   office_print_queue — S01E01 consequence: office tower across the street (fades in over 9 frames), grey humans
+//                        banging their heads on keyboards, growing wordless queue sign (printer icon + 99 999)
 // windowSlot (patient exiting with z = 1) is drawn above the outside layer, below blinds/glass/frame.
 // Everything time-varying comes from windowT (frames since the layer started; 0 in S0).
 import React from "react";
@@ -95,9 +95,14 @@ const Kiosk: React.FC<{ neonOn: boolean; t: number }> = ({ neonOn, t }) => {
   );
 };
 
+/** frames over which the office tower fades in when the layer starts */
+const FACADE_IN = 9;
+/** frames for the queue to pile up to 99 999 (20 s: in S01E01 the layer starts at 900, maxed by ≈ 1500, before the "NO.") */
+export const QUEUE_RAMP = 600;
+/** accelerating pile-up (k^2.2): ~140 after 1 s, ~22 000 at half time, 99 999 at QUEUE_RAMP, then holds */
 const queueCount = (t: number): number => {
-  const k = Math.min(1, t / 210);
-  return Math.round(99999 * (1 - Math.pow(1 - k, 3)));
+  const k = Math.max(0, Math.min(1, t / QUEUE_RAMP));
+  return Math.round(99999 * Math.pow(k, 2.2));
 };
 const fmtThousands = (n: number): string => {
   const s = String(n);
@@ -146,14 +151,16 @@ const OfficePrintQueue: React.FC<{ t: number }> = ({ t }) => {
         </g>,
       );
     }
-  // the bubble keeps growing for 8 s while the number counts up to 99 999 (then holds)
-  const g = Math.min(1, t / 240);
-  const s = 0.3 + 0.7 * (1 - Math.pow(1 - g, 2));
+  // the bubble grows together with the count (ease-out, so it is legible early) and holds at full size
+  const g = Math.max(0, Math.min(1, t / QUEUE_RAMP));
+  const s = 0.35 + 0.65 * (1 - Math.pow(1 - g, 2));
   const n = queueCount(t);
-  const bx = 74, by = 124; // tail target: tower roof
-  const bw = 140, bh = 88, bcy = 72; // body centre y at full size
+  const bx = 75, by = 124; // tail target: tower roof
+  const bw = 130, bh = 88, bcy = 72; // body centre y at full size (x 10–140: clear of the glass edge)
+  // continuity: the tower fades in over the first FACADE_IN frames (no one-frame pop of a new building mid-shot)
+  const enter = Math.max(0, Math.min(1, t / FACADE_IN));
   return (
-    <g>
+    <g opacity={enter}>
       <rect x={tx0} y={ty0} width={tx1 - tx0} height={WH - ty0} fill="#222b3d" stroke={INK} strokeWidth={3} />
       <rect x={tx0 + 10} y={ty0 - 10} width={tx1 - tx0 - 20} height={12} fill="#1a2132" stroke={INK} strokeWidth={2} />
       {cells}
@@ -162,7 +169,17 @@ const OfficePrintQueue: React.FC<{ t: number }> = ({ t }) => {
         : null}
       <g transform={`translate(${bx} ${bcy + bh / 2}) scale(${s}) translate(${-bx} ${-(bcy + bh / 2)})`}>
         <rect x={bx - bw / 2} y={bcy - bh / 2} width={bw} height={bh} rx={22} fill="#F4F1EA" stroke={INK} strokeWidth={4} />
-        <text x={bx} y={bcy - 12} textAnchor="middle" fontFamily={FONTS.crt} fontSize={24} fill={INK}>PRINT QUEUE:</text>
+        {/* wordless sign (bible §9.6: no text in the window except the rival's neon): printer icon + paper stack + number */}
+        <g transform={`translate(${bx - 34} ${bcy - 22})`} stroke={INK} strokeWidth={2.2} strokeLinejoin="round">
+          <rect x={-12} y={-15} width={22} height={11} fill="#F4F1EA" />
+          <rect x={-18} y={-6} width={34} height={17} rx={3} fill="#E9E4D8" />
+          <rect x={-10} y={5} width={18} height={9} fill="#F4F1EA" />
+          <path d="M-8 9 h14" strokeWidth={1.5} />
+        </g>
+        <g transform={`translate(${bx + 10} ${bcy - 22})`} stroke={INK} strokeWidth={2} strokeLinejoin="round">
+          {[0, 1, 2, 3].map((i) => <rect key={i} x={-14 + i * 2} y={8 - i * 6} width={30} height={5} fill="#F4F1EA" />)}
+          <path d="M26 -14 l6 -6 l6 6 M32 -20 v18" stroke="#C8262B" strokeWidth={3} fill="none" strokeLinecap="round" />
+        </g>
         <text x={bx} y={bcy + 32} textAnchor="middle" fontFamily={FONTS.crt} fontSize={48} fill="#C8262B">{fmtThousands(n)}</text>
       </g>
     </g>

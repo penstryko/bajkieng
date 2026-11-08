@@ -1,0 +1,14 @@
+{
+  "key": "doctor",
+  "designModel": "eleven_ttv_v3",
+  "description": "Native English. Female, late 60s. Studio quality.\nPersona: underpaid, deadpan therapist. Emotion: flat, bored, unshockable.\nA very low, slow, monotone voice with a dry, slightly nasal hum and a lazy closed-mouth delivery; long pauses and very little pitch movement, usually flat, but capable of rare sudden sharp reactions.",
+  "previewText": "Mm-hm. Go on. So the toaster left you, and now you feel like crumbs. I see. And how does that make you feel? Interesting. That will be ninety dollars. Time is up. Same time next week. Mm-hm. Mm-hm?",
+  "guidanceScale": 35,
+  "seed": 1001,
+  "generatedVoiceId": "LZirsF5GBfgWydOjub6v",
+  "previewRaw": "assets/vo/doctor/_src/doctor_design_preview.mp3",
+  "previewsReturned": 3,
+  "takeUsed": 0,
+  "voiceId": "LZirsF5GBfgWydOjub6v",
+  "saved": true
+}

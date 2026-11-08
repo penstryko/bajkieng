@@ -7,7 +7,8 @@
 export const BROWS = ["neutral", "low_flat", "one_up", "skeptic", "v", "high", "arched", "slant_down", "v_strong"] as const;
 export type Brows = (typeof BROWS)[number];
 
-export const DOCTOR_MOUTHS = ["flat", "flat_down", "o_small", "crooked", "tight", "O", "half_smile", "smile", "wavy", "down", "teeth"] as const;
+/** "hum" ("Mm-") and "hum_up" ("-hm") are the closed-mouth hum pair the integrator drives from the MM line envelopes. */
+export const DOCTOR_MOUTHS = ["flat", "flat_down", "o_small", "crooked", "tight", "O", "half_smile", "smile", "wavy", "down", "teeth", "hum", "hum_up"] as const;
 export type DoctorMouth = (typeof DOCTOR_MOUTHS)[number];
 
 /** Lens screen icons (bible §7.1: ~24 icons). Cast builder draws each one (Glasses.tsx). */

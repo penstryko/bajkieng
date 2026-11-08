@@ -385,7 +385,7 @@ const Pen: React.FC<{ press: number }> = ({ press }) => (
   </g>
 );
 
-const Hands: React.FC<{ pen: DoctorProps["pen"]; penPhase: number }> = ({ pen, penPhase }) => {
+const Hands: React.FC<{ pen: DoctorProps["pen"]; penPhase: number; wipeHand?: [number, number] }> = ({ pen, penPhase, wipeHand }) => {
   const ph = Math.max(0, Math.min(1, penPhase));
   let dx = 0;
   let dy = 0;
@@ -403,13 +403,20 @@ const Hands: React.FC<{ pen: DoctorProps["pen"]; penPhase: number }> = ({ pen, p
   return (
     <g>
       <Clipboard />
-      {/* left arm: shoulder → clipboard edge, glove hand gripping the board */}
-      <Tube d="M682 880 Q668 990 662 1118" />
-      <rect x={650} y={1104} width={26} height={12} rx={5} fill={C.collar} stroke={INK} strokeWidth={2.5} transform="rotate(4 663 1110)" />
-      <g stroke={INK} strokeWidth={3} strokeLinejoin="round">
-        <path d="M643 1122 q-6 22 6 34 q12 6 24 -4 l6 -16 q-2 -14 -16 -16 Z" fill={C.skin} />
-        <path d="M660 1132 q10 -2 16 6 M658 1144 q10 -2 16 4" fill="none" strokeWidth={2} />
-      </g>
+      {wipeHand ? (
+        // reset ritual: left arm up to the wiping hand (hand + rag are the `cloth` prop, drawn above)
+        <Tube d={`M682 880 Q${Math.min(640, wipeHand[0] - 60)} ${(880 + wipeHand[1]) / 2 + 70} ${wipeHand[0] - 26} ${wipeHand[1] + 46}`} />
+      ) : (
+        <g>
+          {/* left arm: shoulder → clipboard edge, glove hand gripping the board */}
+          <Tube d="M682 880 Q668 990 662 1118" />
+          <rect x={650} y={1104} width={26} height={12} rx={5} fill={C.collar} stroke={INK} strokeWidth={2.5} transform="rotate(4 663 1110)" />
+          <g stroke={INK} strokeWidth={3} strokeLinejoin="round">
+            <path d="M643 1122 q-6 22 6 34 q12 6 24 -4 l6 -16 q-2 -14 -16 -16 Z" fill={C.skin} />
+            <path d="M660 1132 q10 -2 16 6 M658 1144 q10 -2 16 4" fill="none" strokeWidth={2} />
+          </g>
+        </g>
+      )}
       {/* right arm: shoulder → elbow → pen hand */}
       <Tube d={`M838 880 Q886 950 880 1010 Q872 ${hy - 20} ${hx + 18} ${hy - 4}`} />
       <g transform={`translate(${hx - 24} ${hy + 42}) rotate(24)`}>
@@ -477,7 +484,7 @@ export const Doctor: React.FC<DoctorProps> = (p) => {
     const ho = handsOffset(p.placement, p.placementT);
     return (
       <g transform={ho.x || ho.y ? `translate(${ho.x} ${ho.y})` : undefined}>
-        <Hands pen={p.pen} penPhase={p.penPhase} />
+        <Hands pen={p.pen} penPhase={p.penPhase} wipeHand={p.wipeHand} />
       </g>
     );
   }
