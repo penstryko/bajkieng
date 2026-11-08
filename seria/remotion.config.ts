@@ -1,12 +1,18 @@
 // Remotion CLI config (applies to `remotion studio|still|render`, not to the Node APIs).
 // See CONTRACT.md §8 for the render pipeline.
+import fs from "node:fs";
 import { Config } from "@remotion/cli/config";
 
-// Remotion's own Chrome download (storage.googleapis.com) is blocked in this environment.
-// Use the preinstalled Playwright headless shell (the wrapper adds --force-color-profile=srgb etc.).
-Config.setBrowserExecutable(
-  "/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell",
-);
+// Browser: on a local machine Remotion downloads its own Chrome Headless Shell automatically.
+// In the cloud sandbox that download is blocked, so we use the preinstalled Playwright shell if it exists.
+// Override anywhere with REMOTION_BROWSER_EXECUTABLE=/path/to/chrome.
+const SANDBOX_SHELL =
+  "/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell";
+const browser =
+  process.env.REMOTION_BROWSER_EXECUTABLE || (fs.existsSync(SANDBOX_SHELL) ? SANDBOX_SHELL : null);
+if (browser) {
+  Config.setBrowserExecutable(browser);
+}
 
 Config.setEntryPoint("src/index.ts");
 

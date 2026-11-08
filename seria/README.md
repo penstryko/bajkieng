@@ -25,9 +25,25 @@ pętli w ffmpeg.
 
 - Node 22 i npm 10. Zależności są przypięte w `package.json`, wystarczy `npm install`.
 - ffmpeg i ffprobe 6.x, Python 3 z `numpy` (narzędzia audio).
-- Chrome headless shell dla Remotion. Ścieżka jest ustawiona w `remotion.config.ts` i `tools/qa_stills.mjs`:
-  `/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell`. Remotion nie
-  może tu pobrać własnej przeglądarki, bo storage.googleapis.com jest zablokowany.
+- Przeglądarka dla Remotion: lokalnie Remotion sam pobiera Chrome Headless Shell przy pierwszym renderze.
+  W chmurowym sandboksie to pobieranie jest zablokowane, więc `remotion.config.ts` i `tools/qa_stills.mjs` używają
+  preinstalowanej powłoki Playwright, jeśli istnieje. Własną ścieżkę wskażesz zmienną `REMOTION_BROWSER_EXECUTABLE`.
+- System: macOS lub Linux. Na Windows uruchamiaj projekt w WSL2 (Ubuntu), bo skrypty w `tools/` są w bashu,
+  a `public/assets` i `public/episodes` to dowiązania symboliczne.
+
+### Uruchomienie lokalne
+
+```bash
+git clone https://github.com/penstryko/bajkieng.git
+cd bajkieng && git checkout claude/festive-hamilton-f2uhee
+cd seria && npm install
+pip install numpy          # narzędzia audio
+npm run studio             # podgląd w przeglądarce
+```
+
+Audio z ElevenLabs jest już w repozytorium (`assets/`), więc do renderu klucz nie jest potrzebny. Do generowania
+nowych dźwięków ustaw `export ELEVENLABS_API_KEY=...` przed `node tools/gen_audio.mjs` (lokalnie nie ma proxy,
+które wstawia klucz).
 - Fonty pochodzą z npm (`@fontsource/anton`, `@fontsource/vt323`). Nic nie jest pobierane z Google Fonts.
 
 ## Uruchamianie

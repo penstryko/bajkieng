@@ -5,7 +5,7 @@
 // For the final QA stills / contact sheet from the rendered master use tools/contact_sheet.sh instead.
 import { bundle } from "@remotion/bundler";
 import { renderStill, selectComposition } from "@remotion/renderer";
-import { mkdirSync } from "node:fs";
+import fs, { mkdirSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const ROOT = resolve(import.meta.dirname, "..");
@@ -17,7 +17,8 @@ if (!frames.length) {
   console.error("usage: node tools/qa_stills.mjs [EP] OUT_DIR frame [frame …]");
   process.exit(1);
 }
-const browserExecutable = "/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell";
+const SANDBOX_SHELL = "/opt/pw-browsers/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell";
+const browserExecutable = process.env.REMOTION_BROWSER_EXECUTABLE || (fs.existsSync(SANDBOX_SHELL) ? SANDBOX_SHELL : null);
 mkdirSync(outDir, { recursive: true });
 const serveUrl = await bundle({ entryPoint: join(ROOT, "src/index.ts"), publicDir: join(ROOT, "public") });
 const inputProps = { episodeId: EP, bundle: null };
