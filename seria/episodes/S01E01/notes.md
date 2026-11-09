@@ -51,7 +51,7 @@
 
 ## 5. Metadane (propozycja)
 
-- Tytuł: `Dr. Beige #001: The Printer Who Said No` (39 znaków; < 40 daje tylko ostrzeżenie lint 7)
-- Hashtagi: `#DrBeige #adultanimation #animation`
+- Tytuł: `Dr. Dusty #001: The Printer Who Said No` (39 znaków; < 40 daje tylko ostrzeżenie lint 7)
+- Hashtagi: `#DrDusty #adultanimation #animation`
 - Opis: „Adult animated satire. Not a real doctor. Not real advice.”
 - **[DO DECYZJI AUTORA]** Ostateczny tytuł i opis: ____

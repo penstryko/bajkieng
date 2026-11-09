@@ -1,7 +1,7 @@
 {
   "id": "S01E01",
   "patientNo": 1,
-  "title": "Dr. Beige #001: The Printer Who Said No",
+  "title": "Dr. Dusty #001: The Printer Who Said No",
   "fps": 30, "width": 1080, "height": 1920, "durationInFrames": 1920,
   "seed": 1001,
   "ledger": { "exitType": "E01", "winner": "patient", "patientCategory": "object",

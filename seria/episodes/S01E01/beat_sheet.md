@@ -1,6 +1,6 @@
 # S01E01 „The Printer Who Said No” — beat sheet 64 s
 
-**Tytuł (metadane):** Dr. Beige #001: The Printer Who Said No (39 znaków)
+**Tytuł (metadane):** Dr. Dusty #001: The Printer Who Said No (39 znaków)
 **Pacjent #001:** OFFICE PRINTER (drukarka biurowa, `patient.json`, rozmiar L, kotwica (410, 1150))
 **Rejestr (§6.3):** wyjście **E01** (wyleczony, przekazanie) · zwycięzca **pacjent** · kategoria `object` · rana **W05** (przepracowany 24/7) · rada **A01** (postaw granice → płotek) · zwrot **T03** (doktor „łapie” problem)
 **Łańcuch przyczynowy (§6.4):** przepracowana drukarka (W05) → rada „postaw granice” (A01, płotek w notesie) → dosłownie: odmawia drukowania czegokolwiek → biurowiec za oknem tonie w kolejce wydruków → zwrot: kolejka szuka najbliższego urządzenia i znajduje doktor (T03) → kulminacja: drukarka mówi jedyne wyraźne słowo „NO.” i 99 999 stron wylatuje z doktor → DING → drukarka wychodzi wyleczona przez okno, doktor zostaje z zaciętym papierem (E01).

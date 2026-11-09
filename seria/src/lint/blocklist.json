@@ -1,25 +1,95 @@
 {
   "$comment": "Lint 12 (bible 9.5, 10): forbidden words/phrases in the script (beat_sheet.md), episode.json, patient.json and metadata. Case-insensitive, whole-word unless the entry contains a space or punctuation. Extend after every brand check (bible 6.6 step 10). Owned by the episode/audio builder.",
   "brands": [
-    "Pumpkin Spice Latte", "PSL", "Starbucks", "reCAPTCHA", "ChatGPT", "Gemini", "Claude", "Therabot", "Pomodoro",
-    "HP", "Epson", "Canon", "Brother", "Xerox", "LaserJet", "OfficeJet", "Kyocera", "Ricoh", "Lexmark",
-    "Apple", "iPhone", "Android", "Google", "Microsoft", "Windows", "Excel", "Outlook", "TikTok", "YouTube", "Instagram"
+    "Pumpkin Spice Latte",
+    "PSL",
+    "Starbucks",
+    "reCAPTCHA",
+    "ChatGPT",
+    "Gemini",
+    "Claude",
+    "Therabot",
+    "Pomodoro",
+    "HP",
+    "Epson",
+    "Canon",
+    "Brother",
+    "Xerox",
+    "LaserJet",
+    "OfficeJet",
+    "Kyocera",
+    "Ricoh",
+    "Lexmark",
+    "Apple",
+    "iPhone",
+    "Android",
+    "Google",
+    "Microsoft",
+    "Windows",
+    "Excel",
+    "Outlook",
+    "TikTok",
+    "YouTube",
+    "Instagram"
   ],
   "selfHarm": [
-    "unplugs itself", "unplug itself", "unplugs himself", "unplugs herself", "switches itself off", "switches off itself",
-    "turns itself off", "pulls its own plug", "pull the plug on itself", "kills itself", "kill itself", "suicide", "self-harm",
-    "wants to die", "wants to stop existing", "odłącza sam siebie", "wyłącza sam siebie", "samobój"
+    "unplugs itself",
+    "unplug itself",
+    "unplugs himself",
+    "unplugs herself",
+    "switches itself off",
+    "switches off itself",
+    "turns itself off",
+    "pulls its own plug",
+    "pull the plug on itself",
+    "kills itself",
+    "kill itself",
+    "suicide",
+    "self-harm",
+    "wants to die",
+    "wants to stop existing",
+    "odłącza sam siebie",
+    "wyłącza sam siebie",
+    "samobój"
   ],
   "chesterVocalWhenInserting": [
-    "chester moans", "chester groans while", "couch moans", "moaning couch"
+    "chester moans",
+    "chester groans while",
+    "couch moans",
+    "moaning couch"
   ],
   "profanity": [
-    "fuck", "fucking", "fucker", "shit", "bullshit", "bitch", "asshole", "cunt", "dick", "cock", "bastard", "motherfucker", "wanker", "twat", "pussy", "slut", "whore"
+    "fuck",
+    "fucking",
+    "fucker",
+    "shit",
+    "bullshit",
+    "bitch",
+    "asshole",
+    "cunt",
+    "dick",
+    "cock",
+    "bastard",
+    "motherfucker",
+    "wanker",
+    "twat",
+    "pussy",
+    "slut",
+    "whore"
   ],
   "forbiddenDisplayNames": [
-    "Dr. Mm-hm", "Dr Mm-hm", "Dr. Mmhm", "Doctor Mm-hm"
+    "Dr. Mm-hm",
+    "Dr Mm-hm",
+    "Dr. Mmhm",
+    "Doctor Mm-hm",
+    "Dr. Beige",
+    "Dr Beige",
+    "Doctor Beige"
   ],
   "medicalProps": [
-    "stethoscope", "bandage", "plaster", "medical bag"
+    "stethoscope",
+    "bandage",
+    "plaster",
+    "medical bag"
   ]
 }

@@ -314,7 +314,7 @@ for (const n of ep.notepad) if (n.adviceLabel && words(n.adviceLabel).length > 3
 
 // ───────────────────────────── 7. title / display names ─────────────────────────────
 const forbiddenSeries = textHits(`${SERIES.title} | ${SERIES.episodeTitlePrefix} | ${SERIES.names.doctor}`, blocklist.forbiddenDisplayNames);
-if (forbiddenSeries.length) err(7, `src/series.ts still uses a retired display name (${forbiddenSeries.join(", ")}): the series is "Dr. Beige" (bible §12.3) — coordinator must update SERIES`);
+if (forbiddenSeries.length) err(7, `src/series.ts still uses a retired display name (${forbiddenSeries.join(", ")}): the series is "Dr. Dusty" (bible §12.4) — coordinator must update SERIES`);
 const titleRe = /^(.+) #(\d{3}): (.+)$/;
 const tm = ep.title.match(titleRe);
 if (ep.title.length > 60) err(7, `title ${ep.title.length} chars > 60`);

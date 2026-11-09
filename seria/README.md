@@ -1,7 +1,7 @@
-# Dr. Beige — serial animowany dla dorosłych (pionowe Shorts 9:16)
+# Dr. Dusty — serial animowany dla dorosłych (pionowe Shorts 9:16)
 
 Oryginalny serial komediowy dla dorosłych w formacie pionowych Shorts (1080×1920, 30 kl./s, 64 s w pętli).
-Dr. Beige, terapeutka o kamiennej twarzy, z ekranami zamiast szkieł w okularach, przyjmuje w zapuszczonym
+Dr. Dusty, terapeutka o kamiennej twarzy, z ekranami zamiast szkieł w okularach, przyjmuje w zapuszczonym
 gabinecie pacjentów-przedmioty. Kanapa Chester i czujnik dymu Chirp komentują wszystko bez słów, a pacjent mówi
 tylko „Thingish” i najwyżej jednym wyraźnym angielskim słowem. Każdy odcinek kończy się dokładnie w tym stanie,
 od którego się zaczął (S0), więc na platformie zapętla się bez szwu.
@@ -17,8 +17,8 @@ pętli w ffmpeg.
 - **Raport badawczy:** `../reports/Serial animowany Shorts dla dorosłych.md`. Sekcja „Idealną pętlę gwarantuje
   matematyka klatek i próbek” zawiera komendy eksportu i weryfikacji, na których opierają się `tools/export.sh`
   i `tools/check_loop.sh`.
-- **Pilot:** S01E01 „Dr. Beige #001: The Printer Who Said No” (biblia §8 #1, przykład §9.3). Biurowa drukarka
-  słyszy radę „stawiaj granice”, odmawia drukowania („NO.”) i wylatuje wyleczona przez okno. Na koniec to Dr. Beige
+- **Pilot:** S01E01 „Dr. Dusty #001: The Printer Who Said No” (biblia §8 #1, przykład §9.3). Biurowa drukarka
+  słyszy radę „stawiaj granice”, odmawia drukowania („NO.”) i wylatuje wyleczona przez okno. Na koniec to Dr. Dusty
   wypluwa zacięty papier i klnie po drukarkowemu.
 
 ## Wymagania
@@ -117,7 +117,7 @@ node tools/gen_audio.mjs S01E01 --library          # także reszta biblioteki §
   Surowe odpowiedzi API leżą w katalogach `_src/`, więc postprodukcję można powtórzyć bez kredytów, np.
   `python3 tools/gen_audio.post.py clip assets/sfx/_src/SFX15_knocks.wav assets/sfx/SFX15_knocks.wav --dur 1.45 --fade-out 40`.
 - **Usta:** `tools/rms_envelope.py` liczy obwiednie RMS (jedna wartość na klatkę) → `*.rms.json`. Pacjent
-  porusza ustami X/B/D, a Dr. Beige zamyka usta w „Mm-”/„-hm” podczas swoich linii. Nie używamy Rhubarba
+  porusza ustami X/B/D, a Dr. Dusty zamyka usta w „Mm-”/„-hm” podczas swoich linii. Nie używamy Rhubarba
   (pobieranie binarek z GitHuba jest tu zablokowane).
 - **Bez klucza:** `tools/placeholder_audio.sh` tworzy oznaczone zastępniki (manifest `"source": "placeholder"`
   i tytuł RIFF „PLACEHOLDER”) o tych samych ścieżkach i długościach. Ścisły `npm run lint` odrzuca je przy
@@ -134,9 +134,9 @@ node tools/gen_audio.mjs S01E01 --library          # także reszta biblioteki §
 | `src/compositions/` | `episode.tsx` (ładowanie paczki odcinka), `cast.tsx`, `set.tsx` (arkusze modeli i QA) |
 | `src/Episode.tsx` | resolver: `episode.json` → stan sceny na klatkę, stos warstw §5.2, twarde nadpisanie S0 |
 | `src/contract.ts`, `src/schema.ts`, `src/enums.ts` | interfejsy propsów, schemat sceny §9.2, zamknięte słowniki biblii |
-| `src/series.ts` | nazwa serialu, format tytułu („Dr. Beige #nnn: …”), hashtag |
+| `src/series.ts` | nazwa serialu, format tytułu („Dr. Dusty #nnn: …”), hashtag |
 | `src/engine/` | deterministyczne prymitywy animacji (§9.4), kamera, layout, stałe rytuału, S0 |
-| `src/components/cast/` | Dr. Beige (`Doctor.tsx`, `Glasses.tsx`), Chester, Chirp |
+| `src/components/cast/` | Dr. Dusty (`Doctor.tsx`, `Glasses.tsx`), Chester, Chirp |
 | `src/components/patients/` | generator pacjentów §4 (kształty, oczy, usta, zużycie, akcesoria) |
 | `src/components/set/` | gabinet (pokój, okno z warstwami „na zewnątrz”, minutnik, licznik NOW SERVING) |
 | `src/components/props/` | dymki, winiety wspomnień, notes, rekwizyty, cząsteczki, napis; `registry.ts` |
