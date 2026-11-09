@@ -16,7 +16,10 @@
     "qa:stills": "node tools/qa_stills.mjs",
     "lint": "tsc --noEmit -p . && tsx src/lint/run.ts",
     "lint:dev": "tsc --noEmit -p . && tsx src/lint/run.ts --dev",
-    "typecheck": "tsc --noEmit -p ."
+    "typecheck": "tsc --noEmit -p .",
+    "preview": "bash tools/preview.sh",
+    "qc": "bash tools/qc.sh",
+    "new-episode": "bash tools/new_episode.sh"
   },
   "dependencies": {
     "@fontsource/anton": "5.3.0",

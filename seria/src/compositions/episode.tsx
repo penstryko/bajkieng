@@ -1,3 +1,4 @@
+import { EPISODES } from "../series";
 // Owned by the INTEGRATOR. Registers episode compositions. calculateMetadata loads the whole
 // episode bundle (episode.json, patient.json, mouth data, missing-audio list) once per render,
 // and takes durationInFrames from episode.json (ritual frames derive from it, lint 5).
@@ -55,4 +56,4 @@ const episodeComposition = (id: string) => (
   />
 );
 
-export const EpisodeCompositions: React.FC = () => <Folder name="episodes">{["S01E01"].map(episodeComposition)}</Folder>;
+export const EpisodeCompositions: React.FC = () => <Folder name="episodes">{EPISODES.map(episodeComposition)}</Folder>;

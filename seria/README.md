@@ -57,6 +57,14 @@ npm run typecheck              # tsc --noEmit
 npm run lint                   # tsc + lint biblii §9.5 (17 reguł); ma dać 0 błędów; --dev: braki = ostrzeżenia
 ```
 
+### Tryb oszczędny (nowe odcinki)
+
+Zasady pracy z Claude Code są w `CLAUDE.md`. W skrócie:
+- `npm run new-episode -- S01E02 "Title"`: nowy odcinek z szablonu poprzedniego.
+- `npm run preview -- S01E02`: ok. 20 kluczowych klatek bez pełnego renderu (ok. 20 s), złożone w jeden obraz `out/S01E02/preview_sheet.png`.
+- `npm run qc -- S01E02`: po pełnym renderze i eksporcie cała kontrola jedną komendą (lint, pętla, próbki audio, głośność, czarne i zamrożone klatki), kilka linii wyniku i jeden obraz `out/S01E02/qc_sheet.png` z czasem, ujęciem, mówiącym i strefami UI platform na każdym kafelku.
+- Jeden obraz to ok. 2–3 tys. tokenów zamiast kilkudziesięciu pełnych klatek.
+
 ### Render, master audio, eksport, kontrola
 
 ```bash

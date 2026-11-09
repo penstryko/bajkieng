@@ -26,3 +26,6 @@ export const s0Caption = (patientNo: number, captionName: string): string =>
 
 export const episodeTitle = (patientNo: number, title: string): string =>
   `${SERIES.episodeTitlePrefix} ${patientNoLabel(patientNo)}: ${title}`;
+
+/** Episodes registered as compositions (tools/new_episode.sh appends here). */
+export const EPISODES: string[] = ["S01E01"];
