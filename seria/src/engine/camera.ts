@@ -15,6 +15,7 @@ export const CAMERA_PRESETS: Record<Exclude<Camera, "NOTEPAD">, CameraPreset> = 
   GLASSES: { scale: 3.2, focal: [760, 738], screen: [540, 820] }, // lenses fill ≈ x 146–934
   PATIENT: { scale: 1.9, focal: [410, 960], screen: [540, 900] }, // L patient ≈ x 227–853, y 539–1261
   BUBBLE: { scale: 1.6, focal: [390, 510], screen: [540, 760] }, // bubble ≈ x 140–940, y 472–1048
+  WINDOW: { scale: 3.4, focal: [540, 500], screen: [540, 820] }, // window x 390–690 → ≈ x 30–1050, y 344–1296 (style v2)
 };
 
 export interface CameraState {

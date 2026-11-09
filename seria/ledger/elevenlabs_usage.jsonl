@@ -33,3 +33,12 @@
 {"t":"2026-11-08T19:33:58.825Z","episode":"S01E01","event":"end","calls":30,"spentEstimate":5410,"spentHeader":858,"creditsUsedAfter":50781,"accountDelta":1882,"failed":[]}
 {"t":"2026-11-08T19:34:51.543Z","episode":"S01E01","event":"start","creditsUsedBefore":51109,"creditLimit":142668,"todo":[],"estimate":0}
 {"t":"2026-11-08T19:34:56.543Z","episode":"S01E01","event":"end","calls":0,"spentEstimate":0,"spentHeader":0,"creditsUsedAfter":51109,"accountDelta":0,"failed":[]}
+{"t":"2026-11-09T14:14:13.815Z","episode":"S01E02","event":"start","creditsUsedBefore":56245,"creditLimit":142668,"todo":["L01_tell_me_everything","L02_times_up","S02_doctor_change","S02_monday_hates","S02_monday_love","S02_monday_hungover","SFX21_whoosh","S02_paint","S02_party","S02_alarms","S02_crowd_groan"],"estimate":1380}
+{"t":"2026-11-09T14:14:15.485Z","episode":"S01E02","asset":"SFX21_whoosh","endpoint":"sound-generation","estimate":40,"characterCost":11,"spentEstimate":40,"spentHeader":11}
+{"t":"2026-11-09T14:14:17.283Z","episode":"S01E02","asset":"S02_paint","endpoint":"sound-generation","estimate":40,"characterCost":11,"spentEstimate":80,"spentHeader":22}
+{"t":"2026-11-09T14:14:19.213Z","episode":"S01E02","asset":"S02_party","endpoint":"sound-generation","estimate":160,"characterCost":44,"spentEstimate":240,"spentHeader":66}
+{"t":"2026-11-09T14:14:21.072Z","episode":"S01E02","asset":"S02_alarms","endpoint":"sound-generation","estimate":120,"characterCost":33,"spentEstimate":360,"spentHeader":99}
+{"t":"2026-11-09T14:14:23.000Z","episode":"S01E02","asset":"S02_crowd_groan","endpoint":"sound-generation","estimate":120,"characterCost":33,"spentEstimate":480,"spentHeader":132}
+{"t":"2026-11-09T14:14:26.079Z","episode":"S01E02","asset":"tts:doctor_v2","endpoint":"text-to-speech/with-timestamps (eleven_v3)","estimate":81,"characterCost":43,"spentEstimate":561,"spentHeader":175}
+{"t":"2026-11-09T14:14:30.329Z","episode":"S01E02","asset":"tts:monday","endpoint":"text-to-speech/with-timestamps (eleven_v3)","estimate":107,"characterCost":61,"spentEstimate":668,"spentHeader":236}
+{"t":"2026-11-09T14:14:34.382Z","episode":"S01E02","event":"end","calls":7,"spentEstimate":668,"spentHeader":236,"creditsUsedAfter":56245,"accountDelta":0,"failed":[]}

@@ -195,6 +195,8 @@ export interface PatientProps {
   /** control-panel state (function marker "paper_tray_tongue"): status LED 0..1 amber, display glyph instead of the
    *  display text (e.g. "fence" = the advice A01 was applied). Absent in S0. */
   panel?: { led: number; glyph?: "fence" };
+  /** v2 header band text override + style (pose `label` / `labelStyle`); absent = spec.header, print */
+  label?: { text: string; style: "print" | "paint" | "drip"; t: number };
   /** 0..1 swallow progress into Chester's mouth (mask + scaleY → 0); 0 = none */
   swallow: number;
   /** if set: render as a flat silhouette of this colour (icon test R1, lens patient file icon) */

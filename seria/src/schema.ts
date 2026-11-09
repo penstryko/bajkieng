@@ -55,6 +55,10 @@ export interface PatientPose extends Tween {
   /** Extension: control-panel state for function markers with a panel (printer): "fence" = blinking amber LED +
    *  fence glyph on the display (advice A01 applied), "base" = back to the patient.json display. */
   panel?: "base" | "fence";
+  /** Extension (v2): text on the patient's header band (shape "sheet" with spec.header), e.g. "FRIDAY". */
+  label?: string;
+  /** print = clean print, paint = hand-painted over, drip = paint running off (old text shows through) */
+  labelStyle?: "print" | "paint" | "drip";
 }
 export type PoseEvent =
   | { char: "doctor"; at: Frame; set: DoctorPose }
@@ -155,7 +159,7 @@ export interface DialogueEvent {
   clip: string; // audio path, see CONTRACT.md "asset paths"
   mouth: DialogueMouth;
   mouthData?: string; // JSON path (RMS envelope or Rhubarb); required when mouth ≠ "none"
-  text?: string; // the one clear English word / rare doctor sentence
+  text?: string; // v1: the one clear English word / rare doctor sentence; v2: the spoken line, shown as a subtitle
   gainDb?: number; // extension: per-line gain
 }
 
@@ -258,6 +262,8 @@ export interface ShakeEvent {
 }
 
 export interface Episode {
+  /** "v2" (from S01E02): plain English dialogue for doctor and patient, burned-in subtitles (seria/CLAUDE.md). */
+  style?: "v1" | "v2";
   id: string; // "S01E01"
   patientNo: number;
   title: string; // EN, ≤ 60 chars (40–60 recommended), no profanity
@@ -290,6 +296,8 @@ export interface Episode {
 
 // ───────────────────────────── patient.json (§4.2, §4.6) ─────────────────────────────
 export interface PatientSpec {
+  /** Extension (v2): header band text on top of the body (calendar page: "MONDAY"); colour defaults to accent. */
+  header?: string;
   name: string;
   captionName: string; // ≤ 4 words, UPPERCASE
   category: PatientCategory;

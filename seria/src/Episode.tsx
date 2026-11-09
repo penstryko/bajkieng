@@ -9,6 +9,7 @@
 // the MM line envelopes, the doctor's own grawlix when she "catches" the patient's curse (T03), the one-off glasses
 // jump of the `terrified` preset, motion lines only while falling, a shadow that follows the patient, the printer's
 // panel state (advice applied), Chester's spring placed off the patient, and the wall decor jolting on knocks.
+import { Subtitle, type SubtitleProps } from "./components/props/Subtitle";
 import React, { useMemo } from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import type {
@@ -59,6 +60,7 @@ export interface SceneState {
   particles: ParticlesProps[];
   notepad: NotepadCardProps | null;
   caption: CaptionProps | null;
+  subtitle?: SubtitleProps | null;
 }
 
 const s0AnchorY = (topY: number, a: Actor) => topY + a.maxSize.h;
@@ -155,6 +157,9 @@ interface Prepared {
   glassesJumps: { at: number; amp: number }[];
   speech: SpeechLine[];
   cries: CryLine[];
+  /** style v2: doctor speaking lines (RMS mouth) and burned-in subtitles */
+  talk: { at: number; md: string }[];
+  subtitles: { at: number; to: number; text: string; who: "doctor" | "patient" }[];
 }
 
 /** The doctor's own voice lines (MM hums) live in assets/vo/doctor/. */
@@ -223,11 +228,21 @@ function prepare(b: EpisodeBundle): Prepared {
     if (!actor || !spec) continue;
     const len = rmsFrames(d.mouthData ? b.mouthData[d.mouthData] : undefined) || 24;
     const curse = d.clip === spec.soundLanguage.curse;
-    if (curse || d.text) speech.push({ actor: actor.id, at: d.at, to: d.at + len + 8, grawlix: curse && !d.text, text: d.text });
+    if (ep.style === "v2" ? curse && !d.text : curse || d.text) speech.push({ actor: actor.id, at: d.at, to: d.at + len + 8, grawlix: curse && !d.text, text: d.text });
     if (d.clip === spec.soundLanguage.cry) cries.push({ actor: actor.id, at: d.at, end: d.at + len + 15 });
   }
 
+  const v2 = ep.style === "v2";
+  const talk = v2 ? ep.dialogue.filter((d) => d.char === "doctor" && d.mouth === "rms").map((d) => ({ at: d.at, md: humDataPath(d) })) : [];
+  const subtitles = v2
+    ? ep.dialogue.filter((d) => d.text).map((d) => {
+        const len = rmsFrames(b.mouthData[humDataPath(d)]) || 45;
+        return { at: d.at, to: d.at + len + 12, text: d.text as string, who: (d.char === "doctor" ? "doctor" : "patient") as "doctor" | "patient" };
+      })
+    : [];
+
   return {
+    talk, subtitles,
     doctor, chester, patients,
     chirp: byChar<ChirpPose>(ep.poses, "chirp"),
     lensChanges: doctor.filter((e) => e.set.lens).map((e) => ({ at: e.at, lens: e.set.lens as string })),
@@ -293,10 +308,13 @@ function resolveScene(b: EpisodeBundle, pre: Prepared, frame: number): SceneStat
   const penChange = lastChange(pre.doctor, "pen", frame);
   const placeChange = lastChange(pre.doctor, "placement", frame);
   const hum = humMouth(frame, pre.hums);
+  const tl = pre.talk.find((t) => frame >= t.at && frame < t.at + rmsFrames(b.mouthData[t.md]));
+  const talkShape = tl ? mouthAt(b.mouthData[tl.md], frame, tl.at) : null;
+  const talkMouth = talkShape === null ? null : talkShape === "D" ? "O" : talkShape === "B" ? "o_small" : "flat";
   const doctor: NoLayer<DoctorProps> = {
     ...s0.doctor,
     brows: d.brows,
-    mouth: hum ?? d.mouth,
+    mouth: hum ?? (talkMouth as DoctorProps["mouth"] | null) ?? d.mouth,
     glassesY: d.glassesY, headTilt: d.headTilt, lean: d.lean ?? 1, pen: d.pen,
     glassesJump: glassesJumpAt(frame, pre.glassesJumps),
     placement: d.placement, extras: d.extras ?? [],
@@ -372,6 +390,12 @@ function resolveScene(b: EpisodeBundle, pre: Prepared, frame: number): SceneStat
         tears,
         tearsT: cry ? frame - cry.at : 0,
         panel,
+        label: (() => {
+          const lc = lastChange(pre.patients[a.id] ?? [], "label", frame);
+          if (!lc || !spec.header) return undefined;
+          const st = lastChange(pre.patients[a.id] ?? [], "labelStyle", frame);
+          return { text: String(lc.value), style: ((st?.value as string) ?? "print") as "print" | "paint" | "drip", t: frame - Math.max(lc.at, st?.at ?? 0) };
+        })(),
         swallow: m?.swallow ? m.t : 0,
       },
     });
@@ -442,6 +466,10 @@ function resolveScene(b: EpisodeBundle, pre: Prepared, frame: number): SceneStat
   return {
     camera, shake: shakeAt(frame, ep.shakes), set, doctor, chester, chirp, patients, shadows, bubbles, props, particles, notepad,
     caption: captionAt(frame, N, ep.captions),
+    subtitle: (() => {
+      const st = pre.subtitles.find((x) => frame >= x.at && frame <= x.to);
+      return st ? { text: st.text, who: st.who, k: Math.min(1, (frame - st.at + 1) / 4, (st.to - frame + 1) / 4) } : null;
+    })(),
   };
 }
 
@@ -479,6 +507,7 @@ export const Scene: React.FC<{ s: SceneState }> = ({ s }) => {
         </g>
       )}
       {s.caption ? <Caption {...s.caption} /> : null}
+      {s.subtitle ? <Subtitle {...s.subtitle} /> : null}
       <Set layer="vignette" {...s.set} />
     </svg>
   );

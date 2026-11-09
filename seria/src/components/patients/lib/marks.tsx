@@ -463,6 +463,7 @@ export function markerArt(m: PatientModel, pal: Pal, mouth: MouthShape, opts: { 
         ),
       };
     case "calendar_mon":
+      if (m.spec.header) return {};
       return {
         front: sil ? null : (
           <g>

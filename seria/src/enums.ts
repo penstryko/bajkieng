@@ -188,7 +188,7 @@ export type AdultCoding = (typeof ADULT_CODING)[number];
 export const SOUND_LANGUAGE_KEYS = ["talk", "rant", "cry", "curse", "exit"] as const;
 export type SoundLanguageKey = (typeof SOUND_LANGUAGE_KEYS)[number];
 
-export const VOICE_PRESETS = ["VP1", "VP2", "VP3", "VP4", "VP5", "VP6"] as const;
+export const VOICE_PRESETS = ["VP1", "VP2", "VP3", "VP4", "VP5", "VP6", "VP7"] as const; // VP7 = premade "Callum" (S01E02 Monday; no free voice slot)
 export type VoicePreset = (typeof VOICE_PRESETS)[number];
 
 /** 16-colour patient palette (§4.3). Every patient: 6 px #121212 outline + light top highlight. */
@@ -207,7 +207,7 @@ export const HUMAN_ACCESSORIES = ["tie", "cap", "apron", "headphones"] as const;
 export type HumanAccessory = (typeof HUMAN_ACCESSORIES)[number];
 
 // ───────────────────────────── Episode-level vocabularies (bible §5.4, §6.3, §6.4, §9.2) ─────────────────────────────
-export const CAMERAS = ["WIDE", "GLASSES", "NOTEPAD", "PATIENT", "BUBBLE"] as const;
+export const CAMERAS = ["WIDE", "GLASSES", "NOTEPAD", "PATIENT", "BUBBLE", "WINDOW"] as const;
 export type Camera = (typeof CAMERAS)[number];
 export const SHOT_EASES = ["cut", "zoom8", "zoom12"] as const;
 export type ShotEase = (typeof SHOT_EASES)[number];

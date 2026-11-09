@@ -1,0 +1,926 @@
+{
+  "id": "S01E02",
+  "patientNo": 2,
+  "title": "Dr. Dusty #002: Monday Wants to Be Liked",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 1920,
+  "seed": 2002,
+  "ledger": {
+    "exitType": "E09",
+    "winner": "humans",
+    "patientCategory": "calendar",
+    "woundId": "W02",
+    "adviceId": "A02",
+    "twistId": "T09"
+  },
+  "continuity": {
+    "plantStage": 0,
+    "diplomaText": "Doctor of Nodding",
+    "spareTimers": 6,
+    "spareGlasses": 2
+  },
+  "actors": [
+    {
+      "id": "patient",
+      "ref": "patient.json",
+      "anchor": [
+        410,
+        1150
+      ],
+      "maxSize": {
+        "w": 330,
+        "h": 380
+      }
+    }
+  ],
+  "state0": {
+    "camera": "WIDE",
+    "doctor": {
+      "pen": "raised",
+      "brows": "neutral",
+      "mouth": "flat",
+      "headTilt": 0,
+      "glassesY": 0,
+      "lens": "patient_file_icon",
+      "placement": "chair"
+    },
+    "chester": {
+      "eyes": "wide_up",
+      "mouth": "tight",
+      "sag": 0.02
+    },
+    "chirp": {
+      "led": "off"
+    },
+    "patient": {
+      "topY": 230,
+      "scale": 1.0,
+      "motionLines": true,
+      "eyes": "terrified_pinpoint",
+      "brows": "worried"
+    },
+    "timer": {
+      "dial": 1.0
+    },
+    "window": "calm",
+    "couchShadow": {
+      "scale": 1.0,
+      "opacity": 0.6
+    },
+    "caption": "PATIENT #002: MONDAY"
+  },
+  "shots": [
+    {
+      "from": 0,
+      "to": 109,
+      "camera": "WIDE"
+    },
+    {
+      "from": 110,
+      "to": 389,
+      "camera": "BUBBLE",
+      "ease": "zoom12"
+    },
+    {
+      "from": 390,
+      "to": 449,
+      "camera": "PATIENT",
+      "ease": "cut"
+    },
+    {
+      "from": 450,
+      "to": 599,
+      "camera": "NOTEPAD",
+      "ease": "cut"
+    },
+    {
+      "from": 600,
+      "to": 779,
+      "camera": "WIDE",
+      "ease": "cut"
+    },
+    {
+      "from": 780,
+      "to": 1079,
+      "camera": "WINDOW",
+      "ease": "zoom12"
+    },
+    {
+      "from": 1080,
+      "to": 1139,
+      "camera": "WIDE",
+      "ease": "cut"
+    },
+    {
+      "from": 1140,
+      "to": 1559,
+      "camera": "WINDOW",
+      "ease": "zoom12"
+    },
+    {
+      "from": 1560,
+      "to": 1844,
+      "camera": "WIDE",
+      "ease": "cut"
+    },
+    {
+      "from": 1845,
+      "to": 1889,
+      "camera": "GLASSES",
+      "ease": "cut"
+    },
+    {
+      "from": 1890,
+      "to": 1919,
+      "camera": "WIDE",
+      "ease": "cut"
+    }
+  ],
+  "poses": [
+    {
+      "char": "patient",
+      "at": 6,
+      "set": {
+        "enter": "fall_from_top",
+        "eyesSwap": "terrified_pinpoint",
+        "brows": "worried"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 15,
+      "set": {
+        "land": "bouncy",
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 15,
+      "set": {
+        "eyes": "squint",
+        "mouth": "wavy",
+        "sag": 0.04,
+        "dur": 3
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 40,
+      "set": {
+        "pen": "writing"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 45,
+      "set": {
+        "eyes": "half",
+        "mouth": "flat",
+        "sag": 0.03,
+        "dur": 12
+      }
+    },
+    {
+      "char": "patient",
+      "at": 70,
+      "set": {
+        "brows": "worried",
+        "eyesSwap": "teary"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 90,
+      "set": {
+        "eyes": "one_open",
+        "mouth": "flat"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 120,
+      "set": {
+        "pen": "raised"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 200,
+      "set": {
+        "brows": "worried",
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 390,
+      "set": {
+        "brows": "worried",
+        "eyesSwap": "droopy_sad"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 400,
+      "set": {
+        "eyes": "droop",
+        "mouth": "arc_down"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 452,
+      "set": {
+        "pen": "writing"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 600,
+      "set": {
+        "brows": "raised",
+        "eyesSwap": "stars"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 600,
+      "set": {
+        "eyes": "half",
+        "mouth": "flat"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 600,
+      "set": {
+        "pen": "raised"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 628,
+      "set": {
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 644,
+      "set": {
+        "label": "FRIDAY",
+        "labelStyle": "paint",
+        "brows": "raised"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 660,
+      "set": {
+        "eyesSwap": "stars"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 688,
+      "set": {
+        "eyesSwap": "tired_bags",
+        "brows": "raised"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 700,
+      "set": {
+        "eyes": "one_open"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 700,
+      "set": {
+        "brows": "one_up",
+        "mouth": "flat"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 760,
+      "set": {
+        "brows": "neutral"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 780,
+      "set": {
+        "lens": "off"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 890,
+      "set": {
+        "eyesSwap": "stars",
+        "brows": "raised"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 918,
+      "set": {
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1080,
+      "set": {
+        "pen": "writing"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 1080,
+      "set": {
+        "eyes": "half",
+        "mouth": "flat"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1080,
+      "set": {
+        "lens": "patient_file_icon"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1140,
+      "set": {
+        "brows": "worried",
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1140,
+      "set": {
+        "lens": "off"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1240,
+      "set": {
+        "labelStyle": "drip"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1300,
+      "set": {
+        "brows": "worried",
+        "eyesSwap": "teary"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1440,
+      "set": {
+        "eyesSwap": "terrified_pinpoint",
+        "brows": "worried"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1560,
+      "set": {
+        "pen": "raised"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1560,
+      "set": {
+        "lens": "patient_file_icon"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 1570,
+      "set": {
+        "eyes": "closed",
+        "mouth": "slightly_open",
+        "sag": 0,
+        "dur": 10
+      }
+    },
+    {
+      "char": "chester",
+      "at": 1660,
+      "set": {
+        "eyes": "side_half",
+        "mouth": "smirk"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1700,
+      "set": {
+        "brows": "one_up"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1760,
+      "set": {
+        "brows": "neutral"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1846,
+      "set": {
+        "brows": "neutral",
+        "mouth": "flat",
+        "glassesY": 0,
+        "headTilt": 0,
+        "pen": "raised",
+        "extras": []
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1858,
+      "set": {
+        "lens": "off"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1884,
+      "set": {
+        "lens": "patient_file_icon"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1890,
+      "set": {
+        "pen": "raised",
+        "brows": "neutral",
+        "mouth": "flat",
+        "headTilt": 0,
+        "glassesY": 0,
+        "lens": "patient_file_icon",
+        "placement": "chair",
+        "extras": []
+      }
+    },
+    {
+      "char": "chester",
+      "at": 1890,
+      "set": {
+        "eyes": "wide_up",
+        "mouth": "tight",
+        "sag": 0.02,
+        "spring": false
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1890,
+      "set": {
+        "brows": "worried",
+        "eyesSwap": "terrified_pinpoint",
+        "label": "MONDAY",
+        "labelStyle": "print"
+      }
+    }
+  ],
+  "motion": [
+    {
+      "char": "patient",
+      "from": 6,
+      "to": 14,
+      "path": [
+        [
+          410,
+          610
+        ],
+        [
+          410,
+          1150
+        ]
+      ],
+      "ease": "in"
+    },
+    {
+      "char": "patient",
+      "from": 690,
+      "to": 760,
+      "path": [
+        [
+          410,
+          1150
+        ],
+        [
+          470,
+          760
+        ],
+        [
+          540,
+          575
+        ]
+      ],
+      "scale": [
+        1,
+        0.25
+      ],
+      "z": 1,
+      "zAt": 735,
+      "ease": "inOut"
+    },
+    {
+      "char": "patient",
+      "from": 761,
+      "to": 1059,
+      "path": [
+        [
+          540,
+          575
+        ],
+        [
+          470,
+          580
+        ],
+        [
+          600,
+          572
+        ],
+        [
+          500,
+          582
+        ]
+      ],
+      "scale": [
+        0.25,
+        0.25
+      ],
+      "z": 1,
+      "zAt": 761,
+      "ease": "inOut"
+    },
+    {
+      "char": "patient",
+      "from": 1060,
+      "to": 1110,
+      "path": [
+        [
+          500,
+          582
+        ],
+        [
+          470,
+          520
+        ]
+      ],
+      "scale": [
+        0.25,
+        0.25
+      ],
+      "z": 1,
+      "zAt": 1060,
+      "ease": "out"
+    },
+    {
+      "char": "patient",
+      "from": 1450,
+      "to": 1500,
+      "path": [
+        [
+          470,
+          520
+        ],
+        [
+          500,
+          430
+        ],
+        [
+          560,
+          250
+        ]
+      ],
+      "scale": [
+        0.25,
+        0.4
+      ],
+      "z": 1,
+      "zAt": 1450,
+      "ease": "in"
+    },
+    {
+      "char": "patient",
+      "from": 1890,
+      "to": 1904,
+      "path": [
+        [
+          410,
+          0
+        ],
+        [
+          410,
+          610
+        ]
+      ],
+      "ease": "out"
+    }
+  ],
+  "instances": [],
+  "timer": [
+    {
+      "at": 15,
+      "dial": 1.0,
+      "mode": "run"
+    }
+  ],
+  "dialogue": [
+    {
+      "char": "doctor",
+      "at": 26,
+      "clip": "assets/vo/doctor/L01_tell_me_everything.wav",
+      "mouth": "rms",
+      "mouthData": "assets/vo/doctor/L01_tell_me_everything.rms.json",
+      "text": "Tell me everything."
+    },
+    {
+      "char": "patient",
+      "at": 70,
+      "clip": "vo/monday_everybody.wav",
+      "mouth": "rms",
+      "mouthData": "vo/monday_everybody.rms.json",
+      "text": "Everybody hates me. I didn't do anything!"
+    },
+    {
+      "char": "doctor",
+      "at": 470,
+      "clip": "vo/doctor_change_image.wav",
+      "mouth": "rms",
+      "mouthData": "vo/doctor_change_image.rms.json",
+      "text": "Mm-hm. Change your image."
+    },
+    {
+      "char": "patient",
+      "at": 900,
+      "clip": "vo/monday_love.wav",
+      "mouth": "rms",
+      "mouthData": "vo/monday_love.rms.json",
+      "text": "They LOVE me!"
+    },
+    {
+      "char": "doctor",
+      "at": 1090,
+      "clip": "assets/vo/doctor/MM01.wav",
+      "mouth": "none"
+    },
+    {
+      "char": "patient",
+      "at": 1455,
+      "clip": "vo/monday_hungover.wav",
+      "mouth": "rms",
+      "mouthData": "vo/monday_hungover.rms.json",
+      "text": "Now they're hungover TOO!"
+    },
+    {
+      "char": "doctor",
+      "at": 1748,
+      "clip": "assets/vo/doctor/L02_times_up.wav",
+      "mouth": "rms",
+      "mouthData": "assets/vo/doctor/L02_times_up.rms.json",
+      "text": "Time's up."
+    }
+  ],
+  "sfx": [
+    {
+      "at": 6,
+      "clip": "assets/sfx/SFX05_fall.wav"
+    },
+    {
+      "at": 15,
+      "clip": "assets/sfx/SFX06_land.wav"
+    },
+    {
+      "at": 110,
+      "clip": "assets/sfx/SFX14_bubble.wav"
+    },
+    {
+      "at": 450,
+      "clip": "assets/sfx/SFX13_page.wav"
+    },
+    {
+      "at": 456,
+      "clip": "assets/sfx/SFX12_scribble.wav"
+    },
+    {
+      "at": 640,
+      "clip": "sfx/paint_splat.wav"
+    },
+    {
+      "at": 690,
+      "clip": "assets/sfx/SFX21_whoosh.wav"
+    },
+    {
+      "at": 762,
+      "clip": "sfx/street_party.wav"
+    },
+    {
+      "at": 882,
+      "clip": "sfx/street_party.wav"
+    },
+    {
+      "at": 1000,
+      "clip": "sfx/street_party.wav"
+    },
+    {
+      "at": 1142,
+      "clip": "sfx/alarm_clocks.wav"
+    },
+    {
+      "at": 1232,
+      "clip": "sfx/alarm_clocks.wav"
+    },
+    {
+      "at": 1300,
+      "clip": "sfx/crowd_monday_groan.wav"
+    },
+    {
+      "at": 1450,
+      "clip": "assets/sfx/SFX21_whoosh.wav"
+    },
+    {
+      "at": 1740,
+      "clip": "assets/sfx/SFX02_ding.wav"
+    },
+    {
+      "at": 1846,
+      "clip": "assets/sfx/SFX04_click.wav"
+    },
+    {
+      "at": 1852,
+      "clip": "assets/sfx/SFX03_wind.wav",
+      "gainDb": -3
+    },
+    {
+      "at": 1858,
+      "clip": "assets/sfx/SFX20_wipe.wav",
+      "gainDb": -6
+    },
+    {
+      "at": 1884,
+      "clip": "assets/sfx/SFX11_lens.wav",
+      "gainDb": -3
+    }
+  ],
+  "bed": {
+    "tickClip": "assets/sfx/SFX01_tick.wav",
+    "tickPeriodSamples": 24000,
+    "tickOffsetSamples": 12000,
+    "tickBed": "assets/sfx/SFX01_tick_bed64.wav",
+    "roomTone": "assets/sfx/SFX18_roomtone_loop64.wav",
+    "music": "assets/music/theme_loop64.wav",
+    "musicGainDb": 0,
+    "roomToneGainDb": 0,
+    "tickGainDb": 0,
+    "musicDucks": [
+      {
+        "from": 1300,
+        "to": 1388,
+        "gainDb": -8,
+        "rampFrames": 6
+      }
+    ]
+  },
+  "props": [
+    {
+      "id": "cloth",
+      "svg": "props/cloth.svg",
+      "from": 1858,
+      "to": 1878,
+      "anim": "fly",
+      "path": [
+        [
+          650,
+          748
+        ],
+        [
+          870,
+          748
+        ],
+        [
+          650,
+          748
+        ]
+      ],
+      "ease": "linear"
+    },
+    {
+      "id": "lens_glint",
+      "svg": "props/lens_glint.svg",
+      "from": 1880,
+      "to": 1882,
+      "anim": "fly",
+      "path": [
+        [
+          760,
+          738
+        ]
+      ]
+    }
+  ],
+  "bubbles": [
+    {
+      "from": 110,
+      "to": 389,
+      "vignette": "vignettes/monday_hate.svg",
+      "moving": [
+        "human_arm",
+        "alarm_shake"
+      ]
+    }
+  ],
+  "notepad": [
+    {
+      "from": 450,
+      "to": 599,
+      "doodle": "doodles/calendar_sunglasses.svg",
+      "drawOnFrames": 18,
+      "adviceLabel": "REBRAND"
+    }
+  ],
+  "windowLayer": [
+    {
+      "from": 0,
+      "to": 759,
+      "layer": "calm"
+    },
+    {
+      "from": 760,
+      "to": 1079,
+      "layer": "city_party"
+    },
+    {
+      "from": 1080,
+      "to": 1844,
+      "layer": "monday_morning"
+    },
+    {
+      "from": 1845,
+      "to": 1919,
+      "layer": "calm"
+    }
+  ],
+  "particles": [
+    {
+      "from": 640,
+      "to": 670,
+      "type": "confetti",
+      "origin": [
+        410,
+        820
+      ],
+      "count": 16,
+      "dir": 90,
+      "spread": 140,
+      "speed": 2.2
+    }
+  ],
+  "captions": [
+    {
+      "from": 1890,
+      "to": 59,
+      "text": "PATIENT #002: MONDAY"
+    },
+    {
+      "from": 1300,
+      "to": 1385,
+      "text": "MONDAAAY..."
+    }
+  ],
+  "shakes": [
+    {
+      "at": 644,
+      "amp": 6,
+      "decayFrames": 8
+    },
+    {
+      "at": 1450,
+      "amp": 5,
+      "decayFrames": 8
+    }
+  ],
+  "style": "v2"
+}

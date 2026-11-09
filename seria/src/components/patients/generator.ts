@@ -145,7 +145,8 @@ export function makePatient(spec: PatientSpec, maxSize?: { w: number; h: number 
   }
   const bodyH = h * (1 - topExtra);
   const body: Box = { x0: -w / 2, y0: -bodyH, x1: w / 2, y1: 0 };
-  const f = marker?.face ?? shape.face;
+  // v2 header band (calendar page "MONDAY"): top 24 % of the body, face moves below it
+  const f = spec.header ? ([0.14, 0.32, 0.86, 0.9] as const) : (marker?.face ?? shape.face);
   const face: Box = { x0: body.x0 + f[0] * w, y0: body.y0 + f[1] * bodyH, x1: body.x0 + f[2] * w, y1: body.y0 + f[3] * bodyH };
   const fw = face.x1 - face.x0, fh = face.y1 - face.y0;
   const ratio = PATIENT_EYE_WIDTH_RATIO.min + 0.02 + (PATIENT_EYE_WIDTH_RATIO.max - PATIENT_EYE_WIDTH_RATIO.min - 0.04) * random(`patient:${spec.seed}:eyes`);

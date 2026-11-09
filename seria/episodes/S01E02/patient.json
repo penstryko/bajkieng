@@ -1,0 +1,40 @@
+{
+  "name": "Monday",
+  "captionName": "MONDAY",
+  "category": "calendar",
+  "size": "L",
+  "shape": "sheet",
+  "header": "MONDAY",
+  "palette": {
+    "base": "#F4EFE4",
+    "shade": "#D9D0BE",
+    "accent": "#C8322B"
+  },
+  "functionMarker": "calendar_mon",
+  "eyes": "tired_bags",
+  "brows": "worried",
+  "mouth": {
+    "type": "rhubarb",
+    "driver": "rms",
+    "style": "thin"
+  },
+  "wear": [
+    "coffee_stain",
+    "dust"
+  ],
+  "accessories": [],
+  "idle": "sway",
+  "landing": "bouncy",
+  "soundLanguage": {
+    "talk": "vo/monday_everybody.wav",
+    "rant": "vo/monday_everybody.wav",
+    "cry": "vo/monday_everybody.wav",
+    "curse": "vo/monday_hungover.wav",
+    "exit": "vo/monday_love.wav"
+  },
+  "voicePreset": "VP7",
+  "adultCoding": [
+    "eye_bags"
+  ],
+  "seed": 2002
+}

@@ -39,6 +39,21 @@ export const DOODLES: Record<string, Doodle> = {
     ],
     smooth: [0],
   },
+  /** S01E02 advice "change your image": a calendar page wearing cool sunglasses, with sparkles. */
+  calendar_sunglasses: {
+    strokes: [
+      [[200, 250], [560, 250], [560, 760], [200, 760], [200, 250]],
+      [[200, 360], [560, 360]],
+      [[270, 230], [270, 280]], [[380, 230], [380, 280]], [[490, 230], [490, 280]],
+      ...[0, 1].map((k) => arc(310 + k * 140, 470, 62, 42, 0, 360, 16)),
+      [[372, 462], [388, 452]],
+      [[248, 456], [210, 430]], [[512, 456], [552, 430]],
+      [[300, 600], [350, 640], [410, 642], [460, 600]],
+      [[620, 260], [620, 330]], [[585, 295], [655, 295]],
+      [[120, 520], [120, 580]], [[90, 550], [150, 550]],
+    ],
+    smooth: [8],
+  },
   /** S01E01 gag note: the doctor's real opinion of the patient: a printer with devil horns and a tail. */
   printer_with_horns: {
     strokes: [

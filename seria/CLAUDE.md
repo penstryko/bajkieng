@@ -13,7 +13,7 @@ Co odcinek nowy pacjent (przedmiot, postać albo istota). Silnik: Remotion + lal
 - Terapeutka mówi 3–4 krótkie kwestie po angielsku („Tell me everything.”, „Mm-hm. …”, „Time's up.”). Pacjent mówi prostym angielskim. Napisy na ekranie.
 - Bez pobocznych gagów (Chirp, właściciel, ikony w okularach) do mniej więcej 5. odcinka.
 - Powrót na kanapę (pętla) ma za każdym razem inny powód, a wynik odcinka różni się od poprzednich (polityka YouTube „inauthentic content”).
-- Do zrobienia przed S01E02: biblia §2–3 i lint (reguła 11: „1 angielskie słowo pacjenta”, „doktor tylko Mm-hm”) jeszcze opisują stary styl.
+- Pełne zasady stylu v2: biblia §0. Wzorzec v2: `episodes/S01E02/` (`"style": "v2"`). Lint sprawdza v2 osobno (reguła 11).
 
 ## Limit Claude: twarde zasady
 1. **Jedna sesja, jeden przebieg.** Bez subagentów i workflowów, chyba że Karol o nie poprosi.

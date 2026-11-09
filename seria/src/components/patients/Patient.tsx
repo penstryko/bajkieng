@@ -4,6 +4,7 @@
 // Pure function of props. Owned by the set builder.
 import React from "react";
 import type { PatientProps, PatientShadowProps } from "../../contract";
+import { FONTS } from "../../engine";
 import { PATIENT_OUTLINE } from "../../enums";
 import { effectiveSpec, makePatient, type PatientModel } from "./generator";
 import { shapeArt, type Pal } from "./lib/shapes";
@@ -112,9 +113,10 @@ export const PatientPuppet: React.FC<{
   tears: number;
   tearsT?: number;
   panel?: PatientProps["panel"];
+  label?: PatientProps["label"];
   silhouette?: string;
   uid: string;
-}> = ({ m, mouth, eyes, brows, blink, tears, tearsT = 0, panel, silhouette, uid }) => {
+}> = ({ m, mouth, eyes, brows, blink, tears, tearsT = 0, panel, label, silhouette, uid }) => {
   const spec = m.spec;
   const pal: Pal = { base: spec.palette.base, shade: spec.palette.shade, accent: spec.palette.accent, ink: INK };
   const bodyH = m.body.y1 - m.body.y0;
@@ -148,6 +150,7 @@ export const PatientPuppet: React.FC<{
       <g clipPath={`url(#${clipId})`}>
         {m.wear.map((w, i) => <Wear key={i} kind={w.kind} x={w.x} y={w.y} s={w.s} rot={w.rot} pal={pal} />)}
       </g>
+      {spec.header ? <HeaderBand m={m} base={spec.header} label={label} /> : null}
       {spec.accessories.slice(0, 2).map((a, i) => <Accessory key={i} a={a} m={m} pal={pal} slot={i} />)}
       {spec.adultCoding.map((k) => {
         const mw = (m.marker?.ownsSlot ? m.slot.w : m.mouth.w) / 2 + 10;
@@ -166,6 +169,39 @@ export const PatientPuppet: React.FC<{
       <EyePair kind={eyes} cx={e.cx} cy={e.cy} ew={e.ew} eh={e.eh} gap={e.gap} blink={blink} adult={spec.adultCoding} pal={pal} uid={uid} />
       <Brows kind={brows} cx={e.cx} y={m.browY} gap={e.gap} ew={e.ew} ink={INK} />
       {tears > 0 ? <Tears m={m} tears={tears} t={tearsT} toner={tonerTears} /> : null}
+    </g>
+  );
+};
+
+
+/** v2 header band (spec.header): red calendar strip with the day name; "paint" = sloppy yellow paint over it,
+ *  "drip" = the paint runs off and the old printed name shows through again (t = frames since the change). */
+const HeaderBand: React.FC<{ m: ReturnType<typeof makePatient>; base: string; label?: PatientProps["label"] }> = ({ m, base, label }) => {
+  const { x0, x1, y0, y1 } = m.body;
+  const w = x1 - x0, bh = y1 - y0, hh = bh * 0.24;
+  const printed = base.toUpperCase();
+  const style = label?.style ?? "print";
+  const text = (label?.text ?? base).toUpperCase();
+  const t = label?.t ?? 0;
+  const fs = Math.min(hh * 0.7, (w * 0.86) / Math.max(4, printed.length * 0.5));
+  const cy = y0 + hh / 2 + fs * 0.35;
+  const paintFs = Math.min(hh * 0.8, (w * 0.9) / Math.max(4, text.length * 0.5));
+  const drip = style === "drip" ? Math.min(1, t / 45) : 0;
+  return (
+    <g>
+      <rect x={x0 + 6} y={y0 + 6} width={w - 12} height={hh} fill="#C8322B" stroke={INK} strokeWidth={5} />
+      {[0.22, 0.5, 0.78].map((k) => <circle key={k} cx={x0 + w * k} cy={y0 + 14} r={7} fill="#1a1a1a" />)}
+      <text x={0} y={cy} textAnchor="middle" fontFamily={FONTS.caption} fontSize={fs} fill="#FFF6E8">{printed}</text>
+      {style === "paint" || style === "drip" ? (
+        <g opacity={1 - drip * 0.85} transform={`translate(0 ${drip * hh * 0.9})`}>
+          <path d={`M${x0 + 4} ${y0 + 4} h${w - 8} v${hh + 4} q${-w * 0.25} 10 ${-w * 0.5} 0 q${-w * 0.25} -8 ${-(w - 8) * 0.5} 4 Z`} fill="#FFD23F" stroke={INK} strokeWidth={3} />
+          {[0.15, 0.38, 0.63, 0.86].map((k, i) => (
+            <path key={k} d={`M${x0 + w * k} ${y0 + hh} q4 ${12 + i * 7 + drip * 60} 0 ${22 + i * 9 + drip * 90} q-5 -6 0 -10`} fill="#FFD23F" stroke={INK} strokeWidth={2.5} />
+          ))}
+          <text x={0} y={y0 + hh / 2 + paintFs * 0.35} textAnchor="middle" fontFamily={FONTS.caption} fontSize={paintFs} fill="#1b4fd8"
+            transform={`rotate(-4 0 ${y0 + hh / 2})`}>{text}</text>
+        </g>
+      ) : null}
     </g>
   );
 };
@@ -200,7 +236,7 @@ export const Patient: React.FC<PatientProps> = (p) => {
           })}
         </g>
       ) : null}
-      <PatientPuppet m={m} mouth={p.mouth} eyes={p.eyes} brows={p.brows} blink={p.blink} tears={p.tears} tearsT={p.tearsT} panel={p.panel} silhouette={p.silhouette} uid={uid} />
+      <PatientPuppet m={m} mouth={p.mouth} eyes={p.eyes} brows={p.brows} blink={p.blink} tears={p.tears} tearsT={p.tearsT} panel={p.panel} label={p.label} silhouette={p.silhouette} uid={uid} />
     </g>
   );
 };

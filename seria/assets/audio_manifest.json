@@ -387,6 +387,81 @@
     },
     {
       "usedIn": [
+        "S01E02"
+      ],
+      "id": "SFX21_whoosh",
+      "path": "assets/sfx/SFX21_whoosh.wav",
+      "kind": "sfx",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/sound-generation",
+      "model": "eleven_text_to_sound_v3",
+      "prompt": "Quick cartoon whoosh of something small flying past, airy, no music",
+      "requestS": 1,
+      "raw": "assets/sfx/_src/SFX21_whoosh.wav",
+      "samples": 28800,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 0.6
+    },
+    {
+      "usedIn": [
+        "S01E02"
+      ],
+      "id": "L01_tell_me_everything",
+      "path": "assets/vo/doctor/L01_tell_me_everything.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "LZirsF5GBfgWydOjub6v",
+      "voiceDesigned": true,
+      "stability": 0.5,
+      "prompt": "[flatly] Tell me everything.",
+      "label": "series opener (reusable)",
+      "group": "doctor_v2",
+      "raw": "assets/vo/doctor/_src/doctor_v2.wav",
+      "cutS": [
+        0.082,
+        1.89
+      ],
+      "note": "style v2 spoken lines (deadpan), one request split by timestamps",
+      "samples": 75840,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 1.58
+    },
+    {
+      "usedIn": [
+        "S01E02"
+      ],
+      "id": "L02_times_up",
+      "path": "assets/vo/doctor/L02_times_up.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "LZirsF5GBfgWydOjub6v",
+      "voiceDesigned": true,
+      "stability": 0.5,
+      "prompt": "[flatly] Time's up.",
+      "label": "after DING (reusable)",
+      "group": "doctor_v2",
+      "raw": "assets/vo/doctor/_src/doctor_v2.wav",
+      "cutS": [
+        2.672,
+        3.898
+      ],
+      "note": "style v2 spoken lines (deadpan), one request split by timestamps",
+      "samples": 42960,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 0.895
+    },
+    {
+      "usedIn": [
         "S01E01"
       ],
       "id": "MM01",
@@ -980,6 +1055,190 @@
       "channels": 1,
       "bits": 16,
       "durationS": 0.594
+    },
+    {
+      "usedIn": [
+        "S01E02"
+      ],
+      "id": "S02_alarms",
+      "path": "episodes/S01E02/sfx/alarm_clocks.wav",
+      "kind": "sfx",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/sound-generation",
+      "model": "eleven_text_to_sound_v3",
+      "prompt": "Dozens of old mechanical twin-bell alarm clocks ringing at once in the early morning, heard through a window, 3 seconds",
+      "requestS": 3,
+      "raw": "episodes/S01E02/sfx/_src/alarm_clocks.wav",
+      "samples": 144000,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 3.0
+    },
+    {
+      "usedIn": [
+        "S01E02"
+      ],
+      "id": "S02_crowd_groan",
+      "path": "episodes/S01E02/sfx/crowd_monday_groan.wav",
+      "kind": "sfx",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/sound-generation",
+      "model": "eleven_text_to_sound_v3",
+      "prompt": "Crowd of hungover office workers groaning the word Mondaaay together in misery, one long low collective groan, no music",
+      "requestS": 3,
+      "raw": "episodes/S01E02/sfx/_src/crowd_monday_groan.wav",
+      "samples": 124800,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 2.6
+    },
+    {
+      "usedIn": [
+        "S01E02"
+      ],
+      "id": "S02_paint",
+      "path": "episodes/S01E02/sfx/paint_splat.wav",
+      "kind": "sfx",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/sound-generation",
+      "model": "eleven_text_to_sound_v3",
+      "prompt": "Cartoon wet paint splat followed by one quick brush swipe, no music",
+      "requestS": 1,
+      "raw": "episodes/S01E02/sfx/_src/paint_splat.wav",
+      "samples": 38400,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 0.8
+    },
+    {
+      "usedIn": [
+        "S01E02"
+      ],
+      "id": "S02_party",
+      "path": "episodes/S01E02/sfx/street_party.wav",
+      "kind": "sfx",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/sound-generation",
+      "model": "eleven_text_to_sound_v3",
+      "prompt": "Wild street party heard through a closed window: crowd cheering, car horns, firework pops, muffled dance beat, 4 seconds",
+      "requestS": 4,
+      "raw": "episodes/S01E02/sfx/_src/street_party.wav",
+      "samples": 192000,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 4.0
+    },
+    {
+      "usedIn": [
+        "S01E02"
+      ],
+      "id": "S02_doctor_change",
+      "path": "episodes/S01E02/vo/doctor_change_image.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "LZirsF5GBfgWydOjub6v",
+      "voiceDesigned": true,
+      "stability": 0.5,
+      "prompt": "[flatly] Mm-hm. Change your image.",
+      "group": "doctor_v2",
+      "raw": "assets/vo/doctor/_src/doctor_v2.wav",
+      "cutS": [
+        4.521,
+        7.76
+      ],
+      "note": "style v2 spoken lines (deadpan), one request split by timestamps",
+      "samples": 152544,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 3.178
+    },
+    {
+      "usedIn": [
+        "S01E02"
+      ],
+      "id": "S02_monday_hates",
+      "path": "episodes/S01E02/vo/monday_everybody.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "N2lVS1w4EtoT3dr4eOWO",
+      "voiceDesigned": true,
+      "stability": 0,
+      "prompt": "[whining] Everybody hates me. [sobbing] I didn't do anything!",
+      "group": "monday",
+      "raw": "assets/vo/doctor/_src/monday.wav",
+      "cutS": [
+        0.6,
+        5.73
+      ],
+      "note": "S01E02 Monday, expressive",
+      "samples": 220800,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 4.6
+    },
+    {
+      "usedIn": [
+        "S01E02"
+      ],
+      "id": "S02_monday_hungover",
+      "path": "episodes/S01E02/vo/monday_hungover.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "N2lVS1w4EtoT3dr4eOWO",
+      "voiceDesigned": true,
+      "stability": 0,
+      "prompt": "[screaming] Now they're hungover TOO!",
+      "group": "monday",
+      "raw": "assets/vo/doctor/_src/monday.wav",
+      "cutS": [
+        8.527,
+        10.4
+      ],
+      "note": "S01E02 Monday, expressive",
+      "samples": 89904,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 1.873
+    },
+    {
+      "usedIn": [
+        "S01E02"
+      ],
+      "id": "S02_monday_love",
+      "path": "episodes/S01E02/vo/monday_love.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "N2lVS1w4EtoT3dr4eOWO",
+      "voiceDesigned": true,
+      "stability": 0,
+      "prompt": "[ecstatic] They LOVE me!",
+      "group": "monday",
+      "raw": "assets/vo/doctor/_src/monday.wav",
+      "cutS": [
+        6.192,
+        7.978
+      ],
+      "note": "S01E02 Monday, expressive",
+      "samples": 71520,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 1.49
     }
   ]
 }

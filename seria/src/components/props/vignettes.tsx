@@ -50,6 +50,32 @@ const Stand: React.FC<{ x: number }> = ({ x }) => (
 );
 
 const VIGNETTES: Record<string, React.FC<{ t: number; moving: string[] }>> = {
+  /** S01E02: 6:00, a grey man in bed smashes his ringing alarm clock and points at the wall calendar "MONDAY"
+   *  (moving: human_arm, alarm_shake). 20-frame cycle. */
+  monday_hate: ({ t, moving }) => {
+    const ph = t % 20;
+    const arm = moving.includes("human_arm") ? (ph < 10 ? 70 * (ph / 10) : 70 - 70 * ((ph - 10) / 10)) : 40;
+    const ring = moving.includes("alarm_shake") ? Math.sin(t * 2.2) * 6 : 0;
+    return (
+      <g>
+        <rect x={0} y={0} width={W} height={H} fill="#bcc4cf" />
+        <rect x={300} y={40} width={150} height={190} fill="#f4efe4" stroke={INK} strokeWidth={5} />
+        <rect x={300} y={40} width={150} height={52} fill="#C8322B" stroke={INK} strokeWidth={5} />
+        <text x={375} y={80} textAnchor="middle" fontFamily={FONTS.caption} fontSize={34} fill="#FFF6E8">MONDAY</text>
+        <text x={375} y={196} textAnchor="middle" fontFamily={FONTS.caption} fontSize={90} fill="#222">1</text>
+        <rect x={20} y={250} width={260} height={70} rx={10} fill="#7d8796" stroke={INK} strokeWidth={4} />
+        <rect x={30} y={226} width={70} height={34} rx={12} fill="#eef0f3" stroke={INK} strokeWidth={4} />
+        <Human pose="point" x={150} y={FLOOR} scale={0.62} moveAngle={arm} />
+        <g transform={`translate(400 ${FLOOR - 40}) rotate(${ring})`}>
+          <circle cx={0} cy={0} r={36} fill="#f2b33d" stroke={INK} strokeWidth={5} />
+          <circle cx={-26} cy={-34} r={11} fill="#f2b33d" stroke={INK} strokeWidth={4} />
+          <circle cx={26} cy={-34} r={11} fill="#f2b33d" stroke={INK} strokeWidth={4} />
+          <text x={0} y={10} textAnchor="middle" fontFamily={FONTS.crt} fontSize={30} fill="#111">6:00</text>
+        </g>
+        {ring ? <path d="M444 236 l18 -10 M450 258 l22 0 M444 280 l18 10" stroke={INK} strokeWidth={4} strokeLinecap="round" /> : null}
+      </g>
+    );
+  },
   /** S01E01: a grey office worker kicks the printer on a low cabinet (moving: human_leg, printer_shake).
    *  24-frame cycle: wind-up, fast swing, 4-frame hold ON CONTACT (big impact star, printer jolts and keeps a dent). */
   office_kick: ({ t, moving }) => {

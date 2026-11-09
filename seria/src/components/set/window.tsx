@@ -8,6 +8,7 @@ import React from "react";
 import type { SetProps } from "../../contract";
 import { FONTS, POS, SET_COLORS as C } from "../../engine";
 import { Human } from "../humans/Human";
+import { CityParty, MondayMorning } from "./window_v2";
 import { rnd } from "./room";
 import { tone } from "./color";
 
@@ -217,6 +218,8 @@ export const WindowLayer: React.FC<Pick<SetProps, "windowLayer" | "windowT" | "w
         <Skyline />
         <Kiosk neonOn={neonOn} t={windowLayer === "calm" ? windowT : windowT + 7} />
         {windowLayer === "office_print_queue" ? <OfficePrintQueue t={windowT} /> : null}
+        {windowLayer === "city_party" ? <CityParty t={windowT} /> : null}
+        {windowLayer === "monday_morning" ? <MondayMorning t={windowT} /> : null}
       </g>
       {windowSlot}
       <g transform={`translate(${WX0} ${WY0})`}>

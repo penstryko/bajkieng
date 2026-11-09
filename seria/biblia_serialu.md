@@ -8,6 +8,19 @@
 **Skróty sekcji Raportu:**
 [R-Wzorce] „Cztery wzorce uczą jednego…” · [R-Humor] „Bez słów, z bełkotem albo z dubbingiem…” · [R-Postać] „Postać rozpoznawalna po sylwetce…” · [R-Pętla] „Idealną pętlę gwarantuje matematyka klatek i próbek…” · [R-Eleven] „ElevenLabs kosztuje 2,6–7,2 zł…” · [R-Pipeline] „Pipeline code-first…” · [R-Regulaminy] „Przekleństwo w dialogu zarabia…” (z podsekcjami „made for kids”, „Inauthentic content”, „Oznaczanie AI”) · [R-Strategia] „Trzy do pięciu samodzielnych odcinków tygodniowo…” · [R-Szablon] „Szablon scenariusza 60 s…” · [R-Koncepcje] „Pięć oryginalnych koncepcji…” · [R-Checklista] · [R-30dni] · [R-Ryzyka].
 
+## 0. Styl v2 (obowiązuje od S01E02, decyzja Karola z 9.11.2026)
+
+Ta sekcja ma pierwszeństwo przed sprzecznymi zasadami niżej (zasada świata 3, §3.1 „sposób mówienia”, §4.4 Thingish, lint 11 w §9.5). S01E01 zostaje w stylu v1.
+
+- **Jeden żart, sześć scen, zwykłe zdania.** Nowy widz rozumie odcinek bez znajomości biblii. Poboczne gagi (Chirp, właściciel, ikony w okularach) dopiero od mniej więcej 5. odcinka.
+- **Terapeutka mówi 3–4 krótkie kwestie po angielsku**, każda do 6 słów: stałe „Tell me everything.” na otwarcie i „Time's up.” po DING (biblioteka `assets/vo/doctor/L01…`, `L02…`), a w środku „Mm-hm. <rada>.”. „Mm-hm.” zostaje jej powiedzonkiem.
+- **Pacjent mówi prostym angielskim**, do 10 słów na kwestię. Każda kwestia ma napis wtopiony w obraz (pas y 1330–1418, terapeutka na bursztynowo, pacjent na biało). Dymki z tekstem tylko wyjątkowo.
+- **Pacjentem może być przedmiot, pojęcie, postać albo istota** (tytuł i motto są uniwersalne).
+- **Pętla:** wynik odcinka i powód powrotu na kanapę za każdym razem inne. Rytuał resetu (DING, przetarcie okularów, upadek na kanapę) zostaje.
+- **Świat poza gabinetem pokazuje okno** (kamera `WINDOW`, warstwy okna) albo dymek-wspomnienie (kamera `BUBBLE`). Jedna scenografia na zawsze.
+- **Głosy pacjentów:** wszystkie 30 miejsc na głosy w ElevenLabs jest zajętych, więc pacjenci dostają gotowe głosy z biblioteki ElevenLabs (premade, nie zajmują miejsca) albo jedno słowo wycięte z podglądu Voice Design.
+- **Technicznie:** `"style": "v2"` w `episode.json`; pola pozy pacjenta `label` / `labelStyle` (nagłówek kartki: print, paint, drip); `header` w `patient.json`.
+
 ## Spis treści
 
 1. Decyzja

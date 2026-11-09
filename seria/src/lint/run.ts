@@ -403,11 +403,19 @@ else {
 
 // ───────────────────────────── 11. words ─────────────────────────────
 const spoken = ep.dialogue.filter((d) => isActor(d.char) && d.text);
-if (spoken.length > 1) err(11, `${spoken.length} clear English patient lines (max 1 per episode)`);
-for (const d of spoken) if (words(d.text ?? "").length > 6) err(11, `patient word line "${d.text}" > 6 words`);
 const docLines = ep.dialogue.filter((d) => d.char === "doctor" && d.text);
-if (docLines.length > 1) err(11, `more than one rare doctor sentence`);
-else if (docLines.length) warn(11, `rare doctor sentence "${docLines[0].text}": check ≤ 1 per ~10 episodes`);
+if (ep.style === "v2") {
+  // style v2 (seria/CLAUDE.md, bible §0): plain English lines with subtitles; doctor 3–4 short lines
+  for (const d of spoken) if (words(d.text ?? "").length > 10) err(11, `patient line "${d.text}" > 10 words (subtitle must read in < 3 s)`);
+  if (docLines.length > 4) err(11, `${docLines.length} doctor lines (max 4 in style v2)`);
+  for (const d of docLines) if (words(d.text ?? "").length > 6) err(11, `doctor line "${d.text}" > 6 words`);
+  for (const d of ep.dialogue) if (d.clip.includes("vo/") && d.mouth !== "none" && !d.text) warn(11, `voice clip ${d.clip} has no text → no subtitle`);
+} else {
+  if (spoken.length > 1) err(11, `${spoken.length} clear English patient lines (max 1 per episode)`);
+  for (const d of spoken) if (words(d.text ?? "").length > 6) err(11, `patient word line "${d.text}" > 6 words`);
+  if (docLines.length > 1) err(11, `more than one rare doctor sentence`);
+  else if (docLines.length) warn(11, `rare doctor sentence "${docLines[0].text}": check ≤ 1 per ~10 episodes`);
+}
 
 // ───────────────────────────── 12. blocklist ─────────────────────────────
 const scanTexts: [string, string][] = [
@@ -468,7 +476,8 @@ if (ep.ledger.exitType === "E03") {
 const exitTracks = ep.motion.filter((m) => isActor(m.char) && m.from >= R.DING && m.from < R.S0_IN);
 const X = ep.ledger.exitType;
 const needsMotion = ["E01", "E03", "E05", "E06", "E09", "E13"];
-if (needsMotion.includes(X) && !exitTracks.length) err(14, `${X} needs an exit motion track between DING ${R.DING} and S0_IN ${R.S0_IN}`);
+const v2Exit = ep.style === "v2" && ep.motion.some((m) => isActor(m.char) && m.z === 1 && m.from < R.DING);
+if (needsMotion.includes(X) && !exitTracks.length && !v2Exit) err(14, `${X} needs an exit motion track between DING ${R.DING} and S0_IN ${R.S0_IN}`);
 for (const m of exitTracks) {
   const end = m.path[m.path.length - 1];
   const toWindow = Math.hypot(end[0] - POS.windowExitTarget[0], end[1] - POS.windowExitTarget[1]) < 60;
@@ -488,7 +497,7 @@ const ENUM: Record<string, Record<string, readonly unknown[]>> = {
   doctor: { brows: E.BROWS, mouth: E.DOCTOR_MOUTHS, lens: E.LENS_ICONS, glassesY: E.GLASSES_Y, pen: E.DOCTOR_PENS, placement: E.DOCTOR_PLACEMENTS, expression: Object.keys(E.DOCTOR_EXPRESSIONS), ease: E.EASES },
   chester: { eyes: E.CHESTER_EYES, mouth: E.CHESTER_MOUTHS, expression: Object.keys(E.CHESTER_EXPRESSIONS), ease: E.EASES, spring: [true, false] },
   chirp: { led: E.CHIRP_LEDS, ease: E.EASES },
-  patient: { brows: E.PATIENT_BROWS, land: E.PATIENT_LANDINGS, eyesSwap: E.PATIENT_EYES, variant: ["base", "transformed"], enter: ["fall_from_top"], panel: ["base", "fence"], ease: E.EASES },
+  patient: { brows: E.PATIENT_BROWS, land: E.PATIENT_LANDINGS, eyesSwap: E.PATIENT_EYES, variant: ["base", "transformed"], enter: ["fall_from_top"], panel: ["base", "fence"], labelStyle: ["print", "paint", "drip"], ease: E.EASES },
 };
 const RANGES: Record<string, [number, number]> = { headTilt: [-6, 6], sag: [0, 0.05], lean: [1, 1.03], dur: [0, 120] };
 for (const p of ep.poses) {
@@ -498,6 +507,10 @@ for (const p of ep.poses) {
   for (const [k, v] of Object.entries(p.set)) {
     if (k in RANGES) {
       if (typeof v !== "number" || v < RANGES[k][0] || v > RANGES[k][1]) err(15, `${p.char}.${k} = ${v} outside ${RANGES[k].join("…")} (frame ${p.at})`);
+      continue;
+    }
+    if (k === "label") {
+      if (typeof v !== "string" || v.length > 12) err(15, `${p.char}.label must be a short string (frame ${p.at})`);
       continue;
     }
     if (k === "extras") {
