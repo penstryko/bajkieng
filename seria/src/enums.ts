@@ -207,7 +207,7 @@ export const HUMAN_ACCESSORIES = ["tie", "cap", "apron", "headphones"] as const;
 export type HumanAccessory = (typeof HUMAN_ACCESSORIES)[number];
 
 // ───────────────────────────── Episode-level vocabularies (bible §5.4, §6.3, §6.4, §9.2) ─────────────────────────────
-export const CAMERAS = ["WIDE", "GLASSES", "NOTEPAD", "PATIENT", "BUBBLE", "WINDOW"] as const;
+export const CAMERAS = ["WIDE", "GLASSES", "NOTEPAD", "PATIENT", "BUBBLE", "WINDOW", "MEMORY"] as const;
 export type Camera = (typeof CAMERAS)[number];
 export const SHOT_EASES = ["cut", "zoom8", "zoom12"] as const;
 export type ShotEase = (typeof SHOT_EASES)[number];
@@ -239,7 +239,8 @@ export type DialogueMouth = (typeof DIALOGUE_MOUTH)[number];
 
 export const ACTOR_IDS = ["patient", "patient2", "patient3"] as const;
 export type ActorId = (typeof ACTOR_IDS)[number];
-export const CHAR_IDS = ["doctor", "chester", "chirp", ...ACTOR_IDS] as const;
+/** "boss" = off-screen voice (style v2): only audio + an orange subtitle, no puppet. */
+export const CHAR_IDS = ["doctor", "chester", "chirp", "boss", ...ACTOR_IDS] as const;
 export type CharId = (typeof CHAR_IDS)[number];
 
 /** 64 s or 96–120 s (multiples of 8 s → audio length divisible by 1024 samples, §6.1, lint 1). */

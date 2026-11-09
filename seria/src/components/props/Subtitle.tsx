@@ -7,7 +7,7 @@ import { fitSize, textWidth } from "./text";
 
 export interface SubtitleProps {
   text: string;
-  who: "doctor" | "patient";
+  who: "doctor" | "patient" | "boss";
   /** 0..1 pop-in/out factor */
   k: number;
 }
@@ -29,7 +29,7 @@ export const Subtitle: React.FC<SubtitleProps> = ({ text, who, k }) => {
   const size = Math.min(...lines.map((l) => fitSize(l, MAX_W, lines.length > 1 ? 50 : 62, "anton", 1)));
   const lh = size * 1.08;
   const y0 = 1374 - ((lines.length - 1) * lh) / 2 + size * 0.36;
-  const fill = who === "doctor" ? "#FFC857" : "#FFFFFF";
+  const fill = who === "doctor" ? "#FFC857" : who === "boss" ? "#FF8A5B" : "#FFFFFF";
   return (
     <g opacity={k} transform={`translate(540 1374) scale(${0.92 + 0.08 * k}) translate(-540 -1374)`}>
       {lines.map((l, i) => (

@@ -71,7 +71,8 @@ def pick_frames(ep: dict, ep_dir: Path, max_tiles: int):
         add(d["at"] + dur / 2, 1, "")
     for s in ep.get("shots", []):
         add(s["from"] + min(10, max(0, (s["to"] - s["from"]) // 3)), 2, "")
-    add(n - 180 + 6, 1, "DING")
+    ding = next((t["until"] for t in ep.get("timer", []) if t.get("until") is not None), n - 180)
+    add(ding + 6, 1, "DING")
     add(n - 75 + 6, 3, "reset")
     frames = sorted(cand)
     # merge frames closer than 0.5 s, keeping the higher priority one

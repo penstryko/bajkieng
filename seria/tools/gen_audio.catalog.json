@@ -37,6 +37,16 @@
       "store": "episodes/S01E02/vo/voice_monday.json",
       "save": false,
       "note": "premade ElevenLabs voice 'Callum - Husky Trickster' (N2lVS1w4EtoT3dr4eOWO): all 30 voice slots are taken (9.11.2026), premade voices need no slot"
+    },
+    "printer_roger": {
+      "store": "episodes/S01E01/vo/voice_printer.json",
+      "save": false,
+      "note": "premade 'Roger - Laid-Back, Casual, Resonant' (CwhRBWXzGAHq8TQ4Fs17): the tired office-drone printer of S01E01 v2 (no free voice slot)"
+    },
+    "boss_adam": {
+      "store": "episodes/S01E01/vo/voice_boss.json",
+      "save": false,
+      "note": "premade 'Adam - Dominant, Firm' (pNInz6obpgDQGcFmaJgB): the shouting boss of S01E01 v2 (no free voice slot)"
     }
   },
   "ttsGroups": {
@@ -63,6 +73,18 @@
       "model": "eleven_v3",
       "stability": 0.0,
       "note": "S01E02 Monday, expressive"
+    },
+    "printer": {
+      "voice": "printer_roger",
+      "model": "eleven_v3",
+      "stability": 0.0,
+      "note": "S01E01 v2 printer, expressive"
+    },
+    "boss": {
+      "voice": "boss_adam",
+      "model": "eleven_v3",
+      "stability": 0.0,
+      "note": "S01E01 v2 boss, shouting"
     }
   },
   "clips": [
@@ -681,6 +703,136 @@
       "fadeOutMs": 300,
       "prompt": "Crowd of hungover office workers groaning the word Mondaaay together in misery, one long low collective groan, no music",
       "ph": "groan"
+    },
+    {
+      "id": "S01_printer_twenty",
+      "path": "episodes/S01E01/vo/printer_twenty_years.wav",
+      "kind": "tts_line",
+      "group": "printer",
+      "text": "[exhausted] Twenty years. [sighs] Print, print, print. [angry] They KICK me!",
+      "maxS": 7.0,
+      "mouth": true,
+      "ph": "line"
+    },
+    {
+      "id": "S01_printer_no1",
+      "path": "episodes/S01E01/vo/printer_no_1.wav",
+      "kind": "tts_line",
+      "group": "printer",
+      "text": "[firmly] No.",
+      "maxS": 1.4,
+      "mouth": true,
+      "ph": "line"
+    },
+    {
+      "id": "S01_printer_no2",
+      "path": "episodes/S01E01/vo/printer_no_2.wav",
+      "kind": "tts_line",
+      "group": "printer",
+      "text": "[shouting] NO!",
+      "maxS": 1.5,
+      "mouth": true,
+      "ph": "line"
+    },
+    {
+      "id": "S01_printer_no3",
+      "path": "episodes/S01E01/vo/printer_no_3.wav",
+      "kind": "tts_line",
+      "group": "printer",
+      "text": "[calm, sweetly] No.",
+      "maxS": 1.6,
+      "mouth": true,
+      "ph": "line"
+    },
+    {
+      "id": "S01_printer_thanks",
+      "path": "episodes/S01E01/vo/printer_thanks.wav",
+      "kind": "tts_line",
+      "group": "printer",
+      "text": "[cheerful] Thanks, doc!",
+      "maxS": 2.2,
+      "mouth": true,
+      "ph": "line"
+    },
+    {
+      "id": "S01_printer_new",
+      "path": "episodes/S01E01/vo/printer_new_one.wav",
+      "kind": "tts_line",
+      "group": "printer",
+      "text": "[screaming] THEY BOUGHT A NEW ONE!",
+      "maxS": 3.2,
+      "mouth": true,
+      "ph": "line"
+    },
+    {
+      "id": "S01_boss_print1",
+      "path": "episodes/S01E01/vo/boss_print_1.wav",
+      "kind": "tts_line",
+      "group": "boss",
+      "text": "[shouting] PRINT!",
+      "maxS": 1.6,
+      "mouth": true,
+      "ph": "line"
+    },
+    {
+      "id": "S01_boss_print2",
+      "path": "episodes/S01E01/vo/boss_print_2.wav",
+      "kind": "tts_line",
+      "group": "boss",
+      "text": "[furious] PRINT! NOW!",
+      "maxS": 2.2,
+      "mouth": true,
+      "ph": "line"
+    },
+    {
+      "id": "S01_boss_please",
+      "path": "episodes/S01E01/vo/boss_please.wav",
+      "kind": "tts_line",
+      "group": "boss",
+      "text": "[pleading, trembling] Please?",
+      "maxS": 2.0,
+      "mouth": true,
+      "ph": "line"
+    },
+    {
+      "id": "S01_doctor_say_no",
+      "path": "episodes/S01E01/vo/doctor_learn_no.wav",
+      "kind": "tts_line",
+      "group": "doctor_v2",
+      "text": "[flatly] Mm-hm. Learn to say no.",
+      "maxS": 3.4,
+      "mouth": true,
+      "ph": "line"
+    },
+    {
+      "id": "S01_unbox",
+      "path": "episodes/S01E01/sfx/unbox_pop.wav",
+      "kind": "sfx",
+      "requestS": 1.0,
+      "durationS": 1.0,
+      "fadeOutMs": 100,
+      "prompt": "Cardboard box lid flaps popping open with a springy boing and a cheerful sparkle chime, no music, no voice",
+      "ph": "pop"
+    },
+    {
+      "id": "S01_new_printer",
+      "path": "episodes/S01E01/sfx/new_printer_burst.wav",
+      "kind": "sfx",
+      "requestS": 2.5,
+      "durationS": 2.5,
+      "fadeOutMs": 200,
+      "prompt": "Shiny new office printer printing extremely fast: rapid paper whirring and stuttering feed noises, ending with a cheerful ta-da chime, no voice, no music",
+      "ph": "printer_fast"
+    },
+    {
+      "id": "S01_cheer",
+      "path": "episodes/S01E01/sfx/office_cheer.wav",
+      "kind": "sfx",
+      "requestS": 2.0,
+      "durationS": 2.0,
+      "fadeOutMs": 250,
+      "prompt": "Small group of office workers cheering and clapping happily, 2 seconds, no music",
+      "ph": "cheer"
     }
   ]
 }

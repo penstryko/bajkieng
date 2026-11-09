@@ -8,7 +8,7 @@ import React from "react";
 import type { SetProps } from "../../contract";
 import { FONTS, POS, SET_COLORS as C } from "../../engine";
 import { Human } from "../humans/Human";
-import { CityParty, MondayMorning } from "./window_v2";
+import { CityParty, MondayMorning, OfficeSwap } from "./window_v2";
 import { rnd } from "./room";
 import { tone } from "./color";
 
@@ -111,7 +111,7 @@ const fmtThousands = (n: number): string => {
 };
 
 /** S01E01 window consequence: office tower, head-banging humans, growing PRINT QUEUE bubble. Window-local. */
-const OfficePrintQueue: React.FC<{ t: number }> = ({ t }) => {
+const OfficePrintQueue: React.FC<{ t: number; boss?: boolean }> = ({ t, boss }) => {
   // tower left of the mullion (local x 145–155), bubble above it, inside the glass
   const tx0 = 6, tx1 = 142, ty0 = 134;
   const cols = 2, cw = 56, ch = 48, gx = 8, gy = 8;
@@ -122,7 +122,8 @@ const OfficePrintQueue: React.FC<{ t: number }> = ({ t }) => {
     for (let c = 0; c < cols; c++) {
       const x = ix0 + c * (cw + gx), y = iy0 + r * (ch + gy);
       const i = r * cols + c;
-      const dark = i === 3;
+      const isBoss = !!boss && i === 3;
+      const dark = i === 3 && !isBoss;
       const period = 14 + (i % 3) * 4;
       const ph = (t + i * 5) % period;
       const half = period / 2;
@@ -130,8 +131,16 @@ const OfficePrintQueue: React.FC<{ t: number }> = ({ t }) => {
       const hit = t > 0 && ph >= half - 3 && ph < half + 1;
       cells.push(
         <g key={i}>
-          <rect x={x} y={y} width={cw} height={ch} fill={dark ? "#141a26" : "#D8E6C8"} />
-          {!dark ? (
+          <rect x={x} y={y} width={cw} height={ch} fill={dark ? "#141a26" : isBoss ? "#F2D9B8" : "#D8E6C8"} />
+          {isBoss ? (
+            <g>
+              <clipPath id="set-office-boss-clip"><rect x={x} y={y} width={cw} height={ch} /></clipPath>
+              <g clipPath="url(#set-office-boss-clip)">
+                <Human pose="yell" x={x + cw / 2} y={y + ch + 22} scale={0.21} accessory="tie" moveAngle={t > 0 ? 12 * Math.sin(t * 1.7) : 0} />
+              </g>
+            </g>
+          ) : null}
+          {!dark && !isBoss ? (
             <g>
               <clipPath id={`set-office-cell-${i}`}>
                 <rect x={x} y={y} width={cw} height={ch} />
@@ -218,6 +227,8 @@ export const WindowLayer: React.FC<Pick<SetProps, "windowLayer" | "windowT" | "w
         <Skyline />
         <Kiosk neonOn={neonOn} t={windowLayer === "calm" ? windowT : windowT + 7} />
         {windowLayer === "office_print_queue" ? <OfficePrintQueue t={windowT} /> : null}
+        {windowLayer === "office_boss" ? <OfficePrintQueue t={windowT} boss /> : null}
+        {windowLayer === "office_swap" ? <OfficeSwap t={windowT} /> : null}
         {windowLayer === "city_party" ? <CityParty t={windowT} /> : null}
         {windowLayer === "monday_morning" ? <MondayMorning t={windowT} /> : null}
       </g>

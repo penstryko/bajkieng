@@ -151,6 +151,8 @@ export interface TimerEvent {
   at: Frame;
   dial: number; // 1.0 = fully wound
   mode: TimerMode;
+  /** style v2: frame where the dial reaches 0 and the timer rings (DING); default ritual(N).DING = N − 180 */
+  until?: Frame;
 }
 
 export interface DialogueEvent {

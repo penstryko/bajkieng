@@ -159,7 +159,7 @@ interface Prepared {
   cries: CryLine[];
   /** style v2: doctor speaking lines (RMS mouth) and burned-in subtitles */
   talk: { at: number; md: string }[];
-  subtitles: { at: number; to: number; text: string; who: "doctor" | "patient" }[];
+  subtitles: { at: number; to: number; text: string; who: "doctor" | "patient" | "boss" }[];
 }
 
 /** The doctor's own voice lines (MM hums) live in assets/vo/doctor/. */
@@ -237,7 +237,7 @@ function prepare(b: EpisodeBundle): Prepared {
   const subtitles = v2
     ? ep.dialogue.filter((d) => d.text).map((d) => {
         const len = rmsFrames(b.mouthData[humDataPath(d)]) || 45;
-        return { at: d.at, to: d.at + len + 12, text: d.text as string, who: (d.char === "doctor" ? "doctor" : "patient") as "doctor" | "patient" };
+        return { at: d.at, to: d.at + len + 12, text: d.text as string, who: (d.char === "doctor" ? "doctor" : d.char === "boss" ? "boss" : "patient") as "doctor" | "patient" | "boss" };
       })
     : [];
 

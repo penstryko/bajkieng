@@ -5,11 +5,11 @@
       "id": "S01E01",
       "patientName": "Office Printer",
       "exitType": "E01",
-      "winner": "patient",
+      "winner": "humans",
       "patientCategory": "object",
       "woundId": "W05",
       "adviceId": "A01",
-      "twistId": "T03"
+      "twistId": "T10"
     },
     {
       "id": "S01E02",

@@ -19,7 +19,7 @@ Ta sekcja ma pierwszeństwo przed sprzecznymi zasadami niżej (zasada świata 3,
 - **Pętla:** wynik odcinka i powód powrotu na kanapę za każdym razem inne. Rytuał resetu (DING, przetarcie okularów, upadek na kanapę) zostaje.
 - **Świat poza gabinetem pokazuje okno** (kamera `WINDOW`, warstwy okna) albo dymek-wspomnienie (kamera `BUBBLE`). Jedna scenografia na zawsze.
 - **Głosy pacjentów:** wszystkie 30 miejsc na głosy w ElevenLabs jest zajętych, więc pacjenci dostają gotowe głosy z biblioteki ElevenLabs (premade, nie zajmują miejsca) albo jedno słowo wycięte z podglądu Voice Design.
-- **Technicznie:** `"style": "v2"` w `episode.json`; pola pozy pacjenta `label` / `labelStyle` (nagłówek kartki: print, paint, drip); `header` w `patient.json`.
+- **Technicznie:** `"style": "v2"` w `episode.json`; pola pozy pacjenta `label` / `labelStyle` (nagłówek kartki: print, paint, drip); `header` w `patient.json`; timer `until` (klatka dzwonka DING, domyślnie N − 180; S01E01 ma 1350, bo po sesji jest jeszcze wymiana drukarki); postać `boss` w `dialogue` (głos spoza kadru, pomarańczowy napis); kamera `MEMORY` (wspomnienie plus twarz pacjenta w strefie bezpiecznej; `BUBBLE` wpycha twarz w strefę UI); warstwy okna `office_boss` i `office_swap`.
 
 ## Spis treści
 

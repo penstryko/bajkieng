@@ -904,6 +904,44 @@
       "usedIn": [
         "S01E01"
       ],
+      "id": "S01_new_printer",
+      "path": "episodes/S01E01/sfx/new_printer_burst.wav",
+      "kind": "sfx",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/sound-generation",
+      "model": "eleven_text_to_sound_v3",
+      "prompt": "Shiny new office printer printing extremely fast: rapid paper whirring and stuttering feed noises, ending with a cheerful ta-da chime, no voice, no music",
+      "requestS": 2.5,
+      "raw": "episodes/S01E01/sfx/_src/new_printer_burst.wav",
+      "samples": 120000,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 2.5
+    },
+    {
+      "usedIn": [
+        "S01E01"
+      ],
+      "id": "S01_cheer",
+      "path": "episodes/S01E01/sfx/office_cheer.wav",
+      "kind": "sfx",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/sound-generation",
+      "model": "eleven_text_to_sound_v3",
+      "prompt": "Small group of office workers cheering and clapping happily, 2 seconds, no music",
+      "requestS": 2,
+      "raw": "episodes/S01E01/sfx/_src/office_cheer.wav",
+      "samples": 96000,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 2.0
+    },
+    {
+      "usedIn": [
+        "S01E01"
+      ],
       "id": "print_job_incoming",
       "path": "episodes/S01E01/sfx/print_job_incoming.wav",
       "kind": "sfx",
@@ -1020,6 +1058,25 @@
       "usedIn": [
         "S01E01"
       ],
+      "id": "S01_unbox",
+      "path": "episodes/S01E01/sfx/unbox_pop.wav",
+      "kind": "sfx",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/sound-generation",
+      "model": "eleven_text_to_sound_v3",
+      "prompt": "Cardboard box lid flaps popping open with a springy boing and a cheerful sparkle chime, no music, no voice",
+      "requestS": 1,
+      "raw": "episodes/S01E01/sfx/_src/unbox_pop.wav",
+      "samples": 48000,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 1.0
+    },
+    {
+      "usedIn": [
+        "S01E01"
+      ],
       "id": "window_office_chaos",
       "path": "episodes/S01E01/sfx/window_office_chaos.wav",
       "kind": "sfx",
@@ -1040,6 +1097,114 @@
       "usedIn": [
         "S01E01"
       ],
+      "id": "S01_boss_please",
+      "path": "episodes/S01E01/vo/boss_please.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "pNInz6obpgDQGcFmaJgB",
+      "voiceDesigned": true,
+      "stability": 0,
+      "prompt": "[pleading, trembling] Please?",
+      "group": "boss",
+      "raw": "assets/vo/doctor/_src/boss.wav",
+      "cutS": [
+        3.754,
+        4.8
+      ],
+      "note": "S01E01 v2 boss, shouting",
+      "samples": 35280,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 0.735
+    },
+    {
+      "usedIn": [
+        "S01E01"
+      ],
+      "id": "S01_boss_print1",
+      "path": "episodes/S01E01/vo/boss_print_1.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "pNInz6obpgDQGcFmaJgB",
+      "voiceDesigned": true,
+      "stability": 0,
+      "prompt": "[shouting] PRINT!",
+      "group": "boss",
+      "raw": "assets/vo/doctor/_src/boss.wav",
+      "cutS": [
+        0.28,
+        1.018
+      ],
+      "note": "S01E01 v2 boss, shouting",
+      "samples": 17040,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 0.355
+    },
+    {
+      "usedIn": [
+        "S01E01"
+      ],
+      "id": "S01_boss_print2",
+      "path": "episodes/S01E01/vo/boss_print_2.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "pNInz6obpgDQGcFmaJgB",
+      "voiceDesigned": true,
+      "stability": 0,
+      "prompt": "[furious] PRINT! NOW!",
+      "group": "boss",
+      "raw": "assets/vo/doctor/_src/boss.wav",
+      "cutS": [
+        1.155,
+        3.487
+      ],
+      "note": "S01E01 v2 boss, shouting",
+      "samples": 79920,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 1.665
+    },
+    {
+      "usedIn": [
+        "S01E01"
+      ],
+      "id": "S01_doctor_say_no",
+      "path": "episodes/S01E01/vo/doctor_learn_no.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "LZirsF5GBfgWydOjub6v",
+      "voiceDesigned": true,
+      "stability": 0.5,
+      "prompt": "[flatly] Mm-hm. Learn to say no.",
+      "group": "doctor_v2",
+      "raw": "assets/vo/doctor/_src/doctor_v2.wav",
+      "cutS": [
+        9.154,
+        12.48
+      ],
+      "note": "style v2 spoken lines (deadpan), one request split by timestamps",
+      "samples": 159360,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 3.32
+    },
+    {
+      "usedIn": [
+        "S01E01"
+      ],
       "id": "printer_no_VP6",
       "path": "episodes/S01E01/vo/patient/printer_no_VP6.wav",
       "kind": "design_word",
@@ -1055,6 +1220,168 @@
       "channels": 1,
       "bits": 16,
       "durationS": 0.594
+    },
+    {
+      "usedIn": [
+        "S01E01"
+      ],
+      "id": "S01_printer_new",
+      "path": "episodes/S01E01/vo/printer_new_one.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "CwhRBWXzGAHq8TQ4Fs17",
+      "voiceDesigned": true,
+      "stability": 0,
+      "prompt": "[screaming] THEY BOUGHT A NEW ONE!",
+      "group": "printer",
+      "raw": "assets/vo/doctor/_src/printer.wav",
+      "cutS": [
+        10.431,
+        12.32
+      ],
+      "note": "S01E01 v2 printer, expressive",
+      "samples": 83040,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 1.73
+    },
+    {
+      "usedIn": [
+        "S01E01"
+      ],
+      "id": "S01_printer_no1",
+      "path": "episodes/S01E01/vo/printer_no_1.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "CwhRBWXzGAHq8TQ4Fs17",
+      "voiceDesigned": true,
+      "stability": 0,
+      "prompt": "[firmly] No.",
+      "group": "printer",
+      "raw": "assets/vo/doctor/_src/printer.wav",
+      "cutS": [
+        6.077,
+        6.77
+      ],
+      "note": "S01E01 v2 printer, expressive",
+      "samples": 33264,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 0.693
+    },
+    {
+      "usedIn": [
+        "S01E01"
+      ],
+      "id": "S01_printer_no2",
+      "path": "episodes/S01E01/vo/printer_no_2.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "CwhRBWXzGAHq8TQ4Fs17",
+      "voiceDesigned": true,
+      "stability": 0,
+      "prompt": "[shouting] NO!",
+      "group": "printer",
+      "raw": "assets/vo/doctor/_src/printer.wav",
+      "cutS": [
+        7.187,
+        8.123
+      ],
+      "note": "S01E01 v2 printer, expressive",
+      "samples": 44952,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 0.9365
+    },
+    {
+      "usedIn": [
+        "S01E01"
+      ],
+      "id": "S01_printer_no3",
+      "path": "episodes/S01E01/vo/printer_no_3.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "CwhRBWXzGAHq8TQ4Fs17",
+      "voiceDesigned": true,
+      "stability": 0,
+      "prompt": "[calm, sweetly] No.",
+      "group": "printer",
+      "raw": "assets/vo/doctor/_src/printer.wav",
+      "cutS": [
+        8.407,
+        9.05
+      ],
+      "note": "S01E01 v2 printer, expressive",
+      "samples": 18720,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 0.39
+    },
+    {
+      "usedIn": [
+        "S01E01"
+      ],
+      "id": "S01_printer_thanks",
+      "path": "episodes/S01E01/vo/printer_thanks.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "CwhRBWXzGAHq8TQ4Fs17",
+      "voiceDesigned": true,
+      "stability": 0,
+      "prompt": "[cheerful] Thanks, doc!",
+      "group": "printer",
+      "raw": "assets/vo/doctor/_src/printer.wav",
+      "cutS": [
+        9.38,
+        10.375
+      ],
+      "note": "S01E01 v2 printer, expressive",
+      "samples": 32160,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 0.67
+    },
+    {
+      "usedIn": [
+        "S01E01"
+      ],
+      "id": "S01_printer_twenty",
+      "path": "episodes/S01E01/vo/printer_twenty_years.wav",
+      "kind": "tts_line",
+      "source": "elevenlabs",
+      "endpoint": "POST /v1/text-to-speech/{voice}/with-timestamps",
+      "model": "eleven_v3",
+      "voiceId": "CwhRBWXzGAHq8TQ4Fs17",
+      "voiceDesigned": true,
+      "stability": 0,
+      "prompt": "[exhausted] Twenty years. [sighs] Print, print, print. [angry] They KICK me!",
+      "group": "printer",
+      "raw": "assets/vo/doctor/_src/printer.wav",
+      "cutS": [
+        0.326,
+        5.65
+      ],
+      "note": "S01E01 v2 printer, expressive",
+      "samples": 242160,
+      "sampleRate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "durationS": 5.045
     },
     {
       "usedIn": [

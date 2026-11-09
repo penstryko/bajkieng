@@ -42,3 +42,11 @@
 {"t":"2026-11-09T14:14:26.079Z","episode":"S01E02","asset":"tts:doctor_v2","endpoint":"text-to-speech/with-timestamps (eleven_v3)","estimate":81,"characterCost":43,"spentEstimate":561,"spentHeader":175}
 {"t":"2026-11-09T14:14:30.329Z","episode":"S01E02","asset":"tts:monday","endpoint":"text-to-speech/with-timestamps (eleven_v3)","estimate":107,"characterCost":61,"spentEstimate":668,"spentHeader":236}
 {"t":"2026-11-09T14:14:34.382Z","episode":"S01E02","event":"end","calls":7,"spentEstimate":668,"spentHeader":236,"creditsUsedAfter":56245,"accountDelta":0,"failed":[]}
+{"t":"2026-11-09T17:16:23.571Z","episode":"S01E01","event":"start","creditsUsedBefore":56481,"creditLimit":142668,"todo":["S01_printer_twenty","S01_printer_no1","S01_printer_no2","S01_printer_no3","S01_printer_thanks","S01_printer_new","S01_boss_print1","S01_boss_print2","S01_boss_please","S01_doctor_say_no","S01_unbox","S01_new_printer","S01_cheer"],"estimate":1120}
+{"t":"2026-11-09T17:16:24.986Z","episode":"S01E01","asset":"S01_unbox","endpoint":"sound-generation","estimate":40,"characterCost":11,"spentEstimate":40,"spentHeader":11}
+{"t":"2026-11-09T17:16:26.899Z","episode":"S01E01","asset":"S01_new_printer","endpoint":"sound-generation","estimate":100,"characterCost":28,"spentEstimate":140,"spentHeader":39}
+{"t":"2026-11-09T17:16:28.573Z","episode":"S01E01","asset":"S01_cheer","endpoint":"sound-generation","estimate":80,"characterCost":22,"spentEstimate":220,"spentHeader":61}
+{"t":"2026-11-09T17:16:34.036Z","episode":"S01E01","asset":"tts:printer","endpoint":"text-to-speech/with-timestamps (eleven_v3)","estimate":156,"characterCost":96,"spentEstimate":376,"spentHeader":157}
+{"t":"2026-11-09T17:16:37.407Z","episode":"S01E01","asset":"tts:boss","endpoint":"text-to-speech/with-timestamps (eleven_v3)","estimate":51,"characterCost":37,"spentEstimate":427,"spentHeader":194}
+{"t":"2026-11-09T17:16:43.134Z","episode":"S01E01","asset":"tts:doctor_v2","endpoint":"text-to-speech/with-timestamps (eleven_v3)","estimate":116,"characterCost":60,"spentEstimate":543,"spentHeader":254}
+{"t":"2026-11-09T17:16:47.157Z","episode":"S01E01","event":"end","calls":6,"spentEstimate":543,"spentHeader":254,"creditsUsedAfter":56481,"accountDelta":0,"failed":[]}

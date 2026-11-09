@@ -1,228 +1,1016 @@
 {
+  "style": "v2",
   "id": "S01E01",
   "patientNo": 1,
   "title": "Dr. Dusty #001: The Printer Who Said No",
-  "fps": 30, "width": 1080, "height": 1920, "durationInFrames": 1920,
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 1920,
   "seed": 1001,
-  "ledger": { "exitType": "E01", "winner": "patient", "patientCategory": "object",
-              "woundId": "W05", "adviceId": "A01", "twistId": "T03" },
-  "continuity": { "plantStage": 0, "diplomaText": "Doctor of Nodding", "spareTimers": 6, "spareGlasses": 2 },
-  "actors": [ { "id": "patient", "ref": "patient.json", "anchor": [410, 1150], "maxSize": { "w": 330, "h": 380 } } ],
+  "ledger": {
+    "exitType": "E01",
+    "winner": "humans",
+    "patientCategory": "object",
+    "woundId": "W05",
+    "adviceId": "A01",
+    "twistId": "T10"
+  },
+  "continuity": {
+    "plantStage": 0,
+    "diplomaText": "Doctor of Nodding",
+    "spareTimers": 6,
+    "spareGlasses": 2
+  },
+  "actors": [
+    {
+      "id": "patient",
+      "ref": "patient.json",
+      "anchor": [
+        410,
+        1150
+      ],
+      "maxSize": {
+        "w": 330,
+        "h": 380
+      }
+    }
+  ],
   "state0": {
     "camera": "WIDE",
-    "doctor": { "pen": "raised", "brows": "neutral", "mouth": "flat", "headTilt": 0, "glassesY": 0, "lens": "patient_file_icon", "placement": "chair" },
-    "chester": { "eyes": "wide_up", "mouth": "tight", "sag": 0.02 },
-    "chirp": { "led": "off" },
-    "patient": { "topY": 230, "scale": 1.0, "motionLines": true, "eyes": "terrified_pinpoint", "brows": "worried" },
-    "timer": { "dial": 1.0 },
+    "doctor": {
+      "pen": "raised",
+      "brows": "neutral",
+      "mouth": "flat",
+      "headTilt": 0,
+      "glassesY": 0,
+      "lens": "patient_file_icon",
+      "placement": "chair"
+    },
+    "chester": {
+      "eyes": "wide_up",
+      "mouth": "tight",
+      "sag": 0.02
+    },
+    "chirp": {
+      "led": "off"
+    },
+    "patient": {
+      "topY": 230,
+      "scale": 1.0,
+      "motionLines": true,
+      "eyes": "terrified_pinpoint",
+      "brows": "worried"
+    },
+    "timer": {
+      "dial": 1.0
+    },
     "window": "calm",
-    "couchShadow": { "scale": 1.0, "opacity": 0.6 },
+    "couchShadow": {
+      "scale": 1.0,
+      "opacity": 0.6
+    },
     "caption": "PATIENT #001: OFFICE PRINTER"
   },
   "shots": [
-    { "from": 0, "to": 149, "camera": "WIDE" },
-    { "from": 150, "to": 239, "camera": "GLASSES", "ease": "cut" },
-    { "from": 240, "to": 359, "camera": "WIDE", "ease": "cut" },
-    { "from": 360, "to": 434, "camera": "NOTEPAD", "ease": "cut" },
-    { "from": 435, "to": 479, "camera": "WIDE", "ease": "cut" },
-    { "from": 480, "to": 539, "camera": "BUBBLE", "ease": "cut" },
-    { "from": 540, "to": 603, "camera": "PATIENT", "ease": "cut" },
-    { "from": 604, "to": 719, "camera": "WIDE", "ease": "cut" },
-    { "from": 720, "to": 789, "camera": "NOTEPAD", "ease": "cut" },
-    { "from": 790, "to": 1199, "camera": "WIDE", "ease": "cut" },
-    { "from": 1200, "to": 1259, "camera": "GLASSES", "ease": "cut" },
-    { "from": 1260, "to": 1479, "camera": "WIDE", "ease": "cut" },
-    { "from": 1480, "to": 1529, "camera": "GLASSES", "ease": "cut" },
-    { "from": 1530, "to": 1554, "camera": "WIDE", "ease": "cut" },
-    { "from": 1555, "to": 1589, "camera": "PATIENT", "ease": "cut" },
-    { "from": 1590, "to": 1743, "camera": "WIDE", "ease": "cut" },
-    { "from": 1744, "to": 1755, "camera": "GLASSES", "ease": "cut" },
-    { "from": 1756, "to": 1844, "camera": "WIDE", "ease": "cut" },
-    { "from": 1845, "to": 1889, "camera": "GLASSES", "ease": "cut" },
-    { "from": 1890, "to": 1919, "camera": "WIDE", "ease": "cut" }
+    {
+      "from": 0,
+      "to": 109,
+      "camera": "WIDE"
+    },
+    {
+      "from": 110,
+      "to": 299,
+      "camera": "MEMORY",
+      "ease": "zoom12"
+    },
+    {
+      "from": 300,
+      "to": 389,
+      "camera": "WIDE",
+      "ease": "cut"
+    },
+    {
+      "from": 390,
+      "to": 569,
+      "camera": "NOTEPAD",
+      "ease": "cut"
+    },
+    {
+      "from": 570,
+      "to": 659,
+      "camera": "WIDE",
+      "ease": "cut"
+    },
+    {
+      "from": 660,
+      "to": 749,
+      "camera": "WINDOW",
+      "ease": "zoom12"
+    },
+    {
+      "from": 750,
+      "to": 809,
+      "camera": "PATIENT",
+      "ease": "cut"
+    },
+    {
+      "from": 810,
+      "to": 899,
+      "camera": "WINDOW",
+      "ease": "cut"
+    },
+    {
+      "from": 900,
+      "to": 959,
+      "camera": "PATIENT",
+      "ease": "cut"
+    },
+    {
+      "from": 960,
+      "to": 1079,
+      "camera": "WINDOW",
+      "ease": "cut"
+    },
+    {
+      "from": 1080,
+      "to": 1199,
+      "camera": "PATIENT",
+      "ease": "cut"
+    },
+    {
+      "from": 1200,
+      "to": 1499,
+      "camera": "WIDE",
+      "ease": "cut"
+    },
+    {
+      "from": 1500,
+      "to": 1769,
+      "camera": "WINDOW",
+      "ease": "zoom12"
+    },
+    {
+      "from": 1770,
+      "to": 1844,
+      "camera": "WIDE",
+      "ease": "cut"
+    },
+    {
+      "from": 1845,
+      "to": 1889,
+      "camera": "GLASSES",
+      "ease": "cut"
+    },
+    {
+      "from": 1890,
+      "to": 1919,
+      "camera": "WIDE",
+      "ease": "cut"
+    }
   ],
   "poses": [
-    { "char": "patient", "at": 6, "set": { "enter": "fall_from_top", "eyesSwap": "terrified_pinpoint", "brows": "worried" } },
-    { "char": "patient", "at": 15, "set": { "land": "heavy", "eyesSwap": "tired_bags" } },
-    { "char": "chester", "at": 15, "set": { "eyes": "squint", "mouth": "wavy", "sag": 0.04, "dur": 3 } },
-    { "char": "patient", "at": 18, "set": { "brows": "worried" } },
-    { "char": "chester", "at": 45, "set": { "eyes": "half", "mouth": "flat", "sag": 0.03, "dur": 12 } },
-    { "char": "patient", "at": 72, "set": { "brows": "angry_v" } },
-    { "char": "doctor", "at": 75, "set": { "pen": "writing" } },
-    { "char": "chester", "at": 90, "set": { "eyes": "one_open", "mouth": "flat" } },
-    { "char": "doctor", "at": 140, "set": { "pen": "raised" } },
-
-    { "char": "doctor", "at": 150, "set": { "brows": "low_flat", "mouth": "flat_down", "headTilt": -4, "dur": 8 } },
-    { "char": "patient", "at": 150, "set": { "brows": "flat_heavy" } },
-    { "char": "chester", "at": 150, "set": { "eyes": "half" } },
-    { "char": "doctor", "at": 153, "set": { "lens": "burger" } },
-
-    { "char": "doctor", "at": 240, "set": { "brows": "neutral", "mouth": "flat", "headTilt": 0, "dur": 6 } },
-    { "char": "patient", "at": 244, "set": { "brows": "angry_v", "eyesSwap": "slanted_angry" } },
-    { "char": "chester", "at": 252, "set": { "eyes": "one_squint", "mouth": "crooked" } },
-    { "char": "chester", "at": 262, "set": { "eyes": "squint", "mouth": "wavy", "sag": 0.04, "dur": 4 } },
-    { "char": "doctor", "at": 280, "set": { "pen": "writing" } },
-    { "char": "patient", "at": 300, "set": { "brows": "flat_heavy", "eyesSwap": "tired_bags" } },
-    { "char": "chester", "at": 305, "set": { "eyes": "half", "mouth": "flat", "sag": 0.03, "dur": 10 } },
-    { "char": "doctor", "at": 330, "set": { "lens": "patient_file_icon" } },
-    { "char": "doctor", "at": 350, "set": { "pen": "raised" } },
-
-    { "char": "patient", "at": 470, "set": { "brows": "worried", "eyesSwap": "teary" } },
-    { "char": "chester", "at": 500, "set": { "eyes": "droop", "mouth": "arc_down" } },
-
-    { "char": "chirp", "at": 604, "set": { "led": "chirp" } },
-    { "char": "chester", "at": 606, "set": { "eyes": "wide_up", "mouth": "tight" } },
-    { "char": "patient", "at": 604, "set": { "eyesSwap": "tired_bags" } },
-    { "char": "patient", "at": 606, "set": { "brows": "raised" } },
-    { "char": "doctor", "at": 622, "set": { "brows": "one_up", "mouth": "half_smile" } },
-    { "char": "doctor", "at": 624, "set": { "lens": "eyeroll" } },
-    { "char": "chester", "at": 640, "set": { "eyes": "half", "mouth": "flat" } },
-    { "char": "chirp", "at": 640, "set": { "led": "off" } },
-    { "char": "patient", "at": 640, "set": { "brows": "flat_heavy" } },
-    { "char": "chirp", "at": 672, "set": { "led": "chirp" } },
-    { "char": "patient", "at": 674, "set": { "brows": "angry_v" } },
-    { "char": "doctor", "at": 680, "set": { "brows": "neutral", "mouth": "flat", "lens": "patient_file_icon", "pen": "writing" } },
-    { "char": "chirp", "at": 700, "set": { "led": "off" } },
-    { "char": "patient", "at": 700, "set": { "brows": "flat_heavy" } },
-    { "char": "doctor", "at": 712, "set": { "pen": "raised" } },
-
-    { "char": "patient", "at": 796, "set": { "brows": "raised", "eyesSwap": "stars" } },
-    { "char": "chester", "at": 800, "set": { "eyes": "one_open" } },
-    { "char": "patient", "at": 820, "set": { "eyesSwap": "tired_bags" } },
-    { "char": "patient", "at": 846, "set": { "brows": "furrowed", "panel": "fence" } },
-    { "char": "chester", "at": 846, "set": { "eyes": "half" } },
-    { "char": "doctor", "at": 880, "set": { "lens": "beach" } },
-
-    { "char": "chester", "at": 952, "set": { "eyes": "one_open", "mouth": "flat" } },
-    { "char": "doctor", "at": 954, "set": { "brows": "high", "extras": ["sweat"], "headTilt": 4, "dur": 6, "lens": "dollars" } },
-    { "char": "patient", "at": 954, "set": { "brows": "raised" } },
-    { "char": "doctor", "at": 1010, "set": { "brows": "neutral", "extras": [], "headTilt": 0, "dur": 8, "lens": "patient_file_icon" } },
-    { "char": "chester", "at": 1010, "set": { "eyes": "half" } },
-    { "char": "patient", "at": 1010, "set": { "brows": "flat_heavy" } },
-
-    { "char": "doctor", "at": 1050, "set": { "glassesY": 40, "brows": "one_up", "dur": 6 } },
-    { "char": "doctor", "at": 1098, "set": { "pen": "click" } },
-    { "char": "doctor", "at": 1130, "set": { "glassesY": 0, "brows": "neutral", "dur": 6 } },
-    { "char": "doctor", "at": 1160, "set": { "pen": "raised" } },
-
-    { "char": "doctor", "at": 1206, "set": { "lens": "paper_jam" } },
-    { "char": "patient", "at": 1262, "set": { "brows": "raised" } },
-    { "char": "chester", "at": 1265, "set": { "eyes": "one_open", "mouth": "flat" } },
-    { "char": "doctor", "at": 1380, "set": { "brows": "high" } },
-    { "char": "doctor", "at": 1390, "set": { "lens": "spinner" } },
-    { "char": "patient", "at": 1450, "set": { "brows": "flat_heavy" } },
-    { "char": "doctor", "at": 1480, "set": { "lens": "error", "extras": ["sweat"] } },
-
-    { "char": "patient", "at": 1534, "set": { "brows": "furrowed" } },
-    { "char": "patient", "at": 1556, "set": { "brows": "angry_v", "eyesSwap": "slanted_angry" } },
-    { "char": "doctor", "at": 1590, "set": { "expression": "terrified" } },
-    { "char": "chester", "at": 1596, "set": { "expression": "panic" } },
-    { "char": "patient", "at": 1610, "set": { "brows": "raised", "eyesSwap": "stars" } },
-    { "char": "patient", "at": 1636, "set": { "eyesSwap": "tired_bags" } },
-
-    { "char": "doctor", "at": 1740, "set": { "mouth": "O", "lens": "siren" } },
-    { "char": "chester", "at": 1744, "set": { "spring": false } },
-    { "char": "patient", "at": 1756, "set": { "brows": "raised" } },
-    { "char": "chester", "at": 1760, "set": { "eyes": "closed", "mouth": "slightly_open", "spring": false, "sag": 0, "dur": 10 } },
-    { "char": "chester", "at": 1832, "set": { "eyes": "side_half", "mouth": "smirk" } },
-    { "char": "doctor", "at": 1834, "set": { "lens": "flatline" } },
-
-    { "char": "doctor", "at": 1846, "set": { "brows": "neutral", "mouth": "flat", "glassesY": 0, "headTilt": 0, "pen": "raised", "extras": [] } },
-    { "char": "doctor", "at": 1858, "set": { "lens": "off" } },
-    { "char": "doctor", "at": 1884, "set": { "lens": "patient_file_icon" } },
-    { "char": "doctor", "at": 1890, "set": { "pen": "raised", "brows": "neutral", "mouth": "flat", "headTilt": 0, "glassesY": 0, "lens": "patient_file_icon", "placement": "chair", "extras": [] } },
-    { "char": "chester", "at": 1890, "set": { "eyes": "wide_up", "mouth": "tight", "sag": 0.02, "spring": false } },
-    { "char": "patient", "at": 1890, "set": { "brows": "worried", "eyesSwap": "terrified_pinpoint", "panel": "base" } }
+    {
+      "char": "patient",
+      "at": 6,
+      "set": {
+        "enter": "fall_from_top",
+        "eyesSwap": "terrified_pinpoint",
+        "brows": "worried"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 15,
+      "set": {
+        "land": "heavy",
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 15,
+      "set": {
+        "eyes": "squint",
+        "mouth": "wavy",
+        "sag": 0.04,
+        "dur": 3
+      }
+    },
+    {
+      "char": "chester",
+      "at": 45,
+      "set": {
+        "eyes": "half",
+        "mouth": "flat",
+        "sag": 0.03,
+        "dur": 12
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 90,
+      "set": {
+        "pen": "writing"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 125,
+      "set": {
+        "brows": "worried"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 130,
+      "set": {
+        "eyes": "one_open",
+        "mouth": "flat"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 225,
+      "set": {
+        "brows": "angry_v",
+        "eyesSwap": "slanted_angry"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 290,
+      "set": {
+        "brows": "worried",
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 300,
+      "set": {
+        "pen": "raised"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 304,
+      "set": {
+        "brows": "worried",
+        "eyesSwap": "teary"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 308,
+      "set": {
+        "eyes": "droop",
+        "mouth": "arc_down"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 386,
+      "set": {
+        "brows": "flat_heavy",
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 392,
+      "set": {
+        "eyes": "half",
+        "mouth": "flat"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 396,
+      "set": {
+        "pen": "writing"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 470,
+      "set": {
+        "brows": "raised"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 520,
+      "set": {
+        "pen": "raised"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 572,
+      "set": {
+        "brows": "raised",
+        "eyesSwap": "stars",
+        "panel": "fence"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 575,
+      "set": {
+        "eyes": "one_open",
+        "mouth": "flat"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 596,
+      "set": {
+        "brows": "furrowed",
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 750,
+      "set": {
+        "brows": "furrowed",
+        "eyesSwap": "slanted_angry"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 790,
+      "set": {
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 900,
+      "set": {
+        "brows": "angry_v",
+        "eyesSwap": "slanted_angry"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 906,
+      "set": {
+        "eyes": "wide_up",
+        "mouth": "tight"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 940,
+      "set": {
+        "brows": "furrowed",
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 960,
+      "set": {
+        "eyes": "half",
+        "mouth": "flat"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1084,
+      "set": {
+        "brows": "raised",
+        "eyesSwap": "stars"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1112,
+      "set": {
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1228,
+      "set": {
+        "brows": "one_up",
+        "dur": 6
+      }
+    },
+    {
+      "char": "chester",
+      "at": 1230,
+      "set": {
+        "eyes": "one_open",
+        "mouth": "flat"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1236,
+      "set": {
+        "eyesSwap": "stars"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1262,
+      "set": {
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1275,
+      "set": {
+        "brows": "neutral",
+        "dur": 8
+      }
+    },
+    {
+      "char": "chester",
+      "at": 1360,
+      "set": {
+        "eyes": "half",
+        "mouth": "flat"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1400,
+      "set": {
+        "brows": "raised",
+        "eyesSwap": "tired_bags"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1500,
+      "set": {
+        "brows": "raised"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1556,
+      "set": {
+        "brows": "raised",
+        "eyesSwap": "round_bulging"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1600,
+      "set": {
+        "brows": "worried",
+        "eyesSwap": "terrified_pinpoint"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1650,
+      "set": {
+        "brows": "worried",
+        "eyesSwap": "droopy_sad"
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1696,
+      "set": {
+        "brows": "worried",
+        "eyesSwap": "terrified_pinpoint"
+      }
+    },
+    {
+      "char": "chester",
+      "at": 1772,
+      "set": {
+        "eyes": "side_half",
+        "mouth": "smirk"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1772,
+      "set": {
+        "brows": "one_up",
+        "dur": 6
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1825,
+      "set": {
+        "brows": "neutral",
+        "dur": 8
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1846,
+      "set": {
+        "brows": "neutral",
+        "mouth": "flat",
+        "glassesY": 0,
+        "headTilt": 0,
+        "pen": "raised",
+        "extras": []
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1858,
+      "set": {
+        "lens": "off"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1884,
+      "set": {
+        "lens": "patient_file_icon"
+      }
+    },
+    {
+      "char": "doctor",
+      "at": 1890,
+      "set": {
+        "pen": "raised",
+        "brows": "neutral",
+        "mouth": "flat",
+        "headTilt": 0,
+        "glassesY": 0,
+        "lens": "patient_file_icon",
+        "placement": "chair",
+        "extras": []
+      }
+    },
+    {
+      "char": "chester",
+      "at": 1890,
+      "set": {
+        "eyes": "wide_up",
+        "mouth": "tight",
+        "sag": 0.02,
+        "spring": false
+      }
+    },
+    {
+      "char": "patient",
+      "at": 1890,
+      "set": {
+        "brows": "worried",
+        "eyesSwap": "terrified_pinpoint",
+        "panel": "base"
+      }
+    }
   ],
   "motion": [
-    { "char": "patient", "from": 6, "to": 14, "path": [[410, 610], [410, 1150]], "ease": "in" },
-    { "char": "patient", "from": 1760, "to": 1830, "path": [[410, 1150], [470, 760], [540, 500]], "scale": [1, 0.25], "z": 1, "zAt": 1803, "ease": "inOut" },
-    { "char": "patient", "from": 1890, "to": 1904, "path": [[410, 0], [410, 610]], "ease": "out" }
+    {
+      "char": "patient",
+      "from": 6,
+      "to": 14,
+      "path": [
+        [
+          410,
+          610
+        ],
+        [
+          410,
+          1150
+        ]
+      ],
+      "ease": "in"
+    },
+    {
+      "char": "patient",
+      "from": 1430,
+      "to": 1500,
+      "path": [
+        [
+          410,
+          1150
+        ],
+        [
+          470,
+          760
+        ],
+        [
+          506,
+          600
+        ]
+      ],
+      "scale": [
+        1,
+        0.25
+      ],
+      "z": 1,
+      "zAt": 1472,
+      "ease": "inOut"
+    },
+    {
+      "char": "patient",
+      "from": 1501,
+      "to": 1699,
+      "path": [
+        [
+          506,
+          600
+        ],
+        [
+          508,
+          600
+        ],
+        [
+          504,
+          600
+        ],
+        [
+          506,
+          600
+        ]
+      ],
+      "scale": [
+        0.25,
+        0.25
+      ],
+      "z": 1,
+      "zAt": 1501,
+      "ease": "inOut"
+    },
+    {
+      "char": "patient",
+      "from": 1698,
+      "to": 1738,
+      "path": [
+        [
+          506,
+          600
+        ],
+        [
+          575,
+          500
+        ],
+        [
+          650,
+          405
+        ],
+        [
+          695,
+          320
+        ]
+      ],
+      "scale": [
+        0.25,
+        0.3
+      ],
+      "z": 1,
+      "zAt": 1698,
+      "ease": "linear"
+    },
+    {
+      "char": "patient",
+      "from": 1890,
+      "to": 1904,
+      "path": [
+        [
+          410,
+          0
+        ],
+        [
+          410,
+          610
+        ]
+      ],
+      "ease": "out"
+    }
   ],
   "instances": [],
-  "timer": [ { "at": 15, "dial": 1.0, "mode": "run" } ],
+  "timer": [
+    {
+      "at": 15,
+      "dial": 1.0,
+      "mode": "run",
+      "until": 1350
+    }
+  ],
   "dialogue": [
-    { "char": "patient", "at": 18, "clip": "sfx/printer_talk.wav", "mouth": "rms", "mouthData": "sfx/printer_talk.rms.json" },
-    { "char": "doctor", "at": 50, "clip": "assets/vo/doctor/MM01.wav", "mouth": "none" },
-    { "char": "patient", "at": 72, "clip": "sfx/printer_rant.wav", "mouth": "rms", "mouthData": "sfx/printer_rant.rms.json" },
-    { "char": "doctor", "at": 185, "clip": "assets/vo/doctor/MM02.wav", "mouth": "none" },
-    { "char": "patient", "at": 248, "clip": "sfx/printer_curse.wav", "mouth": "rms", "mouthData": "sfx/printer_curse.rms.json" },
-    { "char": "patient", "at": 485, "clip": "sfx/printer_cry.wav", "mouth": "rms", "mouthData": "sfx/printer_cry.rms.json" },
-    { "char": "doctor", "at": 625, "clip": "assets/vo/doctor/MM07.wav", "mouth": "none" },
-    { "char": "patient", "at": 800, "clip": "sfx/printer_talk.wav", "mouth": "rms", "mouthData": "sfx/printer_talk.rms.json", "gainDb": -1 },
-    { "char": "doctor", "at": 1060, "clip": "assets/vo/doctor/MM15.wav", "mouth": "none" },
-    { "char": "doctor", "at": 1384, "clip": "assets/vo/doctor/MM13.wav", "mouth": "none" },
-    { "char": "patient", "at": 1562, "clip": "vo/patient/printer_no_VP6.wav", "mouth": "rms", "mouthData": "vo/patient/printer_no_VP6.rms.json", "text": "NO." },
-    { "char": "doctor", "at": 1746, "clip": "sfx/printer_curse.wav", "mouth": "none", "gainDb": -1 },
-    { "char": "patient", "at": 1756, "clip": "sfx/printer_exit.wav", "mouth": "rms", "mouthData": "sfx/printer_exit.rms.json" }
+    {
+      "char": "doctor",
+      "at": 26,
+      "clip": "assets/vo/doctor/L01_tell_me_everything.wav",
+      "mouth": "rms",
+      "mouthData": "assets/vo/doctor/L01_tell_me_everything.rms.json",
+      "text": "Tell me everything."
+    },
+    {
+      "char": "patient",
+      "at": 118,
+      "clip": "vo/printer_twenty_years.wav",
+      "mouth": "rms",
+      "mouthData": "vo/printer_twenty_years.rms.json",
+      "text": "Twenty years. Print, print, print. They KICK me!"
+    },
+    {
+      "char": "patient",
+      "at": 308,
+      "clip": "sfx/printer_cry.wav",
+      "mouth": "rms",
+      "mouthData": "sfx/printer_cry.rms.json"
+    },
+    {
+      "char": "doctor",
+      "at": 410,
+      "clip": "vo/doctor_learn_no.wav",
+      "mouth": "rms",
+      "mouthData": "vo/doctor_learn_no.rms.json",
+      "text": "Mm-hm. Learn to say no."
+    },
+    {
+      "char": "boss",
+      "at": 672,
+      "clip": "vo/boss_print_1.wav",
+      "mouth": "none",
+      "mouthData": "vo/boss_print_1.rms.json",
+      "text": "PRINT!"
+    },
+    {
+      "char": "patient",
+      "at": 758,
+      "clip": "vo/printer_no_1.wav",
+      "mouth": "rms",
+      "mouthData": "vo/printer_no_1.rms.json",
+      "text": "No."
+    },
+    {
+      "char": "boss",
+      "at": 820,
+      "clip": "vo/boss_print_2.wav",
+      "mouth": "none",
+      "mouthData": "vo/boss_print_2.rms.json",
+      "text": "PRINT! NOW!"
+    },
+    {
+      "char": "patient",
+      "at": 908,
+      "clip": "vo/printer_no_2.wav",
+      "mouth": "rms",
+      "mouthData": "vo/printer_no_2.rms.json",
+      "text": "NO!"
+    },
+    {
+      "char": "boss",
+      "at": 972,
+      "clip": "vo/boss_please.wav",
+      "mouth": "none",
+      "mouthData": "vo/boss_please.rms.json",
+      "text": "Please?"
+    },
+    {
+      "char": "patient",
+      "at": 1092,
+      "clip": "vo/printer_no_3.wav",
+      "mouth": "rms",
+      "mouthData": "vo/printer_no_3.rms.json",
+      "text": "No."
+    },
+    {
+      "char": "doctor",
+      "at": 1230,
+      "clip": "assets/vo/doctor/MM01.wav",
+      "mouth": "none"
+    },
+    {
+      "char": "doctor",
+      "at": 1360,
+      "clip": "assets/vo/doctor/L02_times_up.wav",
+      "mouth": "rms",
+      "mouthData": "assets/vo/doctor/L02_times_up.rms.json",
+      "text": "Time's up."
+    },
+    {
+      "char": "patient",
+      "at": 1405,
+      "clip": "vo/printer_thanks.wav",
+      "mouth": "rms",
+      "mouthData": "vo/printer_thanks.rms.json",
+      "text": "Thanks, doc!"
+    },
+    {
+      "char": "patient",
+      "at": 1702,
+      "clip": "vo/printer_new_one.wav",
+      "mouth": "rms",
+      "mouthData": "vo/printer_new_one.rms.json",
+      "text": "THEY BOUGHT A NEW ONE!"
+    },
+    {
+      "char": "doctor",
+      "at": 1795,
+      "clip": "assets/vo/doctor/MM01.wav",
+      "mouth": "none"
+    }
   ],
   "sfx": [
-    { "at": 6, "clip": "assets/sfx/SFX05_fall.wav" },
-    { "at": 15, "clip": "assets/sfx/SFX06_land.wav" },
-    { "at": 62, "clip": "assets/sfx/SFX14_bubble.wav", "gainDb": -4 },
-    { "at": 153, "clip": "assets/sfx/SFX11_lens.wav", "gainDb": -3 },
-    { "at": 262, "clip": "assets/sfx/SFX07_springs.wav", "gainDb": -4 },
-    { "at": 360, "clip": "assets/sfx/SFX13_page.wav" },
-    { "at": 366, "clip": "assets/sfx/SFX12_scribble.wav", "gainDb": -3 },
-    { "at": 452, "clip": "assets/sfx/SFX14_bubble.wav", "gainDb": -4 },
-    { "at": 604, "clip": "assets/sfx/SFX10_chirp.wav" },
-    { "at": 672, "clip": "assets/sfx/SFX10_chirp.wav", "gainDb": -4 },
-    { "at": 720, "clip": "assets/sfx/SFX13_page.wav" },
-    { "at": 726, "clip": "assets/sfx/SFX12_scribble.wav", "gainDb": -3 },
-    { "at": 846, "clip": "sfx/print_job_incoming.wav", "gainDb": -4 },
-    { "at": 856, "clip": "sfx/window_office_chaos.wav", "gainDb": -9 },
-    { "at": 950, "clip": "assets/sfx/SFX15_knocks.wav", "gainDb": 4 },
-    { "at": 954, "clip": "assets/sfx/SFX11_lens.wav", "gainDb": -9 },
-    { "at": 1098, "clip": "assets/sfx/SFX04_click.wav" },
-    { "at": 1186, "clip": "sfx/doctor_print_hiccup.wav" },
-    { "at": 1206, "clip": "assets/sfx/SFX11_lens.wav", "gainDb": -3 },
-    { "at": 1336, "clip": "sfx/doctor_print_hiccup.wav", "gainDb": -2 },
-    { "at": 1532, "clip": "sfx/print_job_incoming.wav" },
-    { "at": 1590, "clip": "sfx/doctor_print_frenzy.wav", "gainDb": 3 },
-    { "at": 1598, "clip": "assets/sfx/SFX07_springs.wav", "gainDb": -5 },
-    { "at": 1740, "clip": "assets/sfx/SFX02_ding.wav", "gainDb": 4 },
-    { "at": 1768, "clip": "assets/music/cue_cured.wav", "gainDb": -7 },
-    { "at": 1846, "clip": "assets/sfx/SFX04_click.wav" },
-    { "at": 1852, "clip": "assets/sfx/SFX03_wind.wav", "gainDb": -3 },
-    { "at": 1858, "clip": "assets/sfx/SFX20_wipe.wav", "gainDb": -6 },
-    { "at": 1884, "clip": "assets/sfx/SFX11_lens.wav", "gainDb": -3 }
+    {
+      "at": 6,
+      "clip": "assets/sfx/SFX05_fall.wav"
+    },
+    {
+      "at": 15,
+      "clip": "assets/sfx/SFX06_land.wav"
+    },
+    {
+      "at": 110,
+      "clip": "assets/sfx/SFX14_bubble.wav"
+    },
+    {
+      "at": 396,
+      "clip": "assets/sfx/SFX13_page.wav"
+    },
+    {
+      "at": 402,
+      "clip": "assets/sfx/SFX12_scribble.wav"
+    },
+    {
+      "at": 640,
+      "clip": "sfx/print_job_incoming.wav"
+    },
+    {
+      "at": 666,
+      "clip": "sfx/window_office_chaos.wav"
+    },
+    {
+      "at": 962,
+      "clip": "sfx/window_office_chaos.wav"
+    },
+    {
+      "at": 1350,
+      "clip": "assets/sfx/SFX02_ding.wav"
+    },
+    {
+      "at": 1462,
+      "clip": "assets/sfx/SFX21_whoosh.wav"
+    },
+    {
+      "at": 1558,
+      "clip": "sfx/unbox_pop.wav"
+    },
+    {
+      "at": 1572,
+      "clip": "sfx/new_printer_burst.wav"
+    },
+    {
+      "at": 1652,
+      "clip": "sfx/office_cheer.wav"
+    },
+    {
+      "at": 1694,
+      "clip": "assets/sfx/SFX21_whoosh.wav"
+    },
+    {
+      "at": 1846,
+      "clip": "assets/sfx/SFX04_click.wav"
+    },
+    {
+      "at": 1852,
+      "clip": "assets/sfx/SFX03_wind.wav",
+      "gainDb": -3
+    },
+    {
+      "at": 1858,
+      "clip": "assets/sfx/SFX20_wipe.wav",
+      "gainDb": -6
+    },
+    {
+      "at": 1884,
+      "clip": "assets/sfx/SFX11_lens.wav",
+      "gainDb": -3
+    }
   ],
-  "bed": { "tickClip": "assets/sfx/SFX01_tick.wav", "tickPeriodSamples": 24000, "tickOffsetSamples": 12000,
-           "tickBed": "assets/sfx/SFX01_tick_bed64.wav",
-           "roomTone": "assets/sfx/SFX18_roomtone_loop64.wav", "music": "assets/music/theme_loop64.wav",
-           "musicGainDb": 0, "roomToneGainDb": 0, "tickGainDb": 0,
-           "musicDucks": [ { "from": 1168, "to": 1186, "gainDb": -30, "rampFrames": 3 },
-                           { "from": 1600, "to": 1736, "gainDb": 4, "rampFrames": 10 } ] },
+  "bed": {
+    "tickClip": "assets/sfx/SFX01_tick.wav",
+    "tickPeriodSamples": 24000,
+    "tickOffsetSamples": 12000,
+    "tickBed": "assets/sfx/SFX01_tick_bed64.wav",
+    "roomTone": "assets/sfx/SFX18_roomtone_loop64.wav",
+    "music": "assets/music/theme_loop64.wav",
+    "musicGainDb": 0,
+    "roomToneGainDb": 0,
+    "tickGainDb": 0,
+    "musicDucks": []
+  },
   "props": [
-    { "id": "curse_ball", "svg": "props/paper_ball.svg", "from": 252, "to": 270, "anim": "launch", "path": [[470, 1010], [600, 860], [700, 1080]] },
-    { "id": "doctor_strip", "svg": "props/paper_strip.svg", "from": 1188, "to": 1318, "anim": "pop", "path": [[760, 832]] },
-    { "id": "doctor_sheet", "svg": "props/paper_sheet.svg", "from": 1338, "to": 1386, "anim": "fly", "path": [[760, 840], [690, 960], [600, 1290]] },
-    { "id": "paper_jam", "svg": "props/paper_jam.svg", "from": 1746, "to": 1844, "anim": "launch", "path": [[760, 832], [560, 640], [205, 1062]], "flightFrames": 13, "ease": "linear" },
-    { "id": "spit_burst", "svg": "props/spit_burst.svg", "from": 1746, "to": 1748, "anim": "fly", "path": [[752, 836]] },
-    { "id": "cloth", "svg": "props/cloth.svg", "from": 1858, "to": 1878, "anim": "fly", "path": [[650, 748], [870, 748], [650, 748]], "ease": "linear" },
-    { "id": "lens_glint", "svg": "props/lens_glint.svg", "from": 1880, "to": 1882, "anim": "fly", "path": [[760, 738]] }
+    {
+      "id": "cloth",
+      "svg": "props/cloth.svg",
+      "from": 1858,
+      "to": 1878,
+      "anim": "fly",
+      "path": [
+        [
+          650,
+          748
+        ],
+        [
+          870,
+          748
+        ],
+        [
+          650,
+          748
+        ]
+      ],
+      "ease": "linear"
+    },
+    {
+      "id": "lens_glint",
+      "svg": "props/lens_glint.svg",
+      "from": 1880,
+      "to": 1882,
+      "anim": "fly",
+      "path": [
+        [
+          760,
+          738
+        ]
+      ]
+    }
   ],
   "bubbles": [
-    { "from": 62, "to": 149, "vignette": "vignettes/office_kick.svg", "moving": ["human_leg", "printer_shake"] },
-    { "from": 452, "to": 539, "vignette": "vignettes/paper_jam_yank.svg", "moving": ["paper"] }
+    {
+      "from": 110,
+      "to": 299,
+      "vignette": "vignettes/office_kick.svg",
+      "moving": [
+        "human_leg",
+        "printer_shake"
+      ]
+    }
   ],
   "notepad": [
-    { "from": 360, "to": 434, "doodle": "doodles/printer_with_horns.svg", "drawOnFrames": 15 },
-    { "from": 720, "to": 789, "doodle": "doodles/A01_fence.svg", "drawOnFrames": 18 }
+    {
+      "from": 390,
+      "to": 569,
+      "doodle": "doodles/A01_fence.svg",
+      "drawOnFrames": 18,
+      "adviceLabel": "BOUNDARIES"
+    }
   ],
-  "windowLayer": [ { "from": 0, "to": 849, "layer": "calm" }, { "from": 850, "to": 1844, "layer": "office_print_queue" },
-                   { "from": 1845, "to": 1919, "layer": "calm" } ],
-  "particles": [
-    { "from": 1590, "to": 1736, "type": "paper", "origin": [760, 840], "count": 40, "dir": 190, "spread": 80, "speed": 2.6, "avoid": [670, 600, 850, 860] },
-    { "from": 1600, "to": 1736, "type": "paper", "origin": [540, 500], "count": 36 },
-    { "from": 950, "to": 972, "type": "dust", "origin": [560, 336], "count": 8, "dir": 90, "spread": 100 },
-    { "from": 966, "to": 988, "type": "dust", "origin": [690, 336], "count": 7, "dir": 90, "spread": 100 },
-    { "from": 980, "to": 1002, "type": "dust", "origin": [440, 336], "count": 7, "dir": 90, "spread": 100 }
+  "windowLayer": [
+    {
+      "from": 0,
+      "to": 659,
+      "layer": "calm"
+    },
+    {
+      "from": 660,
+      "to": 1499,
+      "layer": "office_boss"
+    },
+    {
+      "from": 1500,
+      "to": 1844,
+      "layer": "office_swap"
+    },
+    {
+      "from": 1845,
+      "to": 1919,
+      "layer": "calm"
+    }
   ],
-  "captions": [ { "from": 1890, "to": 59, "text": "PATIENT #001: OFFICE PRINTER" } ],
-  "shakes": [ { "at": 248, "amp": 8, "decayFrames": 10 },
-              { "at": 950, "amp": 5, "decayFrames": 6, "decor": true }, { "at": 966, "amp": 5, "decayFrames": 6, "decor": true },
-              { "at": 980, "amp": 5, "decayFrames": 6, "decor": true },
-              { "at": 1562, "amp": 14, "decayFrames": 18 }, { "at": 1592, "amp": 10, "decayFrames": 30 },
-              { "at": 1742, "amp": 4, "decayFrames": 8 } ]
+  "particles": [],
+  "captions": [
+    {
+      "from": 1890,
+      "to": 59,
+      "text": "PATIENT #001: OFFICE PRINTER"
+    },
+    {
+      "from": 60,
+      "to": 112,
+      "text": "CHEAP THERAPY FOR EVERYTHING"
+    }
+  ],
+  "shakes": [
+    {
+      "at": 758,
+      "amp": 4,
+      "decayFrames": 8
+    },
+    {
+      "at": 908,
+      "amp": 14,
+      "decayFrames": 10
+    },
+    {
+      "at": 1092,
+      "amp": 3,
+      "decayFrames": 6
+    }
+  ]
 }

@@ -516,11 +516,12 @@ export function dialAt(frame: number, timer: readonly TimerEvent[], N: number): 
     }
     case "run":
     case "spare": {
-      if (frame >= DING) {
-        const ring = frame - DING < 30 ? 1 - (frame - DING) / 30 : 0;
+      const ding = cur.until ?? DING;
+      if (frame >= ding) {
+        const ring = frame - ding < 30 ? 1 - (frame - ding) / 30 : 0;
         return mk(0, true, ring, cur.mode);
       }
-      const dial = interpolate(frame, [cur.at, DING], [cur.dial, 0], CLAMP);
+      const dial = interpolate(frame, [cur.at, ding], [cur.dial, 0], CLAMP);
       return mk(dial, true, 0, cur.mode);
     }
   }

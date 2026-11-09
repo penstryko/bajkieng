@@ -261,7 +261,8 @@ for (const [name, p] of [["tick bed", tickBed], ["room tone", ep.bed.roomTone], 
 }
 
 // ───────────────────────────── 5. ritual ─────────────────────────────
-if (!ep.sfx.some((s) => s.at === R.DING && /SFX02/.test(s.clip))) err(5, `DING (SFX02) must play at DING = N−180 = ${R.DING}`);
+const dingAt = ep.timer.find((t) => t.until !== undefined)?.until ?? R.DING;
+if (!ep.sfx.some((s) => s.at === dingAt && /SFX02/.test(s.clip))) err(5, `DING (SFX02) must play at the timer DING = ${dingAt} (default N−180 = ${R.DING})`);
 const glassesShot = shots.find((s) => s.from === R.GLASSES);
 if (ep.ledger.exitType !== "E16") {
   if (!glassesShot || glassesShot.camera !== "GLASSES" || glassesShot.to !== R.S0_IN - 1) err(5, `ritual: GLASSES shot must cover ${R.GLASSES}–${R.S0_IN - 1}`);
@@ -473,7 +474,7 @@ if (ep.ledger.exitType === "E03") {
 }
 
 // ───────────────────────────── 14. exit requirements ─────────────────────────────
-const exitTracks = ep.motion.filter((m) => isActor(m.char) && m.from >= R.DING && m.from < R.S0_IN);
+const exitTracks = ep.motion.filter((m) => isActor(m.char) && m.from >= dingAt && m.from < R.S0_IN);
 const X = ep.ledger.exitType;
 const needsMotion = ["E01", "E03", "E05", "E06", "E09", "E13"];
 const v2Exit = ep.style === "v2" && ep.motion.some((m) => isActor(m.char) && m.z === 1 && m.from < R.DING);
